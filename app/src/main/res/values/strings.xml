@@ -17,4 +17,31 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="title_activity_first_screen">Bienvenido al Gestor de Vida</string>
+
+    <!-- Login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Contraseña</string>
+    <string name="action_sign_in">Comenzar!</string>
+    <string name="action_sign_in_short">Login</string>
+    <string name="error_invalid_email">La dirección de email es inválida</string>
+    <string name="error_invalid_password">La contraseña es inválida</string>
+    <string name="error_incorrect_password">La constraseña es incorrecta</string>
+    <string name="error_field_required">Este campo es requerido</string>
+    <string name="permission_rationale">"Debe permitir a la app acceder a su lista de contactos"
+    </string>
+    <string name="first_welcome">Bienvenido al Gestor de Vida!</string>
+    <string name="first_button_login">Login</string>
+    <string name="first_button_register">Registrarse</string>
+    <string name="prompt_name">Nombre</string>
+    <string name="login_genero">Género</string>
+    <string name="login_masculino">Masculino</string>
+    <string name="login_femenino">Femenino</string>
+    <string name="login_tipo_usuario">Tipo de Usuario</string>
+    <string name="login_user_free">Free</string>
+    <string name="login_user_pemium">Premium </string>
+    <string name="login_user_promotor">Premium Promotor</string>
+    <string name="login_nacimiento">Fecha de Nacimiento</string>
+    <string name="error_invalid_name">El nombre es inválido</string>
+    />
 </resources>
