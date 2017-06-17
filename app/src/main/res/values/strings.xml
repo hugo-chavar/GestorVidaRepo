@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Gestor de Vida</string>
+
+    <string name="default_user">El nombre va acá</string>
+
+    <!-- Items que van en el navigation drawer -->
+    <string name="item_perfil">Perfil</string>
+    <string name="item_calendario">Calendario</string>
+    <string name="item_actividades">Actividades</string>
+    <string name="item_objetivos">Objetivos</string>
+    <string name="item_buscar">Buscar Actividad</string>
+    <string name="item_estadisticas">Estadísticas</string>
+    <!--  -->
+    <string name="item_compartir">Compartir</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+</resources>
