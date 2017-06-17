@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.nfc.tdp1_app_prueba.AgregarActividadActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <TextView
+            android:id="@+id/textNombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+
+            android:layout_marginBottom="475dp"
+            android:layout_marginRight="300dp" />
+
+        <EditText
+            android:id="@+id/edittextNombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Input text" android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@+id/textNombre"
+            app:layout_constraintLeft_toLeftOf="@+id/textNombre"/>
+
+        <TextView
+            android:id="@+id/textDescripcion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Descripcion"
+            app:layout_constraintTop_toBottomOf="@+id/edittextNombre"
+            app:layout_constraintLeft_toLeftOf="@+id/edittextNombre" />
+
+        <EditText
+            android:id="@+id/edittextDescripcion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Input text" android:inputType="text"
+            app:layout_constraintTop_toBottomOf="@+id/textDescripcion"
+            app:layout_constraintLeft_toLeftOf="@+id/textDescripcion"/>
+
+        <TextView
+            android:id="@+id/textInicioActividad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Inicio"
+            app:layout_constraintTop_toBottomOf="@+id/edittextDescripcion"
+            app:layout_constraintLeft_toLeftOf="@+id/edittextDescripcion"/>
+
+        <TextView
+            android:id="@+id/textViewInicioActividad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Input text" android:inputType="date"
+            app:layout_constraintTop_toBottomOf="@+id/textInicioActividad"
+            app:layout_constraintLeft_toLeftOf="@+id/textInicioActividad"/>
+
+        <Button
+            android:id="@+id/buttonInicioActividad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selecionar fecha"
+            android:onClick="mostrarDatePicker"
+            app:layout_constraintTop_toBottomOf="@+id/textInicioActividad"
+            app:layout_constraintLeft_toRightOf="@+id/textViewInicioActividad"/>
+
+        <TextView
+            android:id="@+id/textViewFinActividad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Input text" android:inputType="date"
+            app:layout_constraintTop_toBottomOf="@+id/textViewInicioActividad"
+            app:layout_constraintLeft_toLeftOf="@+id/textViewInicioActividad"/>
+
+        <Button
+            android:id="@+id/buttonFinActividad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Selecionar fecha"
+            android:onClick="mostrarDatePicker"
+            app:layout_constraintTop_toBottomOf="@+id/textViewInicioActividad"
+            app:layout_constraintLeft_toRightOf="@+id/textViewFinActividad"/>
+
+        <TextView
+            android:id="@+id/textViewPrioridad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Prioridad"
+            app:layout_constraintTop_toBottomOf="@+id/textViewFinActividad"
+            app:layout_constraintLeft_toLeftOf="@+id/textViewFinActividad" />
+
+        <Spinner
+            android:id="@+id/spinnerPrioridades"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/textViewPrioridad"
+            app:layout_constraintLeft_toLeftOf="@+id/textViewPrioridad"/>
+
+        <RadioGroup
+            android:id="@+id/radioGroupPerioridicidad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerPrioridades"
+            app:layout_constraintLeft_toLeftOf="@+id/spinnerPrioridades">
+            <RadioButton
+                android:id="@+id/radioButtonPeriodicidadDiario"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Diario"/>
+            <RadioButton
+                android:id="@+id/radioButtonPeriodicidadSemanal"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Semanal"/>
+            <RadioButton
+                android:id="@+id/radioButtonPeriodicidadCadaXDias"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Cada X dias"/>
+        </RadioGroup>
+
+        <CheckBox
+            android:id="@+id/checkBoxTiempoEstimado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroupPerioridicidad"
+            app:layout_constraintLeft_toLeftOf="@+id/radioGroupPerioridicidad"
+            android:text="Tiempo estimado:"
+            android:onClick="clickTiempoEstimado"/>
+
+        <EditText
+            android:id="@+id/editTextTiempoEstimado"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="horas:minutos:segundos"
+            app:layout_constraintLeft_toRightOf="@+id/checkBoxTiempoEstimado"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroupPerioridicidad"
+            android:enabled="false"/>
+
+        <Spinner
+            android:id="@+id/spinnerObjetivos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/checkBoxTiempoEstimado"
+            app:layout_constraintLeft_toLeftOf="@+id/checkBoxTiempoEstimado"/>
+
+        <Button
+            android:id="@+id/buttonAgregarActividad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Agregar actividad"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerObjetivos"
+            app:layout_constraintLeft_toLeftOf="@+id/spinnerObjetivos"
+            android:onClick="agregarActividad"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+
+
+</ScrollView>

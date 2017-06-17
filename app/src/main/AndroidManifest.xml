@@ -19,6 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".VerActividadesActivity"/>
+        <activity android:name=".VerObjetivosActivity"/>
+        <activity android:name=".AgregarActividadActivity"/>
         <activity android:name=".GraficoEjemploActivity"/>
     </application>
 

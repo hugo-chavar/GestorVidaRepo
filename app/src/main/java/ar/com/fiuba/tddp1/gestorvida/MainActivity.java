@@ -98,9 +98,13 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_actividades) {
             //Mostrar pantalla actividades
+            Intent intent = new Intent(this, VerActividadesActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_objetivos) {
             //Mostrar pantalla Objetivos
+            Intent intent = new Intent(this, VerObjetivosActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_buscar) {
             //Mostrar pantalla busqueda de actividades
