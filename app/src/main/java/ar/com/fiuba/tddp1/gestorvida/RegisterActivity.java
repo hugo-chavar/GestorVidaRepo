@@ -23,6 +23,8 @@ import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.util.Date;
@@ -33,13 +35,6 @@ import java.util.Date;
 public class RegisterActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
     /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "Pedro:foo@example.com:hello", "Pablo:bar@example.com:world"
-    };
-    /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
@@ -49,6 +44,10 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
     private EditText mEmailView;
     private EditText mNacimientoView;
     private EditText mPasswordView;
+    private TextView mGeneroTextView;
+    private TextView mUsuarioTextView;
+    private RadioGroup mGeneroView;
+    private RadioGroup mUsuarioView;
     private View mProgressView;
     private View mLoginFormView;
 
@@ -60,6 +59,10 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         mNameView = (EditText) findViewById(R.id.name_register);
         mEmailView = (EditText) findViewById(R.id.email_register);
         mNacimientoView = (EditText) findViewById(R.id.nacimiento_register);
+        mGeneroTextView = (TextView) findViewById(R.id.genero_register);
+        mUsuarioTextView = (TextView) findViewById(R.id.usuario_register);
+        mGeneroView = (RadioGroup) findViewById(R.id.genero_radioGroup);
+        mUsuarioView = (RadioGroup) findViewById(R.id.usuario_radioGroup);
 
         mPasswordView = (EditText) findViewById(R.id.password_register);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -100,15 +103,37 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         mEmailView.setError(null);
         mNacimientoView.setError(null);
         mPasswordView.setError(null);
+        mGeneroTextView.setError(null);
+        mUsuarioTextView.setError(null);
+
 
         // Store values at the time of the login attempt.
         String name = mNameView.getText().toString();
         String email = mEmailView.getText().toString();
         String nacimiento = mNacimientoView.getText().toString();
         String password = mPasswordView.getText().toString();
+        String genero = null;
+        String usuario = null;
 
         boolean cancel = false;
         View focusView = null;
+
+        //Check Radio buttons
+        if (mGeneroView.getCheckedRadioButtonId() == -1) {
+            mGeneroTextView.setError(getString(R.string.error_field_required));
+            focusView = mGeneroTextView;
+            cancel = true;
+        } else {
+            genero = ((RadioButton)mGeneroView.findViewById(mGeneroView.getCheckedRadioButtonId())).getText().toString();
+        }
+
+        if (mUsuarioView.getCheckedRadioButtonId() == -1) {
+            mUsuarioTextView.setError(getString(R.string.error_field_required));
+            focusView = mUsuarioTextView;
+            cancel = true;
+        } else {
+            usuario = ((RadioButton)mUsuarioView.findViewById(mUsuarioView.getCheckedRadioButtonId())).getText().toString();
+        }
 
         // Check for a valid name, if the user entered one.
         if (TextUtils.isEmpty(name)) {
@@ -162,7 +187,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(name, email, nacimiento, password);
+            mAuthTask = new UserLoginTask(name, email, genero, usuario, nacimiento, password);
             mAuthTask.execute((Void) null);
             goToMain();
         }
@@ -260,12 +285,16 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
 
         private final String mName;
         private final String mEmail;
+        private final String mGenero;
+        private final String mUsuario;
         private final String mNacimiento;
         private final String mPassword;
 
-        UserLoginTask(String name, String email, String nacimiento, String password) {
+        UserLoginTask(String name, String email, String genero, String usuario, String nacimiento, String password) {
             mName = name;
             mEmail = email;
+            mGenero = genero;
+            mUsuario = usuario;
             mNacimiento = nacimiento;
             mPassword = password;
         }
@@ -281,14 +310,6 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
                 return false;
             }
 
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mName) && pieces[1].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[2].equals(mPassword);
-                }
-            }
-
             // TODO: register the new account here.
             return true;
         }
@@ -297,13 +318,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             showProgress(false);
-
-            if (success) {
-                finish();
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
-            }
+            finish();
         }
 
         @Override

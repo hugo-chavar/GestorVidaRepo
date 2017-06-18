@@ -81,7 +81,7 @@
                 android:weightSum="1">
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/genero_register"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="@string/login_genero"
@@ -89,7 +89,7 @@
                     android:layout_weight="0.54" />
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/usuario_register"
                     android:layout_width="107dp"
                     android:layout_height="wrap_content"
                     android:text="@string/login_tipo_usuario" />
@@ -109,47 +109,59 @@
                     android:layout_height="86dp"
                     android:orientation="vertical">
 
-                    <RadioButton
-                        android:id="@+id/masculino_radioButton"
-                        android:layout_width="wrap_content"
+                    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/genero_radioGroup"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/login_masculino" />
+                        android:orientation="vertical">
 
-                    <RadioButton
-                        android:id="@+id/fememino_radioButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/login_femenino" />
+                        <RadioButton
+                            android:id="@+id/masculino_radioButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/login_masculino" />
+
+                        <RadioButton
+                            android:id="@+id/fememino_radioButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/login_femenino" />
+
+                    </RadioGroup>
 
                 </LinearLayout>
 
 
 
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="0.79">
 
-                    <RadioButton
-                        android:id="@+id/free_radioButton"
-                        android:layout_width="wrap_content"
+
+                    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/usuario_radioGroup"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/login_user_free" />
+                        android:orientation="vertical">
 
-                    <RadioButton
-                        android:id="@+id/premium_radioButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/login_user_pemium" />
+                        <RadioButton
+                            android:id="@+id/free_radioButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/login_user_free" />
 
-                    <RadioButton
-                        android:id="@+id/promotor_radioButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/login_user_promotor" />
+                        <RadioButton
+                            android:id="@+id/premium_radioButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/login_user_pemium" />
 
-                </LinearLayout>
+                        <RadioButton
+                            android:id="@+id/promotor_radioButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/login_user_promotor" />
+
+                    </RadioGroup>
+
+
 
             </LinearLayout>
 
