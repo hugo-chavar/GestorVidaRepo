@@ -43,5 +43,6 @@
     <string name="login_user_promotor">Premium Promotor</string>
     <string name="login_nacimiento">Fecha de Nacimiento</string>
     <string name="error_invalid_name">El nombre es inválido</string>
+    <string name="error_invalid_nacimiento">Ingrese su fecha de nacimiento así: DD-MM-AAAA</string>
     />
 </resources>

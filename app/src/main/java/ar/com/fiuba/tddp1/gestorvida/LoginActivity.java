@@ -3,19 +3,17 @@ package ar.com.fiuba.tddp1.gestorvida;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
-
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -25,12 +23,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.Date;
-
 /**
  * A login screen that offers login via email/password.
  */
-public class RegisterActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -46,8 +42,6 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
 
     // UI references.
     private EditText mNameView;
-    private EditText mEmailView;
-    private EditText mNacimientoView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
@@ -55,13 +49,11 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_login);
         // Set up the login form.
-        mNameView = (EditText) findViewById(R.id.name_register);
-        mEmailView = (EditText) findViewById(R.id.email_register);
-        mNacimientoView = (EditText) findViewById(R.id.nacimiento_register);
+        mNameView = (EditText) findViewById(R.id.name_login);
 
-        mPasswordView = (EditText) findViewById(R.id.password_register);
+        mPasswordView = (EditText) findViewById(R.id.password_login);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -73,7 +65,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.button_register);
+        Button mEmailSignInButton = (Button) findViewById(R.id.button_login);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,8 +73,8 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             }
         });
 
-        mLoginFormView = findViewById(R.id.form_register);
-        mProgressView = findViewById(R.id.progress_register);
+        mLoginFormView = findViewById(R.id.form_login);
+        mProgressView = findViewById(R.id.progress_login);
     }
 
     /**
@@ -97,14 +89,10 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
 
         // Reset errors.
         mNameView.setError(null);
-        mEmailView.setError(null);
-        mNacimientoView.setError(null);
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
         String name = mNameView.getText().toString();
-        String email = mEmailView.getText().toString();
-        String nacimiento = mNacimientoView.getText().toString();
         String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
@@ -118,28 +106,6 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         } else if (!TextUtils.isEmpty(name) && !isNameValid(name)) {
             mNameView.setError(getString(R.string.error_invalid_name));
             focusView = mNameView;
-            cancel = true;
-        }
-
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
-            cancel = true;
-        } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
-            cancel = true;
-        }
-
-        // Check for a valid birth date.
-        if (TextUtils.isEmpty(nacimiento)) {
-            mNacimientoView.setError(getString(R.string.error_field_required));
-            focusView = mNacimientoView;
-            cancel = true;
-        } else if (!isNacimientoValid(nacimiento)) {
-            mNacimientoView.setError(getString(R.string.error_invalid_nacimiento));
-            focusView = mNacimientoView;
             cancel = true;
         }
 
@@ -162,24 +128,15 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(name, email, nacimiento, password);
+            mAuthTask = new UserLoginTask(name, password);
             mAuthTask.execute((Void) null);
             goToMain();
         }
     }
 
-    private boolean isNacimientoValid(String nacimiento) {
-        return nacimiento.matches("^(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]))\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[1,3-9]|1[0-2])\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^(?:29(\\/|-|\\.)0?2\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9])|(?:1[0-2]))\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$");
-    }
-
     private boolean isNameValid(String name) {
         //TODO: Replace this with your own logic
         return name.length() > 2;
-    }
-
-    private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.contains("@");
     }
 
     private boolean isPasswordValid(String password) {
@@ -259,14 +216,10 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
     private class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mName;
-        private final String mEmail;
-        private final String mNacimiento;
         private final String mPassword;
 
-        UserLoginTask(String name, String email, String nacimiento, String password) {
+        UserLoginTask(String name, String password) {
             mName = name;
-            mEmail = email;
-            mNacimiento = nacimiento;
             mPassword = password;
         }
 
@@ -283,9 +236,9 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
 
             for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
-                if (pieces[0].equals(mName) && pieces[1].equals(mEmail)) {
+                if (pieces[0].equals(mName)) {
                     // Account exists, return true if the password matches.
-                    return pieces[2].equals(mPassword);
+                    return pieces[1].equals(mPassword);
                 }
             }
 

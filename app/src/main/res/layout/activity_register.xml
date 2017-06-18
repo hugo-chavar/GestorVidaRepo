@@ -13,21 +13,21 @@
 
     <!-- Login progress -->
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/imageView_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/name_register"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_launcher" />
 
     <ProgressBar
-        android:id="@+id/login_progress"
+        android:id="@+id/progress_register"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,12 +35,12 @@
         android:visibility="gone" />
 
     <ScrollView
-        android:id="@+id/login_form"
+        android:id="@+id/form_register"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/email_login_form"
+            android:id="@+id/email_form_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content">
 
                 <AutoCompleteTextView
-                    android:id="@+id/name"
+                    android:id="@+id/name_register"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_name"
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content">
 
                 <AutoCompleteTextView
-                    android:id="@+id/email"
+                    android:id="@+id/email_register"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_email"
@@ -110,13 +110,13 @@
                     android:orientation="vertical">
 
                     <RadioButton
-                        android:id="@+id/radioButton2"
+                        android:id="@+id/masculino_radioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/login_masculino" />
 
                     <RadioButton
-                        android:id="@+id/radioButton3"
+                        android:id="@+id/fememino_radioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/login_femenino" />
@@ -132,19 +132,19 @@
                     android:layout_weight="0.79">
 
                     <RadioButton
-                        android:id="@+id/radioButton7"
+                        android:id="@+id/free_radioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/login_user_free" />
 
                     <RadioButton
-                        android:id="@+id/radioButton9"
+                        android:id="@+id/premium_radioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/login_user_pemium" />
 
                     <RadioButton
-                        android:id="@+id/radioButton11"
+                        android:id="@+id/promotor_radioButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/login_user_promotor" />
@@ -154,7 +154,7 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/nacimiento"
+                android:id="@+id/nacimiento_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -170,7 +170,7 @@
 
 
                 <EditText
-                    android:id="@+id/password"
+                    android:id="@+id/password_register"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/prompt_password"
@@ -183,7 +183,7 @@
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:id="@+id/email_sign_in_button"
+                android:id="@+id/button_register"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
