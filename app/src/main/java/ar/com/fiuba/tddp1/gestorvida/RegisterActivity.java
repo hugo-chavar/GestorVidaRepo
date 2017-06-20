@@ -3,6 +3,7 @@ package ar.com.fiuba.tddp1.gestorvida;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -17,17 +18,17 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.text.format.Time;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-
-import java.util.Date;
 
 /**
  * A login screen that offers login via email/password.
@@ -59,6 +60,30 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         mNameView = (EditText) findViewById(R.id.name_register);
         mEmailView = (EditText) findViewById(R.id.email_register);
         mNacimientoView = (EditText) findViewById(R.id.nacimiento_register);
+
+        mNacimientoView.setOnClickListener(new OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                DatePickerDialog.OnDateSetListener dpd = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                          int dayOfMonth) {
+
+                        int s=monthOfYear+1;
+                        String a = dayOfMonth+"/"+s+"/"+year;
+                        mNacimientoView.setText(""+a);
+                    }
+                };
+
+                Time date = new Time();
+                DatePickerDialog d = new DatePickerDialog(RegisterActivity.this, dpd, date.year ,date.month, date.monthDay);
+                d.show();
+
+            }
+        });
+
         mGeneroTextView = (TextView) findViewById(R.id.genero_register);
         mUsuarioTextView = (TextView) findViewById(R.id.usuario_register);
         mGeneroView = (RadioGroup) findViewById(R.id.genero_radioGroup);

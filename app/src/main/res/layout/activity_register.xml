@@ -84,15 +84,16 @@
                     android:id="@+id/genero_register"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="0.60"
                     android:text="@string/login_genero"
-                    android:visibility="visible"
-                    android:layout_weight="0.54" />
+                    android:visibility="visible" />
 
                 <TextView
                     android:id="@+id/usuario_register"
                     android:layout_width="107dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/login_tipo_usuario" />
+                    android:text="@string/login_tipo_usuario"
+                    android:layout_weight="0.18" />
 
             </LinearLayout>
 
@@ -169,12 +170,8 @@
                 android:id="@+id/nacimiento_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/login_nacimiento"
-                android:imeActionId="@+id/login"
-                android:imeOptions="actionUnspecified"
-                android:inputType="date"
-                android:maxLines="1" />
+                android:focusable="false"
+                android:hint="@string/login_nacimiento" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
