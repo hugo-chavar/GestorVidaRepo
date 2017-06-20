@@ -9,13 +9,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
-public class ActividadesFragment extends Fragment {
+public class EjemploFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View v = inflater.inflate(R.layout.layout_frag_actividades, container,false);
+        View v = inflater.inflate(R.layout.layout_frag_ejemplo, container,false);
 
         ImageView img = (ImageView)v.findViewById(R.id.imgPlaneta);
         TextView txtTitulo = (TextView)v.findViewById(R.id.txtTitulo);

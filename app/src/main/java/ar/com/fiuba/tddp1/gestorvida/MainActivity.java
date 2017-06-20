@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import ar.com.fiuba.tddp1.gestorvida.actividades.ActividadesFragment;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -93,15 +95,29 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_perfil) {
             //Mostrar pantalla perfil
 
-        } else if (id == R.id.nav_calendario) {
-            //Mostrar pantalla calendario
-
         } else if (id == R.id.nav_actividades) {
             //Mostrar pantalla actividades
             //Intent intent = new Intent(this, VerActividadesActivity.class);
             //startActivity(intent);
-
             Fragment fragment = new ActividadesFragment();
+
+            Bundle bundle = new Bundle();
+            //bundle.putInt("idPlaneta",numeroContenido);
+
+
+
+            fragment.setArguments(bundle);
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.contenedor, fragment)
+                    .commit();
+
+        } else if (id == R.id.nav_calendario) {
+
+            //Mostrar pantalla calendario
+
+            Fragment fragment = new EjemploFragment();
 
             Bundle bundle = new Bundle();
             //bundle.putInt("idPlaneta",numeroContenido);
@@ -133,5 +149,9 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void onActividadClic(int position) {
+        Log.d("MainActivity","Se hizo click en: " + position);
     }
 }
