@@ -8,9 +8,6 @@ import java.util.ArrayList;
 
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 
-/**
- * Created by hugo on 20/06/17.
- */
 
 public class ActividadesFragment extends RecyclerFragment {
     @Override

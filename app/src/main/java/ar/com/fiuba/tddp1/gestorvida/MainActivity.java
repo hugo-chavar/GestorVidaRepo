@@ -99,37 +99,15 @@ public class MainActivity extends AppCompatActivity
             //Mostrar pantalla actividades
             //Intent intent = new Intent(this, VerActividadesActivity.class);
             //startActivity(intent);
-            Fragment fragment = new ActividadesFragment();
 
-            Bundle bundle = new Bundle();
-            //bundle.putInt("idPlaneta",numeroContenido);
-
-
-
-            fragment.setArguments(bundle);
-
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.contenedor, fragment)
-                    .commit();
+            setFragment(new ActividadesFragment());
 
         } else if (id == R.id.nav_calendario) {
 
             //Mostrar pantalla calendario
 
-            Fragment fragment = new EjemploFragment();
+            setFragment(new EjemploFragment());
 
-            Bundle bundle = new Bundle();
-            //bundle.putInt("idPlaneta",numeroContenido);
-
-
-
-            fragment.setArguments(bundle);
-
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.contenedor, fragment)
-                    .commit();
 
         } else if (id == R.id.nav_objetivos) {
             //Mostrar pantalla Objetivos
@@ -153,5 +131,17 @@ public class MainActivity extends AppCompatActivity
 
     public void onActividadClic(int position) {
         Log.d("MainActivity","Se hizo click en: " + position);
+    }
+
+    public void setFragment(Fragment fragment) {
+
+        Bundle bundle = new Bundle();
+
+        fragment.setArguments(bundle);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                        .replace(R.id.contenedor, fragment)
+                        .commit();
     }
 }
