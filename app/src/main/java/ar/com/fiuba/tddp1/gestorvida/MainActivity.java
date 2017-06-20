@@ -19,6 +19,8 @@ import ar.com.fiuba.tddp1.gestorvida.actividades.ActividadesFragment;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private int fragmentActual = R.id.nav_actividades;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,14 +28,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
@@ -54,8 +48,20 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
+            //Log.d("MainActivity","onBackPressed: isDrawerOpen " );
+
         } else {
-            super.onBackPressed();
+
+            //Log.d("MainActivity","fragmentActual: " + fragmentActual + " nav_actividades: " + R.id.nav_actividades);
+            if (fragmentActual != R.id.nav_actividades) {
+                setFragment(new ActividadesFragment());
+                fragmentActual = R.id.nav_actividades;
+                //Log.d("MainActivity","Go to act ");
+            } else {
+                //Log.d("MainActivity","Sale ");
+                super.onBackPressed();
+            }
+
         }
     }
 
@@ -73,7 +79,7 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        Log.d("MainActivity", "Se hizo clic en el item " + id);
+        Log.d("MainActivity", "Se hizo clic en la opcion " + id);
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
@@ -126,6 +132,8 @@ public class MainActivity extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+        Log.d("MainActivity","antes: " + fragmentActual + " nuevo: " + id);
+        fragmentActual = id;
         return true;
     }
 
