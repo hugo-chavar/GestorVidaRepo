@@ -17,4 +17,11 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+
+    <string name="titulo_mercurio">Mercurio</string>
+
+    <string name="info_mercurio">Mercurio es el planeta del Sistema Solar más próximo al Sol y el más pequeño. Forma parte de los denominados planetas interiores o rocosos y carece de satélites. Se conocía muy poco sobre su superficie hasta que fue enviada la sonda planetaria Mariner 10 y se hicieron observaciones con radar y radiotelescopios.</string>
+
 </resources>

@@ -2,9 +2,9 @@ package ar.com.fiuba.tddp1.gestorvida;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,7 +13,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -25,14 +24,14 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
@@ -90,6 +89,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+
         if (id == R.id.nav_perfil) {
             //Mostrar pantalla perfil
 
@@ -98,8 +98,22 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_actividades) {
             //Mostrar pantalla actividades
-            Intent intent = new Intent(this, VerActividadesActivity.class);
-            startActivity(intent);
+            //Intent intent = new Intent(this, VerActividadesActivity.class);
+            //startActivity(intent);
+
+            Fragment fragment = new ActividadesFragment();
+
+            Bundle bundle = new Bundle();
+            //bundle.putInt("idPlaneta",numeroContenido);
+
+
+
+            fragment.setArguments(bundle);
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.contenedor, fragment)
+                    .commit();
 
         } else if (id == R.id.nav_objetivos) {
             //Mostrar pantalla Objetivos
