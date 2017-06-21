@@ -23,6 +23,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import ar.com.fiuba.tddp1.gestorvida.actividades.ActividadesFragment;
+import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
+import ar.com.fiuba.tddp1.gestorvida.dominio.Objetivo;
+import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
+import ar.com.fiuba.tddp1.gestorvida.objetivos.ObjetivosFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -125,8 +129,11 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_objetivos) {
             //Mostrar pantalla Objetivos
+            /*
             Intent intent = new Intent(this, VerObjetivosActivity.class);
             startActivity(intent);
+            */
+            setFragment(new ObjetivosFragment());
 
         } else if (id == R.id.nav_buscar) {
             //Mostrar pantalla busqueda de actividades
