@@ -13,19 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 
 import ar.com.fiuba.tddp1.gestorvida.actividades.ActividadesFragment;
-import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
-import ar.com.fiuba.tddp1.gestorvida.dominio.Objetivo;
-import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 import ar.com.fiuba.tddp1.gestorvida.objetivos.ObjetivosFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -60,17 +49,13 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-            //Log.d("MainActivity","onBackPressed: isDrawerOpen " );
 
         } else {
 
-            //Log.d("MainActivity","fragmentActual: " + fragmentActual + " nav_actividades: " + R.id.nav_actividades);
             if (fragmentActual != R.id.nav_actividades) {
                 setFragment(new ActividadesFragment());
                 fragmentActual = R.id.nav_actividades;
-                //Log.d("MainActivity","Go to act ");
             } else {
-                //Log.d("MainActivity","Sale ");
                 super.onBackPressed();
             }
 
@@ -115,8 +100,6 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_actividades) {
             //Mostrar pantalla actividades
-            //Intent intent = new Intent(this, VerActividadesActivity.class);
-            //startActivity(intent);
 
             setFragment(new ActividadesFragment());
 
@@ -147,7 +130,6 @@ public class MainActivity extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        Log.d("MainActivity","antes: " + fragmentActual + " nuevo: " + id);
         fragmentActual = id;
         return true;
     }
@@ -168,31 +150,4 @@ public class MainActivity extends AppCompatActivity
                         .commit();
     }
 
-    public void sendTestHttpRequest() {
-        final TextView mTextView = (TextView) findViewById(R.id.textView2);
-
-
-        // Instantiate the RequestQueue.
-        RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="http://127.0.0.1:8080/pasarela/";
-        mTextView.setText("Realizo request .. ");
-
-        // Request a string response from the provided URL.
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-
-                            mTextView.setText("Response is: "+ response);
-                        }
-                    }, new Response.ErrorListener() {
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    mTextView.setText("That didn't work!");
-                                }
-                });
-        // Add the request to the RequestQueue.
-        queue.add(stringRequest);
-
-    }
 }

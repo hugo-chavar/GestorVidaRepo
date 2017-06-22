@@ -1,8 +1,8 @@
 package ar.com.fiuba.tddp1.gestorvida.web;
 
 import android.content.Context;
-import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -10,29 +10,17 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import ar.com.fiuba.tddp1.gestorvida.R;
+import java.util.HashMap;
+import java.util.Map;
 
-/**
- * Created by hugo on 21/06/17.
- */
 
 public class RequestSender {
 
-    private Context context;
-    private RequestQueue queue;
 
-    public RequestSender(Context context) {
-        this.context = context;
-        queue = Volley.newRequestQueue(context);
-    }
-
-
-    public void sendHttpRequest(String url) {
+    public void get(Context context, String url) {
         //final TextView mTextView = (TextView) findViewById(R.id.textView2);
 
-
-        // Instantiate the RequestQueue.
-        //RequestQueue queue = Volley.newRequestQueue(context);
+        RequestQueue queue = Volley.newRequestQueue(context);
         //String url ="http://127.0.0.1:8080/pasarela/";
         //mTextView.setText("Realizo request .. ");
 
@@ -41,17 +29,50 @@ public class RequestSender {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
-                        mTextView.setText("Response is: "+ response);
+                        //Hacer algo con la respuesta
+                        //mTextView.setText("Response is: "+ response);
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                mTextView.setText("That didn't work!");
+                //mTextView.setText("That didn't work!");
+                //Hacer algo con el error
             }
         });
-        // Add the request to the RequestQueue.
+
         queue.add(stringRequest);
 
     }
+
+
+    public void post(Context context, String url, final Map<String,String> params){
+
+        RequestQueue queue = Volley.newRequestQueue(context);
+        StringRequest sr = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+        @Override
+        public void onResponse(String response) {
+            //Hacer algo con la respuesta
+        }
+        }, new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError error) {
+            //Hacer algo con el error
+        }
+        }){
+            @Override
+            protected Map<String,String> getParams(){
+
+                return params;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String,String> header_params = new HashMap<String, String>();
+                header_params.put("Content-Type","application/x-www-form-urlencoded");
+                return header_params;
+            }
+        };
+        queue.add(sr);
+    }
+
 }
