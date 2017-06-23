@@ -4,21 +4,20 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.DatePickerDialog;
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
-
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,11 +28,18 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import ar.com.fiuba.tddp1.gestorvida.web.RequestSender;
+import ar.com.fiuba.tddp1.gestorvida.web.ResponseListener;
 
 /**
  * A login screen that offers login via email/password.
  */
-public class RegisterActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class RegisterActivity extends AppCompatActivity implements LoaderCallbacks<Cursor>, ResponseListener {
 
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -149,7 +155,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             focusView = mGeneroTextView;
             cancel = true;
         } else {
-            genero = ((RadioButton)mGeneroView.findViewById(mGeneroView.getCheckedRadioButtonId())).getText().toString();
+            genero = ((RadioButton) mGeneroView.findViewById(mGeneroView.getCheckedRadioButtonId())).getText().toString();
         }
 
         if (mUsuarioView.getCheckedRadioButtonId() == -1) {
@@ -157,7 +163,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             focusView = mUsuarioTextView;
             cancel = true;
         } else {
-            usuario = ((RadioButton)mUsuarioView.findViewById(mUsuarioView.getCheckedRadioButtonId())).getText().toString();
+            usuario = ((RadioButton) mUsuarioView.findViewById(mUsuarioView.getCheckedRadioButtonId())).getText().toString();
         }
 
         // Check for a valid name, if the user entered one.
@@ -213,8 +219,9 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             // perform the user login attempt.
             showProgress(true);
             mAuthTask = new UserLoginTask(name, email, genero, usuario, nacimiento, password);
+            mAuthTask.setContext(this);
             mAuthTask.execute((Void) null);
-            goToMain();
+            //goToMain();
         }
     }
 
@@ -293,6 +300,21 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
 
     }
 
+    @Override
+    public void onRequestCompleted(String response) {
+        Log.d("RegisterActivity", "onRequestCompleted, response: " + response);
+        Toast.makeText(this, "Completado Ok!, " + response, Toast.LENGTH_LONG).show();
+        goToMain();
+
+    }
+
+    @Override
+    public void onRequestError(String errorMessage) {
+        Log.d("RegisterActivity", "onRequestError: " + errorMessage);
+        Toast.makeText(this, "Servidor caído: " + errorMessage, Toast.LENGTH_LONG).show();
+
+    }
+
 
     private interface ProfileQuery {
         String[] PROJECTION = {
@@ -315,6 +337,9 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         private final String mNacimiento;
         private final String mPassword;
 
+        private final Map<String,String> _params;
+        private RegisterActivity context;
+
         UserLoginTask(String name, String email, String genero, String usuario, String nacimiento, String password) {
             mName = name;
             mEmail = email;
@@ -322,18 +347,38 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             mUsuario = usuario;
             mNacimiento = nacimiento;
             mPassword = password;
+            _params = new HashMap<String,String>();
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
+            RequestSender requestSender = new RequestSender(context);
+            _params.put("nombreUsuario", mName);
+            _params.put("email", mEmail);
+            _params.put("sexo", mGenero);
+            _params.put("tipo", mUsuario); // TODO: no se si el tipo corresponde con usuario
+            _params.put("contraseña", mPassword);
+            _params.put("nacimiento", mNacimiento);
+
+            //String url = getString(R.string.url) + "users";
+            String url2 = getString(R.string.url) + "ping";
+
+            Log.d("UserLoginTask", "Sending ping to " + url2);
+            //requestSender.post(context, url, _params);
+            requestSender.get(context, url2);
+
+            Log.d("UserLoginTask", "Continue ");
+
+            /*
             try {
                 // Simulate network access.
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
                 return false;
             }
+            */
 
             // TODO: register the new account here.
             return true;
@@ -352,6 +397,9 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             showProgress(false);
         }
 
+        public void setContext(RegisterActivity context) {
+            this.context = context;
+        }
     }
 
     public void goToMain() {
