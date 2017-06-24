@@ -1,7 +1,11 @@
-package ar.com.fiuba.tddp1.gestorvida;
+package ar.com.fiuba.tddp1.gestorvida.estadisticas;
 
-import android.support.v7.app.AppCompatActivity;
+
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
@@ -11,14 +15,20 @@ import com.github.mikephil.charting.data.LineDataSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GraficoEjemploActivity extends AppCompatActivity {
+import ar.com.fiuba.tddp1.gestorvida.R;
+
+/**
+ * Created by User on 24/06/2017.
+ */
+
+public class EstadisticasFragment extends Fragment {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_grafico_ejemplo);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        LineChart grafico = (LineChart) findViewById(R.id.ejemploGrafico);
+        View view = inflater.inflate(R.layout.activity_grafico_ejemplo, container,false);
+
+        LineChart grafico = (LineChart) view.findViewById(R.id.ejemploGrafico);
 
         //Primero se crea una lista de Entry (un punto X,Y) con los valores que pongamos
         Integer[] valoresX = new Integer[]{1,2,3,4,5,6};
@@ -39,7 +49,7 @@ public class GraficoEjemploActivity extends AppCompatActivity {
         LineData lineaData = new LineData(datosSet);
         grafico.setData(lineaData);
         grafico.invalidate(); //refresh
+
+        return view;
     }
-
-
 }

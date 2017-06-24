@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import ar.com.fiuba.tddp1.gestorvida.actividades.ActividadesFragment;
+import ar.com.fiuba.tddp1.gestorvida.estadisticas.EstadisticasFragment;
 import ar.com.fiuba.tddp1.gestorvida.objetivos.ObjetivosFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -123,9 +124,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_estadisticas) {
             //Mostrar pantalla de estadisticas
-            Intent intent = new Intent(this, GraficoEjemploActivity.class);
-            startActivity(intent);
-
+            setFragment( new EstadisticasFragment() );
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

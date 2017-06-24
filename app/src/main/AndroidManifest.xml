@@ -30,7 +30,6 @@
         <activity android:name=".VerActividadesActivity" />
         <activity android:name=".VerObjetivosActivity" />
         <activity android:name=".AgregarActividadActivity" />
-        <activity android:name=".GraficoEjemploActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
     </application>

@@ -102,9 +102,5 @@ public class VerActividadesActivity extends AppCompatActivity implements View.On
             Intent intent = new Intent(this, VerObjetivosActivity.class);
             startActivity(intent);
         }
-        if (elementoSeleccionado.equals("Estadisticas")) {
-            Intent intent = new Intent(this, GraficoEjemploActivity.class);
-            startActivity(intent);
-        }
     }
 }
