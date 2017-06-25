@@ -20,6 +20,7 @@ import java.util.Map;
 import ar.com.fiuba.tddp1.gestorvida.DatePickerFragment;
 import ar.com.fiuba.tddp1.gestorvida.R;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
+import ar.com.fiuba.tddp1.gestorvida.dominio.Fecha;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Objetivo;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 
@@ -121,7 +122,19 @@ public class AgregarActividadFragment extends Fragment{
 
         //Se le setea la descripcion
         nuevaActividad.setDescripcion( ((EditText) rootView.findViewById(R.id.edittextDescripcion)).getText().toString() );
+
+
+        //Parseo la fecha
+        Fecha fechaInicio = this.parsearFecha( (TextView) rootView.findViewById(R.id.textViewInicioActividad));
+        Fecha fechaFin = this.parsearFecha( (TextView) rootView.findViewById(R.id.textViewFinActividad));
+        nuevaActividad.setFechaInicio(fechaInicio);
+        nuevaActividad.setFechaFin(fechaFin);
+
+
+
         //Se le setea todo lo demas que haya que setearle
+
+
 
 
 
@@ -129,5 +142,16 @@ public class AgregarActividadFragment extends Fragment{
         Objetivo objetivoSeleccionado =  (Objetivo)((Spinner)rootView.findViewById(R.id.spinnerObjetivos)).getSelectedItem();
         objetivoSeleccionado.agregarActividad(nuevaActividad);
         Perfil.agregarActividad(nuevaActividad);
+    }
+
+    private Fecha parsearFecha(TextView textoFecha) {
+        String fecha = textoFecha.getText().toString();
+        String[] fechaParseada = fecha.split("/");
+        if (fechaParseada.length == 3) {
+            //Si el lenght es diferente de 3 entonces no hay una fecha ingresada
+            return new Fecha(fechaParseada[0], fechaParseada[1], fechaParseada[2]);
+        }
+        return null;
+
     }
 }
