@@ -19,6 +19,9 @@ public class Actividad {
     String prioridad = null;
     private Set<String> etiquetas;
 
+    private Fecha fechaRecordatorio;
+    private int periodicidad;
+
     public Actividad(String nombre) {
         this.nombre = nombre;
         this.estaCompletada = false;
@@ -57,5 +60,13 @@ public class Actividad {
 
     public void setEtiquetas(Set<String> etiquetas) {
         this.etiquetas = etiquetas;
+    }
+
+    public void setFechaRecordatorio(Fecha fechaRecordatorio) {
+        this.fechaRecordatorio = fechaRecordatorio;
+    }
+
+    public void setPeriodicidad(int periodicidad) {
+        this.periodicidad = periodicidad;
     }
 }

@@ -2,7 +2,10 @@ package ar.com.fiuba.tddp1.gestorvida.actividades;
 
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
+import android.support.annotation.IntegerRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
@@ -14,13 +17,13 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -48,6 +51,7 @@ public class AgregarActividadFragment extends Fragment{
         //A cada boton de fecha le asocio un textView en donde se va a escribir la fecha seleccionada
         this.textosFechas.put(R.id.buttonInicioActividad, (TextView) view.findViewById(R.id.textViewInicioActividad) );
         this.textosFechas.put(R.id.buttonFinActividad, (TextView) view.findViewById(R.id.textViewFinActividad) );
+        this.textosFechas.put(R.id.buttonRecordatorio, (TextView) view.findViewById(R.id.textViewFechaRecordatorio) );
 
         String[] prioridades = new String[] {"ALTA", "MEDIA", "BAJA"};
         Spinner spinnerPrioridades = (Spinner) view.findViewById(R.id.spinnerPrioridades);
@@ -105,6 +109,26 @@ public class AgregarActividadFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 agregarActividad(v);
+            }
+        });
+
+
+        Button buttonRecordatorio = (Button) view.findViewById(R.id.buttonRecordatorio);
+        buttonRecordatorio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mostrarDatePicker(v);
+            }
+        });
+
+
+        RadioGroup groupPeriodicidad = (RadioGroup) view.findViewById(R.id.radioGroupPerioridicidad);
+        groupPeriodicidad.check(R.id.radioButtonPeriodicidad1SolaVez);
+        groupPeriodicidad.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                //El edit text de X dias SOLO se activa si se eligio el radioButton corespondiente
+                getView().findViewById(R.id.editTextXDias).setEnabled( checkedId == R.id.radioButtonPeriodicidadCadaXDias );
             }
         });
 
@@ -182,7 +206,22 @@ public class AgregarActividadFragment extends Fragment{
 
         nuevaActividad.setEtiquetas(this.listaDeEtiquetas);
 
+        Fecha fechaRecordatorio = this.parsearFecha( (TextView) rootView.findViewById(R.id.textViewFechaRecordatorio));
+        nuevaActividad.setFechaRecordatorio(fechaRecordatorio);
 
+        RadioGroup groupPeriodicidad = (RadioGroup) view.findViewById(R.id.radioGroupPerioridicidad);
+        int periodicidad = 0;
+        int periodicidadSeleccionada = groupPeriodicidad.getCheckedRadioButtonId();
+        if (periodicidadSeleccionada == R.id.radioButtonPeriodicidadDiario) {
+            periodicidad = 1;
+        }
+        else if (periodicidadSeleccionada == R.id.radioButtonPeriodicidadSemanal) {
+            periodicidad = 7;
+        }
+        else if (periodicidadSeleccionada == R.id.radioButtonPeriodicidadCadaXDias) {
+            periodicidad = Integer.parseInt( ( (EditText) view.findViewById(R.id.editTextXDias)).getText().toString() );
+        }
+        nuevaActividad.setPeriodicidad(periodicidad);
 
 
         //Se le setea todo lo demas que haya que setearle
