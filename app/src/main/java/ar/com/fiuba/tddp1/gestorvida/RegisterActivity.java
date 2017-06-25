@@ -30,9 +30,13 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
+import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 import ar.com.fiuba.tddp1.gestorvida.web.RequestSender;
 import ar.com.fiuba.tddp1.gestorvida.web.ResponseListener;
 
@@ -301,18 +305,33 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
     }
 
     @Override
-    public void onRequestCompleted(String response) {
-        Log.d("RegisterActivity", "onRequestCompleted, response: " + response);
-        Toast.makeText(this, "Completado Ok!, " + response, Toast.LENGTH_LONG).show();
-        goToMain();
+    public void onRequestCompleted(JSONObject response) {
+
+        //Log.d("RegisterActivity", "onRequestCompleted, response: " + response);
+        //Toast.makeText(this, "Completado Ok!, " + response, Toast.LENGTH_LONG).show();
+        String token;
+        try {
+            Perfil.token = response.getString("token");
+            Perfil.id = response.getString("id");
+            goToMain();
+        } catch (JSONException e) {
+            showError("No se pudo obtener el Token");
+        }
 
     }
 
     @Override
-    public void onRequestError(String errorMessage) {
-        Log.d("RegisterActivity", "onRequestError: " + errorMessage);
-        Toast.makeText(this, "Servidor caído: " + errorMessage, Toast.LENGTH_LONG).show();
+    public void onRequestError(int cod, String errorMessage) {
+        if (cod == 409) {
+            mNameView.setError(getString(R.string.error_username_duplicated));
+            mNameView.requestFocus();
+        }
+        showError(errorMessage);
+    }
 
+    public void showError(String error) {
+        Log.d("RegisterActivity", error);
+        Toast.makeText(this, error, Toast.LENGTH_LONG).show();
     }
 
 
@@ -355,32 +374,26 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             // TODO: attempt authentication against a network service.
 
             RequestSender requestSender = new RequestSender(context);
-            _params.put("nombreUsuario", mName);
+            _params.put("name", mName);
+            _params.put("username", mName); //mUsuario es en realidad el tipo de usuario
             _params.put("email", mEmail);
-            _params.put("sexo", mGenero);
-            _params.put("tipo", mUsuario); // TODO: no se si el tipo corresponde con usuario
-            _params.put("contraseña", mPassword);
+            //_params.put("sexo", mGenero); // TODO: no lo acepta el server
+            _params.put("password", mPassword);
             _params.put("nacimiento", mNacimiento);
 
-            //String url = getString(R.string.url) + "users";
-            String url2 = getString(R.string.url) + "ping";
+            JSONObject obj = new JSONObject(_params);
 
-            Log.d("UserLoginTask", "Sending ping to " + url2);
+            String url = getString(R.string.url) + "users/register";
+            //String url2 = getString(R.string.url) + "ping";
+
+            //Log.d("UserLoginTask", "Sending ping to " + url2);
+            Log.d("UserLoginTask", "Sending post to " + url + " params[ " + _params + "]");
             //requestSender.post(context, url, _params);
-            requestSender.get(context, url2);
+            requestSender.post(context, url, new JSONObject(_params));
+            //requestSender.get(context, url2);
 
             Log.d("UserLoginTask", "Continue ");
 
-            /*
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-            */
-
-            // TODO: register the new account here.
             return true;
         }
 
@@ -388,7 +401,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             showProgress(false);
-            finish();
+            //finish();
         }
 
         @Override
