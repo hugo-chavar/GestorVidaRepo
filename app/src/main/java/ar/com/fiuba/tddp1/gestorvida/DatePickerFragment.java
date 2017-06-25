@@ -21,7 +21,7 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState){
 
-        //La fecha de hoy se setea como default
+        //Esto setea la fecha de hoy como default
         Calendar calendario = Calendar.getInstance();
         int anio = calendario.get(Calendar.YEAR);
         int mes = calendario.get(Calendar.MONTH);
@@ -34,6 +34,8 @@ public class DatePickerFragment extends DialogFragment implements DatePickerDial
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         //Hacer algo cuando se setee la fecha
+        //Los meses se indexan de 0 a 11, por eso el ++
+        month++;
         this.textView.setText(dayOfMonth + "/" + month + "/" + year );
     }
 
