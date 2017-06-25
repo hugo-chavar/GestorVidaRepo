@@ -89,6 +89,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
 
                 Time date = new Time();
                 DatePickerDialog d = new DatePickerDialog(RegisterActivity.this, dpd, date.year ,date.month, date.monthDay);
+                d.updateDate(2017,6,1);
                 d.show();
 
             }
@@ -234,17 +235,14 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
     }
 
     private boolean isNameValid(String name) {
-        //TODO: Replace this with your own logic
         return name.length() > 2;
     }
 
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
         return email.contains("@");
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return password.length() > 4;
     }
 

@@ -2,10 +2,12 @@ package ar.com.fiuba.tddp1.gestorvida;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.format.Time;
@@ -30,9 +32,6 @@ import ar.com.fiuba.tddp1.gestorvida.dominio.Fecha;
 
 public class BuscarActividadActivity extends AppCompatActivity {
 
-    LinearLayout layoutOfPopup;
-    PopupWindow popupFilter;
-    Button filterOkButton;
     FloatingActionButton filterButton;
     LinkedList<Actividad> mockedActivities;
 
@@ -48,7 +47,6 @@ public class BuscarActividadActivity extends AppCompatActivity {
         setContentView(R.layout.activity_buscar_actividad);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        init();
         mockearActividades();
         mostrarActividades();
 
@@ -61,39 +59,55 @@ public class BuscarActividadActivity extends AppCompatActivity {
         });
     }
 
-    public void init() {
-        filterOkButton = (Button) findViewById(R.id.button_ok_filter);
-        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        layoutOfPopup = (LinearLayout) inflater.inflate(R.layout.layout_filter, null);
-    }
-
     public void popupInit() {
-        popupFilter = new PopupWindow(layoutOfPopup, LinearLayout.LayoutParams.FILL_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
-        popupFilter.setContentView(layoutOfPopup);
-        popupFilter.setFocusable(true);
-
-        // Clear the default translucent background
-        popupFilter.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-
-        // Displaying the popup at the specified location, + offsets.
-        popupFilter.showAtLocation(layoutOfPopup, Gravity.NO_GRAVITY, 0, Math.round(filterButton.getY()));
-    }
-
-    public void dismissPopup(View v) {
-
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-
-        try {
-            if (mDesde != null && mHasta != null) {
-                this.filtro_desde = formatter.parse(mDesde.getText().toString());
-                this.filtro_hasta = formatter.parse(mHasta.getText().toString());
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Filtro");
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        EditText desde_filtro = new EditText(this);
+        EditText hasta_filtro = new EditText(this);
+        desde_filtro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                desdeOnClick(v);
             }
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        mostrarActividades();
-        popupFilter.dismiss();
+        });
+        hasta_filtro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hastaOnClick(v);
+            }
+        });
+        desde_filtro.setHint("Fecha desde");
+        hasta_filtro.setHint("Fecha hasta");
+        desde_filtro.setFocusable(false);
+        hasta_filtro.setFocusable(false);
+        layout.addView(desde_filtro);
+        layout.addView(hasta_filtro);
+        builder.setView(layout);
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+                try {
+                    if (mDesde != null && mHasta != null) {
+                        filtro_desde = formatter.parse(mDesde.getText().toString());
+                        filtro_hasta = formatter.parse(mHasta.getText().toString());
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                mostrarActividades();
+            }
+        });
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //No hacer nada
+            }
+        });
+        builder.show();
     }
 
     private void mostrarActividades() {
@@ -176,6 +190,7 @@ public class BuscarActividadActivity extends AppCompatActivity {
 
         Time date = new Time();
         DatePickerDialog d = new DatePickerDialog(BuscarActividadActivity.this, dpd, date.year ,date.month, date.monthDay);
+        d.updateDate(2017,6,1);
         d.show();
 
     }
@@ -196,6 +211,7 @@ public class BuscarActividadActivity extends AppCompatActivity {
 
         Time date = new Time();
         DatePickerDialog d = new DatePickerDialog(BuscarActividadActivity.this, dpd, date.year ,date.month, date.monthDay);
+        d.updateDate(2017,6,1);
         d.show();
 
     }
