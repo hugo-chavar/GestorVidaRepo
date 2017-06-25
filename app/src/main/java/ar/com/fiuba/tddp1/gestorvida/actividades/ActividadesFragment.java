@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;
 
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
+import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 
 
 public class ActividadesFragment extends RecyclerFragment {
@@ -17,6 +18,7 @@ public class ActividadesFragment extends RecyclerFragment {
 
     @Override
     protected void configureAdapter() {
+
         Actividad actividad;
         ArrayList<Actividad> lista = new ArrayList<Actividad>();
         actividad = new Actividad("Comprar verdura");
@@ -45,10 +47,17 @@ public class ActividadesFragment extends RecyclerFragment {
 
         Activity activity = getActivity();
 
-        ActividadAdapter adapter = new ActividadAdapter(lista, activity);
+        //ActividadAdapter adapter = new ActividadAdapter(lista, activity);
+        ActividadAdapter adapter = new ActividadAdapter(Perfil.getActividadesPendientes(), activity);
 
         setConfiguredAdapter(adapter);
 
+    }
+
+    @Override
+    protected void goToAgregarElemento() {
+        //Lo que quiero es setear un fragmento de agregar actividades
+        this.setFragment( new AgregarActividadFragment() );
     }
 
 

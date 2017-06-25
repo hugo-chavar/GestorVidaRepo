@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ar.com.fiuba.tddp1.gestorvida.MainActivity;
 import ar.com.fiuba.tddp1.gestorvida.R;
@@ -16,10 +17,10 @@ import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 
 public class ActividadAdapter extends RecyclerView.Adapter<ActividadViewHolder>{
 
-    private ArrayList<Actividad> lista;
+    private List<Actividad> lista;
     private MainActivity activ;
 
-    public ActividadAdapter(ArrayList<Actividad> lista, Activity activ)
+    public ActividadAdapter(List<Actividad> lista, Activity activ)
     {
         this.lista = lista;
         this.activ = (MainActivity)activ;
