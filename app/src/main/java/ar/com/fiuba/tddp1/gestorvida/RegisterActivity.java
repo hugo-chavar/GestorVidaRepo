@@ -387,9 +387,9 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             //String url2 = getString(R.string.url) + "ping";
 
             //Log.d("UserLoginTask", "Sending ping to " + url2);
-            Log.d("UserLoginTask", "Sending post to " + url + " params[ " + _params + "]");
+            //Log.d("UserLoginTask", "Sending post to " + url + " params[ " + _params + "]");
             //requestSender.post(context, url, _params);
-            requestSender.post(context, url, new JSONObject(_params));
+            requestSender.doPost(context, url, new JSONObject(_params));
             //requestSender.get(context, url2);
 
             Log.d("UserLoginTask", "Continue ");

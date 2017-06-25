@@ -2,6 +2,7 @@ package ar.com.fiuba.tddp1.gestorvida.web;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
@@ -56,7 +57,34 @@ public class RequestSender {
 
     }*/
 
-    public void post(final ResponseListener listener, String url, final JSONObject params){
+    /*
+    public void get(final ResponseListener listener, String url) {
+
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //Hacer algo con la respuesta
+                        Log.d("sarasa", response);
+                        listener.onRequestCompleted(response);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Hacer algo con el error
+                Log.d("sarasa2", error.getMessage());
+                listener.onRequestError(error.getMessage());
+            }
+        });
+
+        queue.add(stringRequest);
+
+    }*/
+
+
+
+    public void doRequest(final ResponseListener listener, String url, final JSONObject params){
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, params,
                 new Response.Listener<JSONObject>() {
@@ -83,7 +111,7 @@ public class RequestSender {
     private Pair<Integer, String> getError(VolleyError error) {
         String errorDesc;
         Integer codError = 0;
-        
+
         if (error instanceof TimeoutError || error instanceof NoConnectionError) {
 
             errorDesc = context.getString(R.string.error_network_timeout);
@@ -124,6 +152,18 @@ public class RequestSender {
 
         }
         return new Pair<Integer, String>(codError, errorDesc);
+    }
+
+    public void doPost(final ResponseListener listener, String url, final JSONObject jsonObject){
+        Log.d("RequestSender", "Sending post to " + url + " params " + jsonObject.toString());
+        doRequest(listener, url, jsonObject);
+
+    }
+
+    public void doGet(final ResponseListener listener, String url){
+        Log.d("RequestSender", "Sending get to " + url );
+        doRequest(listener, url, null);
+
     }
 
 }
