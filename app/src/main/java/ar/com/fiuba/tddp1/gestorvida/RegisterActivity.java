@@ -324,7 +324,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
     public void onRequestError(int cod, String errorMessage) {
         if (cod == 409) {
             mNameView.setError(getString(R.string.error_username_duplicated));
-            mNameView.requestFocus();;
+            mNameView.requestFocus();
         }
         showError(errorMessage);
     }
@@ -375,7 +375,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
 
             RequestSender requestSender = new RequestSender(context);
             _params.put("name", mName);
-            _params.put("username", mUsuario);
+            _params.put("username", mName); //mUsuario es en realidad el tipo de usuario
             _params.put("email", mEmail);
             //_params.put("sexo", mGenero); // TODO: no lo acepta el server
             _params.put("password", mPassword);
