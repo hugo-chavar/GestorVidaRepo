@@ -50,4 +50,12 @@ public class Actividad {
     public void completar() {
         this.estaCompletada = true;
     }
+
+    public Fecha getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public Fecha getFechaFin() {
+        return fechaFin;
+    }
 }

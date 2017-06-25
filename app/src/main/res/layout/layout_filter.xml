@@ -4,19 +4,28 @@
     android:layout_height="match_parent"
     android:weightSum="1">
 
-    <TextView
-        android:id="@+id/textView3"
+    <EditText
+        android:id="@+id/desde_filtro"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.28"
-        android:text="POPUPPPP"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:hint="Fecha desde"
+        android:onClick="desdeOnClick" />
+
+    <EditText
+        android:id="@+id/hasta_filtro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="false"
+        android:hint="Fecha hasta"
+        android:onClick="hastaOnClick" />
 
     <Button
         android:id="@+id/button_ok_filter"
         android:layout_width="264dp"
         android:layout_height="wrap_content"
         android:onClick="dismissPopup"
-        android:text="OKKK" />
+        android:text="OK"
+        android:layout_weight="0.06" />
 
 </LinearLayout>
