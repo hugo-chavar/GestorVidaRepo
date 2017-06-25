@@ -2,8 +2,8 @@ package ar.com.fiuba.tddp1.gestorvida.actividades;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +15,7 @@ import ar.com.fiuba.tddp1.gestorvida.R;
 //import com.example.android.recyclerplayground.R;
 
 
-public abstract class RecyclerFragment extends Fragment /*implements AdapterView.OnItemClickListener */ {
+public abstract class RecyclerFragment extends Fragment implements View.OnClickListener /*implements AdapterView.OnItemClickListener */ {
 
     private RecyclerView mList;
     private RecyclerView.Adapter mAdapter;
@@ -47,7 +47,11 @@ public abstract class RecyclerFragment extends Fragment /*implements AdapterView
         View rootView = inflater.inflate(R.layout.fragment_recycler, container, false);
 
 
-        FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab);
+        FloatingActionButton fabAgregarElemento = (FloatingActionButton) rootView.findViewById(R.id.fabAgregarElemento);
+
+        fabAgregarElemento.setOnClickListener(this);
+
+        /*
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -55,8 +59,10 @@ public abstract class RecyclerFragment extends Fragment /*implements AdapterView
 
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+
             }
         });
+        */
 
         mList = (RecyclerView) rootView.findViewById(R.id.section_list);
         mList.setLayoutManager(getLayoutManager());
@@ -77,6 +83,25 @@ public abstract class RecyclerFragment extends Fragment /*implements AdapterView
         mList.setAdapter(getAdapter());
 
         return rootView;
+    }
+
+    @Override
+    public void onClick(View v) {
+        this.goToAgregarElemento();
+    }
+
+    protected abstract void goToAgregarElemento();
+
+    //ES EXACTAMENTE EL MISMO CODIGO QUE HAY EN EL MAIN, EXCEPTO QUE SE LLAMA A getFragmentManager EN VEZ DE getSupportFragmentManager
+    public void setFragment(Fragment fragment) {
+        Bundle bundle = new Bundle();
+
+        fragment.setArguments(bundle);
+
+        FragmentManager fragmentManager = this.getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.contenedor, fragment)
+                .commit();
     }
 
     /*@Override
