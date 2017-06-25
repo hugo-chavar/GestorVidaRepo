@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import ar.com.fiuba.tddp1.gestorvida.R;
 
 
-//import com.example.android.recyclerplayground.R;
+//import ar.com.fiuba.tddp1.gestorvida.R;
 
 
 public abstract class RecyclerFragment extends Fragment implements View.OnClickListener /*implements AdapterView.OnItemClickListener */ {

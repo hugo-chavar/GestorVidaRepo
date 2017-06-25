@@ -17,6 +17,8 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
+import ar.com.fiuba.tddp1.gestorvida.R;
+
 
 public class RequestSender {
 
@@ -65,10 +67,11 @@ public class RequestSender {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                String errorDesc;
-                errorDesc = getError(error);
+                Pair<Integer, String> errorDetail;
 
-                listener.onRequestError(error.networkResponse.statusCode, errorDesc);
+                errorDetail = getError(error);
+
+                listener.onRequestError(errorDetail.t, errorDetail.u);
 
             }
         });
@@ -77,18 +80,23 @@ public class RequestSender {
     }
 
     @NonNull
-    private String getError(VolleyError error) {
+    private Pair<Integer, String> getError(VolleyError error) {
         String errorDesc;
+        Integer codError = 0;
+        
         if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-            //context.getString(R.string.error_network_timeout),
-            errorDesc = "Timeout: verifique su servidor.";
+
+            errorDesc = context.getString(R.string.error_network_timeout);
+
         } else if (error instanceof AuthFailureError) {
-            //TODO
+
             errorDesc = "Error de autenticacion";
+
         } else if (error instanceof ServerError) {
-            //TODO
-            errorDesc = "Error de servidor. Cod: " + error.networkResponse.statusCode + ", " +  new String(error.networkResponse.data) ;
-            switch (error.networkResponse.statusCode) {
+
+            codError = error.networkResponse.statusCode;
+
+            switch (codError) {
                 case 409:
                     errorDesc = "Nombre de usuario ya existe";
                     break;
@@ -99,18 +107,23 @@ public class RequestSender {
                     errorDesc = "La url invocada no corresponde a un servicio valido";
                     break;
                 default:
-                    errorDesc = new String(error.networkResponse.data) ;
+                    errorDesc = new String(error.networkResponse.data);
+
             }
         } else if (error instanceof NetworkError) {
-            //TODO
+
             errorDesc = "Error de red";
+
         } else if (error instanceof ParseError) {
-            //TODO
+
             errorDesc = "Error de parseo";
+
         } else {
+
             errorDesc = "Error desconocido. ";
+
         }
-        return errorDesc;
+        return new Pair<Integer, String>(codError, errorDesc);
     }
 
 }
