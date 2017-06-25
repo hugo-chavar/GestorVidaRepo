@@ -13,6 +13,8 @@ public class Actividad {
     private Fecha fechaInicio = null;
     private Fecha fechaFin = null;
 
+    String prioridad = null;
+
     public Actividad(String nombre) {
         this.nombre = nombre;
         this.estaCompletada = false;
@@ -28,6 +30,10 @@ public class Actividad {
 
     public void setFechaFin(Fecha fechaFin) {
         this.fechaFin = fechaFin;
+    }
+
+    public void setPrioridad(String prioridad) {
+        this.prioridad = prioridad;
     }
 
 

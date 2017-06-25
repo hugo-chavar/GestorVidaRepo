@@ -130,6 +130,11 @@ public class AgregarActividadFragment extends Fragment{
         nuevaActividad.setFechaInicio(fechaInicio);
         nuevaActividad.setFechaFin(fechaFin);
 
+        //Agrego la prioridad, por ahora es solamente un string con 3 opciones ALTA, MEDIA, BAJA
+        Spinner spinnerPrioridades = (Spinner) view.findViewById(R.id.spinnerPrioridades);
+        nuevaActividad.setPrioridad( (String) spinnerPrioridades.getSelectedItem() );
+        
+
 
 
         //Se le setea todo lo demas que haya que setearle
