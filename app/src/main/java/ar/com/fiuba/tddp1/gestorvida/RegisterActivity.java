@@ -30,6 +30,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -355,19 +357,23 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             // TODO: attempt authentication against a network service.
 
             RequestSender requestSender = new RequestSender(context);
-            _params.put("nombreUsuario", mName);
+            _params.put("name", mName);
+            _params.put("username", mUsuario);
             _params.put("email", mEmail);
-            _params.put("sexo", mGenero);
-            _params.put("tipo", mUsuario); // TODO: no se si el tipo corresponde con usuario
-            _params.put("contraseña", mPassword);
+            //_params.put("sexo", mGenero); // TODO: no lo acepta el server
+            _params.put("password", mPassword);
             _params.put("nacimiento", mNacimiento);
 
-            //String url = getString(R.string.url) + "users";
-            String url2 = getString(R.string.url) + "ping";
+            JSONObject obj = new JSONObject(_params);
 
-            Log.d("UserLoginTask", "Sending ping to " + url2);
+            String url = getString(R.string.url) + "users/register";
+            //String url2 = getString(R.string.url) + "ping";
+
+            //Log.d("UserLoginTask", "Sending ping to " + url2);
+            Log.d("UserLoginTask", "Sending post to " + url + " params[ " + _params + "]");
             //requestSender.post(context, url, _params);
-            requestSender.get(context, url2);
+            requestSender.post(context, url, new JSONObject(_params));
+            //requestSender.get(context, url2);
 
             Log.d("UserLoginTask", "Continue ");
 
