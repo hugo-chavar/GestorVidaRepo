@@ -14,7 +14,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.LinkedList;
+
 import ar.com.fiuba.tddp1.gestorvida.actividades.ActividadesFragment;
+import ar.com.fiuba.tddp1.gestorvida.dominio.Objetivo;
+import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 import ar.com.fiuba.tddp1.gestorvida.estadisticas.EstadisticasFragment;
 import ar.com.fiuba.tddp1.gestorvida.objetivos.ObjetivosFragment;
 
@@ -43,6 +47,19 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        //TODO: SACAR ESTO DE ACA DESPUES
+        Perfil.agregarObjetivo(new Objetivo("Obj1"));
+        Perfil.agregarObjetivo(new Objetivo("Obj2"));
+        Perfil.agregarObjetivo(new Objetivo("Obj3"));
+        Perfil.agregarObjetivo(new Objetivo("Obj4"));
+        Perfil.agregarObjetivo(new Objetivo("Obj5"));
+        Perfil.agregarObjetivo(new Objetivo("Obj6"));
+        Perfil.agregarObjetivo(new Objetivo("Obj7"));
+        Perfil.agregarObjetivo(new Objetivo("Obj8"));
+        Perfil.agregarObjetivo(new Objetivo("Obj9"));
+        Perfil.agregarObjetivo(new Objetivo("Obj10"));
     }
 
     @Override
@@ -148,5 +165,4 @@ public class MainActivity extends AppCompatActivity
                         .replace(R.id.contenedor, fragment)
                         .commit();
     }
-
 }

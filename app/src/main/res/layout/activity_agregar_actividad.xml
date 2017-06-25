@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.nfc.tdp1_app_prueba.AgregarActividadActivity">
+    android:layout_height="match_parent">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -69,7 +68,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Selecionar fecha"
-            android:onClick="mostrarDatePicker"
             app:layout_constraintTop_toBottomOf="@+id/textInicioActividad"
             app:layout_constraintLeft_toRightOf="@+id/textViewInicioActividad"/>
 
@@ -86,7 +84,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Selecionar fecha"
-            android:onClick="mostrarDatePicker"
             app:layout_constraintTop_toBottomOf="@+id/textViewInicioActividad"
             app:layout_constraintLeft_toRightOf="@+id/textViewFinActividad"/>
 
@@ -135,8 +132,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/radioGroupPerioridicidad"
             app:layout_constraintLeft_toLeftOf="@+id/radioGroupPerioridicidad"
-            android:text="Tiempo estimado:"
-            android:onClick="clickTiempoEstimado"/>
+            android:text="Tiempo estimado:" />
 
         <EditText
             android:id="@+id/editTextTiempoEstimado"
@@ -160,8 +156,7 @@
             android:layout_height="wrap_content"
             android:text="Agregar actividad"
             app:layout_constraintTop_toBottomOf="@+id/spinnerObjetivos"
-            app:layout_constraintLeft_toLeftOf="@+id/spinnerObjetivos"
-            android:onClick="agregarActividad"/>
+            app:layout_constraintLeft_toLeftOf="@+id/spinnerObjetivos" />
 
     </android.support.constraint.ConstraintLayout>
 
