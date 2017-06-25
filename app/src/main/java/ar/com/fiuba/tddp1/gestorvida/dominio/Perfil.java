@@ -19,6 +19,9 @@ public class Perfil {
         return Perfil.objetivos;
     }
 
+    public static String token;
+    public static String id;
+
     public static void agregarActividad(Actividad nuevaActividad) {
         Perfil.actividades.add(nuevaActividad);
     }

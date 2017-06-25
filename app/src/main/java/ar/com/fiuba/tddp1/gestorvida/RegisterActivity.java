@@ -30,11 +30,13 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 import ar.com.fiuba.tddp1.gestorvida.web.RequestSender;
 import ar.com.fiuba.tddp1.gestorvida.web.ResponseListener;
 
@@ -303,18 +305,33 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
     }
 
     @Override
-    public void onRequestCompleted(String response) {
-        Log.d("RegisterActivity", "onRequestCompleted, response: " + response);
-        Toast.makeText(this, "Completado Ok!, " + response, Toast.LENGTH_LONG).show();
-        goToMain();
+    public void onRequestCompleted(JSONObject response) {
+
+        //Log.d("RegisterActivity", "onRequestCompleted, response: " + response);
+        //Toast.makeText(this, "Completado Ok!, " + response, Toast.LENGTH_LONG).show();
+        String token;
+        try {
+            Perfil.token = response.getString("token");
+            Perfil.id = response.getString("id");
+            goToMain();
+        } catch (JSONException e) {
+            showError("No se pudo obtener el Token");
+        }
 
     }
 
     @Override
-    public void onRequestError(String errorMessage) {
-        Log.d("RegisterActivity", "onRequestError: " + errorMessage);
-        Toast.makeText(this, "Servidor caído: " + errorMessage, Toast.LENGTH_LONG).show();
+    public void onRequestError(int cod, String errorMessage) {
+        if (cod == 409) {
+            mNameView.setError(getString(R.string.error_username_duplicated));
+            mNameView.requestFocus();;
+        }
+        showError(errorMessage);
+    }
 
+    public void showError(String error) {
+        Log.d("RegisterActivity", error);
+        Toast.makeText(this, error, Toast.LENGTH_LONG).show();
     }
 
 
@@ -377,16 +394,6 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
 
             Log.d("UserLoginTask", "Continue ");
 
-            /*
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-            */
-
-            // TODO: register the new account here.
             return true;
         }
 
@@ -394,7 +401,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             showProgress(false);
-            finish();
+            //finish();
         }
 
         @Override

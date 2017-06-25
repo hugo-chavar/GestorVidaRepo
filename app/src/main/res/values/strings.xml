@@ -32,6 +32,8 @@
     <string name="error_invalid_email">La dirección de email es inválida</string>
     <string name="error_invalid_password">La contraseña es inválida</string>
     <string name="error_incorrect_password">La constraseña es incorrecta</string>
+    <string name="error_username_duplicated">Nombre de usuario ya existe</string>
+    <string name="error_network_timeout">El servidor tardó demasiado en responder</string>
     <string name="error_field_required">Este campo es requerido</string>
     <string name="permission_rationale">"Debe permitir a la app acceder a su lista de contactos"
     </string>

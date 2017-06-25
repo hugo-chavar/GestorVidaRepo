@@ -2,27 +2,20 @@ package ar.com.fiuba.tddp1.gestorvida.web;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 
 public class RequestSender {
@@ -36,12 +29,10 @@ public class RequestSender {
     }
 
 
+    /*
     public void get(final ResponseListener listener, String url) {
-        //final TextView mTextView = (TextView) findViewById(R.id.textView2);
 
-        //RequestQueue queue = Volley.newRequestQueue(context);
 
-        // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
@@ -61,44 +52,7 @@ public class RequestSender {
 
         queue.add(stringRequest);
 
-    }
-
-
-    public void post(final ResponseListener listener, String url, final Map<String,String> params){
-
-        //RequestQueue queue = Volley.newRequestQueue(context);
-        StringRequest sr = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-        @Override
-        public void onResponse(String response) {
-            //Hacer algo con la respuesta
-            listener.onRequestCompleted(response);
-        }
-        }, new Response.ErrorListener() {
-        @Override
-        public void onErrorResponse(VolleyError error) {
-            //Hacer algo con el error
-            String errorDesc;
-            errorDesc = getError(error);
-
-            listener.onRequestError(errorDesc);
-        }
-        }){
-            @Override
-            protected Map<String,String> getParams(){
-
-                return params;
-            }
-
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String,String> header_params = new HashMap<String, String>();
-                header_params.put("Content-Type","application/json");
-                return header_params;
-            }
-        };
-        sr.setShouldCache(false);
-        queue.add(sr);
-    }
+    }*/
 
     public void post(final ResponseListener listener, String url, final JSONObject params){
 
@@ -106,13 +60,7 @@ public class RequestSender {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        try {
-                            listener.onRequestCompleted(response.toString(4));
-                            //VolleyLog.v("Response:%n %s", response.toString(4));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            listener.onRequestCompleted("JSONException");
-                        }
+                        listener.onRequestCompleted(response);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -120,7 +68,7 @@ public class RequestSender {
                 String errorDesc;
                 errorDesc = getError(error);
 
-                listener.onRequestError(errorDesc);
+                listener.onRequestError(error.networkResponse.statusCode, errorDesc);
 
             }
         });
@@ -140,6 +88,19 @@ public class RequestSender {
         } else if (error instanceof ServerError) {
             //TODO
             errorDesc = "Error de servidor. Cod: " + error.networkResponse.statusCode + ", " +  new String(error.networkResponse.data) ;
+            switch (error.networkResponse.statusCode) {
+                case 409:
+                    errorDesc = "Nombre de usuario ya existe";
+                    break;
+                case 400:
+                    errorDesc = "No se recibieron todos los parametros";
+                    break;
+                case 404:
+                    errorDesc = "La url invocada no corresponde a un servicio valido";
+                    break;
+                default:
+                    errorDesc = new String(error.networkResponse.data) ;
+            }
         } else if (error instanceof NetworkError) {
             //TODO
             errorDesc = "Error de red";
