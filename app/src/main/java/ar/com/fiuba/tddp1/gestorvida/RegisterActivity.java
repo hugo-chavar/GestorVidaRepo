@@ -307,9 +307,6 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
     @Override
     public void onRequestCompleted(JSONObject response) {
 
-        //Log.d("RegisterActivity", "onRequestCompleted, response: " + response);
-        //Toast.makeText(this, "Completado Ok!, " + response, Toast.LENGTH_LONG).show();
-        String token;
         try {
             Perfil.token = response.getString("token");
             Perfil.id = response.getString("id");
@@ -384,13 +381,13 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             JSONObject obj = new JSONObject(_params);
 
             String url = getString(R.string.url) + "users/register";
-            //String url2 = getString(R.string.url) + "ping";
 
-            //Log.d("UserLoginTask", "Sending ping to " + url2);
-            //Log.d("UserLoginTask", "Sending post to " + url + " params[ " + _params + "]");
-            //requestSender.post(context, url, _params);
+
             requestSender.doPost(context, url, new JSONObject(_params));
-            //requestSender.get(context, url2);
+
+            //PingListener listener = new PingListener(context);
+            //String url2 = getString(R.string.url) + "ping";
+            //requestSender.doGet(listener, url2);
 
             Log.d("UserLoginTask", "Continue ");
 
