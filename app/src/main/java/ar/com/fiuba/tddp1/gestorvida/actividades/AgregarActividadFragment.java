@@ -1,8 +1,10 @@
 package ar.com.fiuba.tddp1.gestorvida.actividades;
 
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -73,6 +76,13 @@ public class AgregarActividadFragment extends Fragment{
         });
 
 
+        Button buttonAgregarEtiqueta = (Button) view.findViewById(R.id.buttonAgregarEtiqueta);
+        buttonAgregarEtiqueta.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                agregarEtiqueta(v);
+            }
+        });
 
 
 
@@ -95,6 +105,28 @@ public class AgregarActividadFragment extends Fragment{
 
 
         return view;
+    }
+
+    private void agregarEtiqueta(View view) {
+        final EditText editTextEtiquetaIngresada = new EditText(this.getActivity());
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
+        builder.setTitle("Agregar etiqueta");
+        builder.setView(editTextEtiquetaIngresada);
+        builder.setPositiveButton("Agregar etiqueta", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                agregarEtiqueta(editTextEtiquetaIngresada.getText().toString());
+            }
+        });
+        builder.show();
+    }
+
+
+    public void agregarEtiqueta(String nombreEtiqueta) {
+        TextView textViewEtiquetaIngresada = new TextView(this.getActivity());
+        textViewEtiquetaIngresada.setText(nombreEtiqueta);
+        ( (LinearLayout) this.getView().findViewById(R.id.linearLayoutEtiquetas)).addView(textViewEtiquetaIngresada);
     }
 
 
@@ -133,7 +165,7 @@ public class AgregarActividadFragment extends Fragment{
         //Agrego la prioridad, por ahora es solamente un string con 3 opciones ALTA, MEDIA, BAJA
         Spinner spinnerPrioridades = (Spinner) view.findViewById(R.id.spinnerPrioridades);
         nuevaActividad.setPrioridad( (String) spinnerPrioridades.getSelectedItem() );
-        
+
 
 
 

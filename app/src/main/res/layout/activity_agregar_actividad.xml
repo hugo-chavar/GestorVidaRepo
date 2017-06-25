@@ -16,12 +16,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nombre"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
 
-            android:layout_marginBottom="475dp"
-            android:layout_marginRight="300dp" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp" />
 
         <EditText
             android:id="@+id/edittextNombre"
@@ -43,7 +41,7 @@
             android:id="@+id/edittextDescripcion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Input text" android:inputType="text"
+            android:text="Descripcion" android:inputType="text"
             app:layout_constraintTop_toBottomOf="@+id/textDescripcion"
             app:layout_constraintLeft_toLeftOf="@+id/textDescripcion"/>
 
@@ -99,8 +97,17 @@
             android:id="@+id/spinnerPrioridades"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/buttonAgregarEtiqueta"
+            app:layout_constraintLeft_toLeftOf="@+id/buttonAgregarEtiqueta" />
+
+        <TextView
+            android:id="@+id/textViewEtiquetas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Etiquetas"
             app:layout_constraintTop_toBottomOf="@+id/textViewPrioridad"
-            app:layout_constraintLeft_toLeftOf="@+id/textViewPrioridad"/>
+            app:layout_constraintLeft_toLeftOf="@+id/textViewPrioridad" />
+
 
         <RadioGroup
             android:id="@+id/radioGroupPerioridicidad"
@@ -109,6 +116,13 @@
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@+id/spinnerPrioridades"
             app:layout_constraintLeft_toLeftOf="@+id/spinnerPrioridades">
+
+            <RadioButton
+                android:id="@+id/radioButtonPeriodicidad1SolaVez"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1 sola vez" />
+
             <RadioButton
                 android:id="@+id/radioButtonPeriodicidadDiario"
                 android:layout_height="wrap_content"
@@ -157,6 +171,24 @@
             android:text="Agregar actividad"
             app:layout_constraintTop_toBottomOf="@+id/spinnerObjetivos"
             app:layout_constraintLeft_toLeftOf="@+id/spinnerObjetivos" />
+
+
+        <LinearLayout
+            android:id="@+id/linearLayoutEtiquetas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/textViewEtiquetas"
+            app:layout_constraintLeft_toLeftOf="@+id/textViewEtiquetas"
+            android:orientation="vertical">
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/buttonAgregarEtiqueta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutEtiquetas"
+            app:layout_constraintLeft_toLeftOf="@+id/linearLayoutEtiquetas"/>
 
     </android.support.constraint.ConstraintLayout>
 
