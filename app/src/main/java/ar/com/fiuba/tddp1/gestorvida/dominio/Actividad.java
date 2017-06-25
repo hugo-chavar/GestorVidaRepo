@@ -1,5 +1,8 @@
 package ar.com.fiuba.tddp1.gestorvida.dominio;
 
+import java.util.List;
+import java.util.Set;
+
 /**
  * Created by User on 11/06/2017.
  */
@@ -14,6 +17,7 @@ public class Actividad {
     private Fecha fechaFin = null;
 
     String prioridad = null;
+    private Set<String> etiquetas;
 
     public Actividad(String nombre) {
         this.nombre = nombre;
@@ -49,5 +53,9 @@ public class Actividad {
 
     public void completar() {
         this.estaCompletada = true;
+    }
+
+    public void setEtiquetas(Set<String> etiquetas) {
+        this.etiquetas = etiquetas;
     }
 }

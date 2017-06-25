@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +18,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import ar.com.fiuba.tddp1.gestorvida.DatePickerFragment;
 import ar.com.fiuba.tddp1.gestorvida.R;
@@ -34,6 +38,7 @@ import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 public class AgregarActividadFragment extends Fragment{
 
     private Map<Integer, TextView> textosFechas = new HashMap<>();
+    private Set<String> listaDeEtiquetas = new HashSet<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -109,6 +114,8 @@ public class AgregarActividadFragment extends Fragment{
 
     private void agregarEtiqueta(View view) {
         final EditText editTextEtiquetaIngresada = new EditText(this.getActivity());
+        editTextEtiquetaIngresada.setMaxLines(1);
+        editTextEtiquetaIngresada.setInputType(InputType.TYPE_CLASS_TEXT);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
         builder.setTitle("Agregar etiqueta");
@@ -133,6 +140,7 @@ public class AgregarActividadFragment extends Fragment{
         TextView textViewEtiquetaIngresada = new TextView(this.getActivity());
         textViewEtiquetaIngresada.setText(nombreEtiqueta);
         ( (LinearLayout) this.getView().findViewById(R.id.linearLayoutEtiquetas)).addView(textViewEtiquetaIngresada);
+        this.listaDeEtiquetas.add(nombreEtiqueta);
     }
 
 
@@ -171,6 +179,8 @@ public class AgregarActividadFragment extends Fragment{
         //Agrego la prioridad, por ahora es solamente un string con 3 opciones ALTA, MEDIA, BAJA
         Spinner spinnerPrioridades = (Spinner) view.findViewById(R.id.spinnerPrioridades);
         nuevaActividad.setPrioridad( (String) spinnerPrioridades.getSelectedItem() );
+
+        nuevaActividad.setEtiquetas(this.listaDeEtiquetas);
 
 
 
