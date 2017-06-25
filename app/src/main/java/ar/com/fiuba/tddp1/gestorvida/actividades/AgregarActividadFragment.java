@@ -36,6 +36,7 @@ public class AgregarActividadFragment extends Fragment{
 
         View view = inflater.inflate(R.layout.activity_agregar_actividad, container,false);
 
+        //A cada boton de fecha le asocio un textView en donde se va a escribir la fecha seleccionada
         this.textosFechas.put(R.id.buttonInicioActividad, (TextView) view.findViewById(R.id.textViewInicioActividad) );
         this.textosFechas.put(R.id.buttonFinActividad, (TextView) view.findViewById(R.id.textViewFinActividad) );
 
@@ -71,6 +72,9 @@ public class AgregarActividadFragment extends Fragment{
         });
 
 
+
+
+
         CheckBox checkBoxTiempoEstimado = (CheckBox) view.findViewById(R.id.checkBoxTiempoEstimado);
         checkBoxTiempoEstimado.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,6 +82,7 @@ public class AgregarActividadFragment extends Fragment{
                 clickTiempoEstimado(v);
             }
         });
+
 
         Button buttonAgregarActividad = (Button) view.findViewById(R.id.buttonAgregarActividad);
         buttonAgregarActividad.setOnClickListener(new View.OnClickListener() {
@@ -111,8 +116,14 @@ public class AgregarActividadFragment extends Fragment{
 
         //Lo mismo que en el caso del tiempo estimado
         View rootView = view.getRootView();
+        //Se crea la actividad con el nombre
         Actividad nuevaActividad = new Actividad(  ((EditText) rootView.findViewById(R.id.edittextNombre)).getText().toString()   );
+
+        //Se le setea la descripcion
+        nuevaActividad.setDescripcion( ((EditText) rootView.findViewById(R.id.edittextDescripcion)).getText().toString() );
         //Se le setea todo lo demas que haya que setearle
+
+
 
         //esto deberia ser solo si se eligio agregarlo a un objetivo
         Objetivo objetivoSeleccionado =  (Objetivo)((Spinner)rootView.findViewById(R.id.spinnerObjetivos)).getSelectedItem();

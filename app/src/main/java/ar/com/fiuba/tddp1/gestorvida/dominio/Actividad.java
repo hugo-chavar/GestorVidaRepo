@@ -7,11 +7,16 @@ package ar.com.fiuba.tddp1.gestorvida.dominio;
 public class Actividad {
 
     private String nombre;
+    private String descripcion;
     private boolean estaCompletada;
 
     public Actividad(String nombre) {
         this.nombre = nombre;
         this.estaCompletada = false;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public boolean estaCompletada() {
