@@ -138,6 +138,8 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_buscar) {
             //Mostrar pantalla busqueda de actividades
+            Intent intent = new Intent(this, BuscarActividadActivity.class);
+            startActivity(intent);
 
         } else if (id == R.id.nav_estadisticas) {
             //Mostrar pantalla de estadisticas

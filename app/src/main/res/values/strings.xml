@@ -50,5 +50,4 @@
     <string name="error_invalid_name">El nombre es inválido</string>
     <string name="error_invalid_nacimiento">Ingrese su fecha de nacimiento así: DD-MM-AAAA</string>
     <string name="url">http://192.168.1.101:8080/</string>
-
 </resources>
