@@ -119,6 +119,12 @@ public class AgregarActividadFragment extends Fragment{
                 agregarEtiqueta(editTextEtiquetaIngresada.getText().toString());
             }
         });
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //No hacer nada
+            }
+        });
         builder.show();
     }
 
