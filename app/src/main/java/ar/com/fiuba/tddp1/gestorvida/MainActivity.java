@@ -18,6 +18,7 @@ import ar.com.fiuba.tddp1.gestorvida.actividades.ActividadesFragment;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Objetivo;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 import ar.com.fiuba.tddp1.gestorvida.estadisticas.EstadisticasActividadesCompletadasFragment;
+import ar.com.fiuba.tddp1.gestorvida.estadisticas.EstadisticasEtiquetasPieChartFragment;
 import ar.com.fiuba.tddp1.gestorvida.estadisticas.EstadisticasFragment;
 import ar.com.fiuba.tddp1.gestorvida.objetivos.ObjetivosFragment;
 
@@ -141,7 +142,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_estadisticas) {
             //Mostrar pantalla de estadisticas
             //setFragment( new EstadisticasFragment() );
-            setFragment( new EstadisticasActividadesCompletadasFragment() );
+            //setFragment( new EstadisticasActividadesCompletadasFragment() );
+            setFragment( new EstadisticasEtiquetasPieChartFragment() );
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
