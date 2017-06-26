@@ -21,6 +21,8 @@ public class Actividad {
 
     private Fecha fechaRecordatorio;
     private int periodicidad;
+    private String horasEstimadas;
+    private String minutosEstimados;
 
     public Actividad(String nombre) {
         this.nombre = nombre;
@@ -68,5 +70,10 @@ public class Actividad {
 
     public void setPeriodicidad(int periodicidad) {
         this.periodicidad = periodicidad;
+    }
+
+    public void setTiempoEstimado(String horas, String minutos) {
+        this.horasEstimadas = horas;
+        this.minutosEstimados = minutos;
     }
 }

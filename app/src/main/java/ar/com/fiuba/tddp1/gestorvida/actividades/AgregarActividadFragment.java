@@ -201,15 +201,16 @@ public class AgregarActividadFragment extends Fragment{
         nuevaActividad.setFechaFin(fechaFin);
 
         //Agrego la prioridad, por ahora es solamente un string con 3 opciones ALTA, MEDIA, BAJA
-        Spinner spinnerPrioridades = (Spinner) view.findViewById(R.id.spinnerPrioridades);
-        nuevaActividad.setPrioridad( (String) spinnerPrioridades.getSelectedItem() );
+        Spinner spinnerPrioridades = (Spinner) rootView.findViewById(R.id.spinnerPrioridades);
+        String prioridadSeleccionada = (String) spinnerPrioridades.getSelectedItem();
+        nuevaActividad.setPrioridad( prioridadSeleccionada );
 
         nuevaActividad.setEtiquetas(this.listaDeEtiquetas);
 
         Fecha fechaRecordatorio = this.parsearFecha( (TextView) rootView.findViewById(R.id.textViewFechaRecordatorio));
         nuevaActividad.setFechaRecordatorio(fechaRecordatorio);
 
-        RadioGroup groupPeriodicidad = (RadioGroup) view.findViewById(R.id.radioGroupPerioridicidad);
+        RadioGroup groupPeriodicidad = (RadioGroup) rootView.findViewById(R.id.radioGroupPerioridicidad);
         int periodicidad = 0;
         int periodicidadSeleccionada = groupPeriodicidad.getCheckedRadioButtonId();
         if (periodicidadSeleccionada == R.id.radioButtonPeriodicidadDiario) {
@@ -219,9 +220,17 @@ public class AgregarActividadFragment extends Fragment{
             periodicidad = 7;
         }
         else if (periodicidadSeleccionada == R.id.radioButtonPeriodicidadCadaXDias) {
-            periodicidad = Integer.parseInt( ( (EditText) view.findViewById(R.id.editTextXDias)).getText().toString() );
+            periodicidad = Integer.parseInt( ( (EditText) rootView.findViewById(R.id.editTextXDias)).getText().toString() );
         }
         nuevaActividad.setPeriodicidad(periodicidad);
+
+
+        CheckBox checkBoxTiempoEstimado = (CheckBox) rootView.findViewById(R.id.checkBoxTiempoEstimado);
+        if (checkBoxTiempoEstimado.isChecked()) {
+            EditText editTextTiempoEstimado = (EditText) rootView.findViewById(R.id.editTextTiempoEstimado);
+            String[] tiempoEstimado = editTextTiempoEstimado.getText().toString().split(":");
+            nuevaActividad.setTiempoEstimado(tiempoEstimado[0], tiempoEstimado[1]);
+        }
 
 
         //Se le setea todo lo demas que haya que setearle

@@ -144,25 +144,27 @@
             android:id="@+id/checkBoxTiempoEstimado"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroupPerioridicidad"
-            app:layout_constraintLeft_toLeftOf="@+id/radioGroupPerioridicidad"
-            android:text="Tiempo estimado:" />
+            android:text="Tiempo estimado:"
+            app:layout_constraintLeft_toLeftOf="@+id/textViewEstimacion"
+            app:layout_constraintTop_toBottomOf="@+id/textViewEstimacion" />
 
         <EditText
             android:id="@+id/editTextTiempoEstimado"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="horas:minutos:segundos"
+            android:text="0:00"
+            android:enabled="false"
+            android:maxLines="1"
+            android:inputType="time"
             app:layout_constraintLeft_toRightOf="@+id/checkBoxTiempoEstimado"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroupPerioridicidad"
-            android:enabled="false"/>
+            app:layout_constraintTop_toBottomOf="@+id/textViewEstimacion" />
 
         <Spinner
             android:id="@+id/spinnerObjetivos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/checkBoxTiempoEstimado"
-            app:layout_constraintLeft_toLeftOf="@+id/checkBoxTiempoEstimado"/>
+            app:layout_constraintTop_toBottomOf="@+id/textViewObjetivo"
+            app:layout_constraintLeft_toLeftOf="@+id/textViewObjetivo" />
 
         <Button
             android:id="@+id/buttonAgregarActividad"
@@ -235,8 +237,21 @@
             app:layout_constraintTop_toBottomOf="@+id/spinnerPrioridades"
             app:layout_constraintLeft_toLeftOf="@+id/spinnerPrioridades" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Estimacion"
+            android:id="@+id/textViewEstimacion"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroupPerioridicidad"
+            app:layout_constraintLeft_toLeftOf="@+id/radioGroupPerioridicidad" />
 
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Objetivo"
+            android:id="@+id/textViewObjetivo"
+            app:layout_constraintTop_toBottomOf="@+id/checkBoxTiempoEstimado"
+            app:layout_constraintLeft_toLeftOf="@+id/checkBoxTiempoEstimado" />
 
     </android.support.constraint.ConstraintLayout>
 
