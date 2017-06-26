@@ -1,7 +1,12 @@
 package ar.com.fiuba.tddp1.gestorvida.dominio;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by User on 11/06/2017.
@@ -23,8 +28,12 @@ public class Perfil {
     public static String token;
     public static String id;
 
+
+    private static Set<String> etiquetas = new HashSet<>();
+
     public static void agregarActividad(Actividad nuevaActividad) {
         Perfil.actividades.add(nuevaActividad);
+        Perfil.etiquetas.addAll(nuevaActividad.getEtiquetas());
     }
 
 
@@ -43,7 +52,7 @@ public class Perfil {
         return Perfil.actividades;
     }
 
-    public static Integer[] getActividadesCompletadasEnSemana() {
+    public static Integer[] getCantidadActividadesCompletadasEnSemana() {
         Integer[] actividadesCompletadasEnSemana = new Integer[7];
         for (int i = 0; i < 7; i++) {
             actividadesCompletadasEnSemana[i] = 0;
@@ -56,5 +65,35 @@ public class Perfil {
         }
 
         return actividadesCompletadasEnSemana;
+    }
+
+
+    public static Map<String,Float> getActividadDeEtiquetas() {
+        Map<String, Float> actividadDeEtiquetas = new HashMap<>();
+        for ( String etiqueta : Perfil.etiquetas ) {
+            actividadDeEtiquetas.put(etiqueta, 0f);
+        }
+
+        for (Actividad actividad : Perfil.getActividadesCompletadas()) {
+            Set<String> etiquetasDeActividad = actividad.getEtiquetas();
+            float pesoEtiqueta = (float) 1/etiquetasDeActividad.size();
+
+            for (String etiqueta : etiquetasDeActividad) {
+                float actividadActualizada = actividadDeEtiquetas.get(etiqueta) + pesoEtiqueta;
+                actividadDeEtiquetas.put(etiqueta, actividadActualizada);
+            }
+        }
+
+        return actividadDeEtiquetas;
+    }
+
+    public static List<Actividad> getActividadesCompletadas() {
+        List<Actividad> actividadesCompletadas = new ArrayList<>();
+        for (Actividad actividad : Perfil.getTodasLasActividades()) {
+            if (actividad.estaCompleta()) {
+                actividadesCompletadas.add(actividad);
+            }
+        }
+        return actividadesCompletadas;
     }
 }

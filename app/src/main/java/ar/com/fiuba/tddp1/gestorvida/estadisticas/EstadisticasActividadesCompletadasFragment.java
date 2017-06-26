@@ -1,6 +1,5 @@
 package ar.com.fiuba.tddp1.gestorvida.estadisticas;
 
-import android.support.annotation.IntegerRes;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -36,7 +35,7 @@ public class EstadisticasActividadesCompletadasFragment extends Fragment{
         //Primero se crea una lista de Entry (un punto X,Y) con los valores que pongamos
         Integer[] valoresXDias = new Integer[]{1,2,3,4,5,6,7}; //Para la demo solo vamos a usar 1 semana, 7 dias
         //Integer[] valoresYCantidadActividadesCompletadas = new Integer[]{1,2,8,4,2,6,8};
-        Integer[] valoresYCantidadActividadesCompletadas = Perfil.getActividadesCompletadasEnSemana();
+        Integer[] valoresYCantidadActividadesCompletadas = Perfil.getCantidadActividadesCompletadasEnSemana();
         List<Entry> puntos = new ArrayList<Entry>();
         for (int i = 0; i < valoresXDias.length; i++ ) {
             puntos.add( new Entry(valoresXDias[i], valoresYCantidadActividadesCompletadas[i]) );

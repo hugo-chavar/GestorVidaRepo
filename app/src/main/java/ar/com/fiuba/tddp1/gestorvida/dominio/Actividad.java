@@ -113,4 +113,8 @@ public class Actividad {
     public Integer getDiaEnQueSeCompleto() {
         return this.diaEnQueSeCompleto;
     }
+
+    public Set<String> getEtiquetas() {
+        return this.etiquetas;
+    }
 }

@@ -23,10 +23,13 @@ import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import ar.com.fiuba.tddp1.gestorvida.R;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
+import ar.com.fiuba.tddp1.gestorvida.web.Pair;
 
 /**
  * Created by User on 26/06/2017.
@@ -42,12 +45,13 @@ public class EstadisticasEtiquetasPieChartFragment extends Fragment {
 
         PieChart grafico = (PieChart) view.findViewById(R.id.pieChartEtiquetas);
 
-        //Primero se crea una lista de Entry (un punto X,Y) con los valores que pongamos
-        Float[] valorSlice = new Float[]{2f, 5f, 3f, 2f, 5f};
-        String[] nombreEtiqueta = new String[]{"tag1", "tag2", "tag3", "tag4", "tag5"};
+
+        Map<String, Float> actividadDeEtiquetas = Perfil.getActividadDeEtiquetas();
         List<PieEntry> etiquetas = new ArrayList<>();
-        for (int i = 0; i < valorSlice.length; i++) {
-            etiquetas.add(new PieEntry(valorSlice[i], nombreEtiqueta[i]));
+        for (Map.Entry<String, Float> etiqueta : actividadDeEtiquetas.entrySet()) {
+            if (etiqueta.getValue() > 0) {
+                etiquetas.add(new PieEntry(etiqueta.getValue(),etiqueta.getKey()));
+            }
         }
 
         grafico.setUsePercentValues(true);
