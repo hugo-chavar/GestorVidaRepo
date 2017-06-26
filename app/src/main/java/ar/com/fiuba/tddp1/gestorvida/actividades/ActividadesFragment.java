@@ -48,7 +48,8 @@ public class ActividadesFragment extends RecyclerFragment {
         Activity activity = getActivity();
 
         //ActividadAdapter adapter = new ActividadAdapter(lista, activity);
-        ActividadAdapter adapter = new ActividadAdapter(Perfil.getActividadesPendientes(), activity);
+        //ActividadAdapter adapter = new ActividadAdapter(Perfil.getActividadesPendientes(), activity);
+        ActividadAdapter adapter = new ActividadAdapter(Perfil.getTodasLasActividades(), activity);
 
         setConfiguredAdapter(adapter);
 

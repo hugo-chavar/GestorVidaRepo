@@ -89,4 +89,8 @@ public class Actividad {
     public void esActividadPrivada(boolean esPrivada) {
         this.esPrivada = esPrivada;
     }
+
+    public void alternarEstadoCompleta() {
+        this.estaCompletada = !this.estaCompletada;
+    }
 }

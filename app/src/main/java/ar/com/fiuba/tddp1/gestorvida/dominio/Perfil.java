@@ -1,6 +1,7 @@
 package ar.com.fiuba.tddp1.gestorvida.dominio;
 
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by User on 11/06/2017.
@@ -36,5 +37,9 @@ public class Perfil {
             }
         }
         return actividadesPendientes;
+    }
+
+    public static List<Actividad> getTodasLasActividades() {
+        return Perfil.actividades;
     }
 }

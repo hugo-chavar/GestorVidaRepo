@@ -39,20 +39,22 @@ public class ActividadAdapter extends RecyclerView.Adapter<ActividadViewHolder>{
     @Override
     public void onBindViewHolder(ActividadViewHolder holder, int position) {
 
-        Actividad p = this.lista.get(position);
-        String nombre = p.getNombre();
-        String completada = "Completa: " + (p.estaCompletada() ? "SI" : "NO");
+        Actividad actividad = this.lista.get(position);
+        String nombre = actividad.getNombre();
+        String completada = "Completa: " + (actividad.estaCompletada() ? "SI" : "NO");
 
         TextView txtNombre = holder.textViewNombre;
-
         txtNombre.setText(nombre);
 
         TextView txtCompletada = holder.textViewCompletada;
-
         txtCompletada.setText(completada);
 
         // me guardo la posicion de los datos que cargue en este VH
         holder.position = position;
+
+        //Guardo la actividad en el holder
+        holder.asociarActividad(actividad);
+        holder.adapter = this;
     }
 
     @Override
