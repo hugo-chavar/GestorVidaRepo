@@ -39,14 +39,6 @@ import ar.com.fiuba.tddp1.gestorvida.web.ResponseListener;
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor>, ResponseListener {
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "Pedro:foo@example.com:hello", "Pablo:bar@example.com:world"
-    };
-
     // UI references.
     private EditText mNameView;
     private EditText mPasswordView;
@@ -133,8 +125,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // perform the user login attempt.
             showProgress(true);
             login(name, password);
-            //mAuthTask = new UserLoginTask(name, password);
-            //mAuthTask.execute((Void) null);
             //goToMain();
         }
     }

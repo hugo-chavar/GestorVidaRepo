@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -37,6 +36,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
+import ar.com.fiuba.tddp1.gestorvida.web.PingListener;
 import ar.com.fiuba.tddp1.gestorvida.web.RequestSender;
 import ar.com.fiuba.tddp1.gestorvida.web.ResponseListener;
 
@@ -45,10 +45,6 @@ import ar.com.fiuba.tddp1.gestorvida.web.ResponseListener;
  */
 public class RegisterActivity extends AppCompatActivity implements LoaderCallbacks<Cursor>, ResponseListener {
 
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
-    private UserLoginTask mAuthTask = null;
 
     // UI references.
     private EditText mNameView;
@@ -130,9 +126,6 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-        if (mAuthTask != null) {
-            return;
-        }
 
         // Reset errors.
         mNameView.setError(null);
@@ -223,11 +216,40 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(name, email, genero, usuario, nacimiento, password);
-            mAuthTask.setContext(this);
-            mAuthTask.execute((Void) null);
-            //goToMain();
+
+            register(name, email, genero, usuario, nacimiento, password);
         }
+    }
+
+    private void register(String name, String email, String genero, String usuario, String nacimiento, String password) {
+
+        Map<String,String> _params;
+        _params = new HashMap<String,String>();
+        RequestSender requestSender = new RequestSender(this);
+        _params.put("name", name);
+        _params.put("username", name); //mUsuario es en realidad el tipo de usuario
+        _params.put("email", email);
+        //_params.put("sexo", mGenero); // TODO: no lo acepta el server
+        _params.put("password", password);
+        _params.put("nacimiento", nacimiento);
+
+        JSONObject obj = new JSONObject(_params);
+
+        String url = getString(R.string.url) + "users/register";
+
+
+        requestSender.doPost(this, url, new JSONObject(_params));
+
+        //PingListener listener = new PingListener(context);
+        //String url2 = getString(R.string.url) + "ping";
+        //requestSender.doGet(listener, url2);
+    }
+
+    private void doPing() {
+        RequestSender requestSender = new RequestSender(this);
+        PingListener listener = new PingListener(this);
+        String url = getString(R.string.url) + "ping";
+        requestSender.doGet(listener, url);
     }
 
     private boolean isNacimientoValid(String nacimiento) {
@@ -305,9 +327,11 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
     @Override
     public void onRequestCompleted(JSONObject response) {
 
+        showProgress(false);
         try {
             Perfil.token = response.getString("token");
             Perfil.id = response.getString("id");
+            Toast.makeText(this, "Registro exitoso", Toast.LENGTH_LONG).show();
             goToMain();
         } catch (JSONException e) {
             showError("No se pudo obtener el Token");
@@ -317,7 +341,9 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
 
     @Override
     public void onRequestError(int cod, String errorMessage) {
-        if (cod == 404) {
+
+        showProgress(false);
+        if (cod == 409) {
             mNameView.setError(getString(R.string.error_username_duplicated));
             mNameView.requestFocus();
         }
@@ -336,76 +362,6 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
                 ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
         };
 
-    }
-
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-    private class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-
-        private final String mName;
-        private final String mEmail;
-        private final String mGenero;
-        private final String mUsuario;
-        private final String mNacimiento;
-        private final String mPassword;
-
-        private final Map<String,String> _params;
-        private RegisterActivity context;
-
-        UserLoginTask(String name, String email, String genero, String usuario, String nacimiento, String password) {
-            mName = name;
-            mEmail = email;
-            mGenero = genero;
-            mUsuario = usuario;
-            mNacimiento = nacimiento;
-            mPassword = password;
-            _params = new HashMap<String,String>();
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            RequestSender requestSender = new RequestSender(context);
-            _params.put("name", mName);
-            _params.put("username", mName); //mUsuario es en realidad el tipo de usuario
-            _params.put("email", mEmail);
-            //_params.put("sexo", mGenero); // TODO: no lo acepta el server
-            _params.put("password", mPassword);
-            _params.put("nacimiento", mNacimiento);
-
-            JSONObject obj = new JSONObject(_params);
-
-            String url = getString(R.string.url) + "users/register";
-
-
-            requestSender.doPost(context, url, new JSONObject(_params));
-
-            //PingListener listener = new PingListener(context);
-            //String url2 = getString(R.string.url) + "ping";
-            //requestSender.doGet(listener, url2);
-
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            showProgress(false);
-            //finish();
-        }
-
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-            showProgress(false);
-        }
-
-        public void setContext(RegisterActivity context) {
-            this.context = context;
-        }
     }
 
     public void goToMain() {
