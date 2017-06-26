@@ -144,7 +144,7 @@ public class AgregarActividadFragment extends Fragment{
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
         builder.setTitle("Agregar etiqueta");
         builder.setView(editTextEtiquetaIngresada);
-        builder.setPositiveButton("Agregar etiqueta", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 agregarEtiqueta(editTextEtiquetaIngresada.getText().toString());
@@ -236,7 +236,7 @@ public class AgregarActividadFragment extends Fragment{
         RadioGroup groupTipoActividad = (RadioGroup) rootView.findViewById(R.id.radioGroupTipoActividad);
         nuevaActividad.esActividadPrivada(groupTipoActividad.getCheckedRadioButtonId() == R.id.radioButtonActividadPrivada);
 
-        //Se le setea todo lo demas que haya que setearle
+
 
 
 
