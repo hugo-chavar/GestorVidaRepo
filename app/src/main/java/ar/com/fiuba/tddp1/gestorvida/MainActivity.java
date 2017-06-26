@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity
 
 
         //TODO: SACAR ESTO DE ACA DESPUES
+        Perfil.agregarObjetivo(new Objetivo("Sin objetivo"));
         Perfil.agregarObjetivo(new Objetivo("Obj1"));
         Perfil.agregarObjetivo(new Objetivo("Obj2"));
         Perfil.agregarObjetivo(new Objetivo("Obj3"));

@@ -1,5 +1,8 @@
 package ar.com.fiuba.tddp1.gestorvida.dominio;
 
+import java.util.List;
+import java.util.Set;
+
 /**
  * Created by User on 11/06/2017.
  */
@@ -14,6 +17,13 @@ public class Actividad {
     private Fecha fechaFin = null;
 
     String prioridad = null;
+    private Set<String> etiquetas;
+
+    private Fecha fechaRecordatorio;
+    private int periodicidad;
+    private String horasEstimadas;
+    private String minutosEstimados;
+    private boolean esPrivada;
 
     public Actividad(String nombre) {
         this.nombre = nombre;
@@ -49,5 +59,34 @@ public class Actividad {
 
     public void completar() {
         this.estaCompletada = true;
+    }
+
+    public void setEtiquetas(Set<String> etiquetas) {
+        this.etiquetas = etiquetas;
+    }
+
+    public void setFechaRecordatorio(Fecha fechaRecordatorio) {
+        this.fechaRecordatorio = fechaRecordatorio;
+    }
+
+    public void setPeriodicidad(int periodicidad) {
+        this.periodicidad = periodicidad;
+    }
+
+    public void setTiempoEstimado(String horas, String minutos) {
+        this.horasEstimadas = horas;
+        this.minutosEstimados = minutos;
+    }
+
+    public Fecha getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public Fecha getFechaFin() {
+        return fechaFin;
+    }
+
+    public void esActividadPrivada(boolean esPrivada) {
+        this.esPrivada = esPrivada;
     }
 }

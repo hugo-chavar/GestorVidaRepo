@@ -2,9 +2,13 @@ package ar.com.fiuba.tddp1.gestorvida.actividades;
 
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
+import android.support.annotation.IntegerRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +17,15 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Set;
 
 import ar.com.fiuba.tddp1.gestorvida.DatePickerFragment;
 import ar.com.fiuba.tddp1.gestorvida.R;
@@ -34,6 +41,7 @@ import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 public class AgregarActividadFragment extends Fragment{
 
     private Map<Integer, TextView> textosFechas = new HashMap<>();
+    private Set<String> listaDeEtiquetas = new HashSet<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,6 +51,7 @@ public class AgregarActividadFragment extends Fragment{
         //A cada boton de fecha le asocio un textView en donde se va a escribir la fecha seleccionada
         this.textosFechas.put(R.id.buttonInicioActividad, (TextView) view.findViewById(R.id.textViewInicioActividad) );
         this.textosFechas.put(R.id.buttonFinActividad, (TextView) view.findViewById(R.id.textViewFinActividad) );
+        this.textosFechas.put(R.id.buttonRecordatorio, (TextView) view.findViewById(R.id.textViewFechaRecordatorio) );
 
         String[] prioridades = new String[] {"ALTA", "MEDIA", "BAJA"};
         Spinner spinnerPrioridades = (Spinner) view.findViewById(R.id.spinnerPrioridades);
@@ -104,11 +113,33 @@ public class AgregarActividadFragment extends Fragment{
         });
 
 
+        Button buttonRecordatorio = (Button) view.findViewById(R.id.buttonRecordatorio);
+        buttonRecordatorio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mostrarDatePicker(v);
+            }
+        });
+
+
+        RadioGroup groupPeriodicidad = (RadioGroup) view.findViewById(R.id.radioGroupPerioridicidad);
+        groupPeriodicidad.check(R.id.radioButtonPeriodicidad1SolaVez);
+        groupPeriodicidad.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                //El edit text de X dias SOLO se activa si se eligio el radioButton corespondiente
+                getView().findViewById(R.id.editTextXDias).setEnabled( checkedId == R.id.radioButtonPeriodicidadCadaXDias );
+            }
+        });
+
+
         return view;
     }
 
     private void agregarEtiqueta(View view) {
         final EditText editTextEtiquetaIngresada = new EditText(this.getActivity());
+        editTextEtiquetaIngresada.setMaxLines(1);
+        editTextEtiquetaIngresada.setInputType(InputType.TYPE_CLASS_TEXT);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
         builder.setTitle("Agregar etiqueta");
@@ -133,6 +164,7 @@ public class AgregarActividadFragment extends Fragment{
         TextView textViewEtiquetaIngresada = new TextView(this.getActivity());
         textViewEtiquetaIngresada.setText(nombreEtiqueta);
         ( (LinearLayout) this.getView().findViewById(R.id.linearLayoutEtiquetas)).addView(textViewEtiquetaIngresada);
+        this.listaDeEtiquetas.add(nombreEtiqueta);
     }
 
 
@@ -169,14 +201,42 @@ public class AgregarActividadFragment extends Fragment{
         nuevaActividad.setFechaFin(fechaFin);
 
         //Agrego la prioridad, por ahora es solamente un string con 3 opciones ALTA, MEDIA, BAJA
-        Spinner spinnerPrioridades = (Spinner) view.findViewById(R.id.spinnerPrioridades);
-        nuevaActividad.setPrioridad( (String) spinnerPrioridades.getSelectedItem() );
+        Spinner spinnerPrioridades = (Spinner) rootView.findViewById(R.id.spinnerPrioridades);
+        String prioridadSeleccionada = (String) spinnerPrioridades.getSelectedItem();
+        nuevaActividad.setPrioridad( prioridadSeleccionada );
+
+        nuevaActividad.setEtiquetas(this.listaDeEtiquetas);
+
+        Fecha fechaRecordatorio = this.parsearFecha( (TextView) rootView.findViewById(R.id.textViewFechaRecordatorio));
+        nuevaActividad.setFechaRecordatorio(fechaRecordatorio);
+
+        RadioGroup groupPeriodicidad = (RadioGroup) rootView.findViewById(R.id.radioGroupPerioridicidad);
+        int periodicidad = 0;
+        int periodicidadSeleccionada = groupPeriodicidad.getCheckedRadioButtonId();
+        if (periodicidadSeleccionada == R.id.radioButtonPeriodicidadDiario) {
+            periodicidad = 1;
+        }
+        else if (periodicidadSeleccionada == R.id.radioButtonPeriodicidadSemanal) {
+            periodicidad = 7;
+        }
+        else if (periodicidadSeleccionada == R.id.radioButtonPeriodicidadCadaXDias) {
+            periodicidad = Integer.parseInt( ( (EditText) rootView.findViewById(R.id.editTextXDias)).getText().toString() );
+        }
+        nuevaActividad.setPeriodicidad(periodicidad);
 
 
+        CheckBox checkBoxTiempoEstimado = (CheckBox) rootView.findViewById(R.id.checkBoxTiempoEstimado);
+        if (checkBoxTiempoEstimado.isChecked()) {
+            EditText editTextTiempoEstimado = (EditText) rootView.findViewById(R.id.editTextTiempoEstimado);
+            String[] tiempoEstimado = editTextTiempoEstimado.getText().toString().split(":");
+            nuevaActividad.setTiempoEstimado(tiempoEstimado[0], tiempoEstimado[1]);
+        }
 
+
+        RadioGroup groupTipoActividad = (RadioGroup) rootView.findViewById(R.id.radioGroupTipoActividad);
+        nuevaActividad.esActividadPrivada(groupTipoActividad.getCheckedRadioButtonId() == R.id.radioButtonActividadPrivada);
 
         //Se le setea todo lo demas que haya que setearle
-
 
 
 
