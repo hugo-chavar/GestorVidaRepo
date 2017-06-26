@@ -89,6 +89,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
 
                 Time date = new Time();
                 DatePickerDialog d = new DatePickerDialog(RegisterActivity.this, dpd, date.year ,date.month, date.monthDay);
+                d.updateDate(2017,6,1);
                 d.show();
 
             }
@@ -234,17 +235,14 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
     }
 
     private boolean isNameValid(String name) {
-        //TODO: Replace this with your own logic
         return name.length() > 2;
     }
 
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
         return email.contains("@");
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return password.length() > 4;
     }
 
@@ -307,9 +305,6 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
     @Override
     public void onRequestCompleted(JSONObject response) {
 
-        //Log.d("RegisterActivity", "onRequestCompleted, response: " + response);
-        //Toast.makeText(this, "Completado Ok!, " + response, Toast.LENGTH_LONG).show();
-        String token;
         try {
             Perfil.token = response.getString("token");
             Perfil.id = response.getString("id");
@@ -384,13 +379,13 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             JSONObject obj = new JSONObject(_params);
 
             String url = getString(R.string.url) + "users/register";
-            //String url2 = getString(R.string.url) + "ping";
 
-            //Log.d("UserLoginTask", "Sending ping to " + url2);
-            Log.d("UserLoginTask", "Sending post to " + url + " params[ " + _params + "]");
-            //requestSender.post(context, url, _params);
-            requestSender.post(context, url, new JSONObject(_params));
-            //requestSender.get(context, url2);
+
+            requestSender.doPost(context, url, new JSONObject(_params));
+
+            //PingListener listener = new PingListener(context);
+            //String url2 = getString(R.string.url) + "ping";
+            //requestSender.doGet(listener, url2);
 
             Log.d("UserLoginTask", "Continue ");
 

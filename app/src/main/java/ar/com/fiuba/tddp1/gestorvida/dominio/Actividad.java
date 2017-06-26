@@ -75,5 +75,12 @@ public class Actividad {
     public void setTiempoEstimado(String horas, String minutos) {
         this.horasEstimadas = horas;
         this.minutosEstimados = minutos;
+
+    public Fecha getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public Fecha getFechaFin() {
+        return fechaFin;
     }
 }

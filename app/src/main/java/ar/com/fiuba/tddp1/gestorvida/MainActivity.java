@@ -14,8 +14,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.LinkedList;
-
 import ar.com.fiuba.tddp1.gestorvida.actividades.ActividadesFragment;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Objetivo;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
@@ -131,10 +129,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_objetivos) {
             //Mostrar pantalla Objetivos
-            /*
-            Intent intent = new Intent(this, VerObjetivosActivity.class);
-            startActivity(intent);
-            */
+
             setFragment(new ObjetivosFragment());
 
         } else if (id == R.id.nav_buscar) {
