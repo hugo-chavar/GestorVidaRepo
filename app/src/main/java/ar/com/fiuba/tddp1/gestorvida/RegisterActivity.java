@@ -389,8 +389,6 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             //String url2 = getString(R.string.url) + "ping";
             //requestSender.doGet(listener, url2);
 
-            Log.d("UserLoginTask", "Continue ");
-
             return true;
         }
 
