@@ -171,8 +171,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Agregar actividad"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerObjetivos"
-            app:layout_constraintLeft_toLeftOf="@+id/spinnerObjetivos" />
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroupTipoActividad"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintLeft_toLeftOf="@+id/radioGroupTipoActividad" />
 
 
         <LinearLayout
@@ -246,12 +248,46 @@
             app:layout_constraintLeft_toLeftOf="@+id/radioGroupPerioridicidad" />
 
         <TextView
+            android:id="@+id/textViewObjetivo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Objetivo"
-            android:id="@+id/textViewObjetivo"
+            android:text="Asociar a objetivo"
             app:layout_constraintTop_toBottomOf="@+id/checkBoxTiempoEstimado"
             app:layout_constraintLeft_toLeftOf="@+id/checkBoxTiempoEstimado" />
+
+        <TextView
+            android:id="@+id/textViewTipoActividad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tipo de actividad"
+            app:layout_constraintTop_toBottomOf="@+id/spinnerObjetivos"
+            app:layout_constraintLeft_toLeftOf="@+id/spinnerObjetivos" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupTipoActividad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTipoActividad"
+            app:layout_constraintLeft_toLeftOf="@+id/textViewTipoActividad"
+            android:orientation="horizontal"
+            android:checkedButton="@+id/radioButtonActividadPrivada">
+
+            <RadioButton
+                android:id="@+id/radioButtonActividadPublica"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Publica"/>
+
+            <RadioButton
+                android:id="@+id/radioButtonActividadPrivada"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Privada"/>
+
+        </RadioGroup>
+
+
+
 
     </android.support.constraint.ConstraintLayout>
 

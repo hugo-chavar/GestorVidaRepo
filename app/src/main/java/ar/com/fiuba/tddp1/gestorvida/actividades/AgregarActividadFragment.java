@@ -233,8 +233,10 @@ public class AgregarActividadFragment extends Fragment{
         }
 
 
-        //Se le setea todo lo demas que haya que setearle
+        RadioGroup groupTipoActividad = (RadioGroup) rootView.findViewById(R.id.radioGroupTipoActividad);
+        nuevaActividad.esActividadPrivada(groupTipoActividad.getCheckedRadioButtonId() == R.id.radioButtonActividadPrivada);
 
+        //Se le setea todo lo demas que haya que setearle
 
 
 

@@ -23,6 +23,7 @@ public class Actividad {
     private int periodicidad;
     private String horasEstimadas;
     private String minutosEstimados;
+    private boolean esPrivada;
 
     public Actividad(String nombre) {
         this.nombre = nombre;
@@ -75,6 +76,7 @@ public class Actividad {
     public void setTiempoEstimado(String horas, String minutos) {
         this.horasEstimadas = horas;
         this.minutosEstimados = minutos;
+    }
 
     public Fecha getFechaInicio() {
         return fechaInicio;
@@ -82,5 +84,9 @@ public class Actividad {
 
     public Fecha getFechaFin() {
         return fechaFin;
+    }
+
+    public void esActividadPrivada(boolean esPrivada) {
+        this.esPrivada = esPrivada;
     }
 }
