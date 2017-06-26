@@ -317,7 +317,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
 
     @Override
     public void onRequestError(int cod, String errorMessage) {
-        if (cod == 409) {
+        if (cod == 404) {
             mNameView.setError(getString(R.string.error_username_duplicated));
             mNameView.requestFocus();
         }

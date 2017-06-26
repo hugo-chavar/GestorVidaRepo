@@ -9,12 +9,12 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,11 +22,22 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
+import ar.com.fiuba.tddp1.gestorvida.web.RequestSender;
+import ar.com.fiuba.tddp1.gestorvida.web.ResponseListener;
 
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor>, ResponseListener {
 
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -35,10 +46,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "Pedro:foo@example.com:hello", "Pablo:bar@example.com:world"
     };
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
-    private UserLoginTask mAuthTask = null;
 
     // UI references.
     private EditText mNameView;
@@ -83,9 +90,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-        if (mAuthTask != null) {
-            return;
-        }
 
         // Reset errors.
         mNameView.setError(null);
@@ -128,10 +132,28 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            mAuthTask = new UserLoginTask(name, password);
-            mAuthTask.execute((Void) null);
-            goToMain();
+            login(name, password);
+            //mAuthTask = new UserLoginTask(name, password);
+            //mAuthTask.execute((Void) null);
+            //goToMain();
         }
+    }
+
+    private void login(String name, String password) {
+
+        RequestSender requestSender = new RequestSender(this);
+        Map<String,String> _params;
+        _params = new HashMap<String,String>();
+        _params.put("username", name); //mUsuario es en realidad el tipo de usuario
+        _params.put("password", password);
+
+        JSONObject obj = new JSONObject(_params);
+
+        String url = getString(R.string.url) + "users/authenticate";
+
+
+        requestSender.doPost(this, url, new JSONObject(_params));
+
     }
 
     private boolean isNameValid(String name) {
@@ -200,70 +222,39 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     }
 
+    @Override
+    public void onRequestCompleted(JSONObject response) {
+        try {
+            Perfil.token = response.getString("token");
+            //Perfil.id = response.getString("id");
+            goToMain();
+        } catch (JSONException e) {
+            showError("No se pudo obtener el Token");
+        }
+    }
+
+    @Override
+    public void onRequestError(int codError, String errorMessage) {
+        if (codError == 404) {
+            mNameView.setError(getString(R.string.error_username_invalid));
+            mNameView.requestFocus();
+            showProgress(false);
+            return;
+        }
+        showError(errorMessage);
+    }
+
+    public void showError(String error) {
+        Log.d("LoginActivity", error);
+        Toast.makeText(this, error, Toast.LENGTH_LONG).show();
+    }
+
 
     private interface ProfileQuery {
         String[] PROJECTION = {
                 ContactsContract.CommonDataKinds.Email.ADDRESS,
                 ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
         };
-
-    }
-
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-    private class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-
-        private final String mName;
-        private final String mPassword;
-
-        UserLoginTask(String name, String password) {
-            mName = name;
-            mPassword = password;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mName)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
-            // TODO: register the new account here.
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            showProgress(false);
-
-            if (success) {
-                finish();
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-            showProgress(false);
-        }
 
     }
 
