@@ -32,7 +32,7 @@ public class Perfil {
         //Se podria tener dos listas separadas de actividades pendientes y completadas, usando un Observer para moverlas de una lista a la otra
         LinkedList<Actividad> actividadesPendientes = new LinkedList<>();
         for (Actividad actividad: Perfil.actividades) {
-            if (!actividad.estaCompletada()) {
+            if (!actividad.estaCompleta()) {
                 actividadesPendientes.add(actividad);
             }
         }
@@ -41,5 +41,20 @@ public class Perfil {
 
     public static List<Actividad> getTodasLasActividades() {
         return Perfil.actividades;
+    }
+
+    public static Integer[] getActividadesCompletadasEnSemana() {
+        Integer[] actividadesCompletadasEnSemana = new Integer[7];
+        for (int i = 0; i < 7; i++) {
+            actividadesCompletadasEnSemana[i] = 0;
+        }
+
+        for (Actividad actividad : Perfil.getTodasLasActividades()) {
+            if (actividad.estaCompleta()) {
+                actividadesCompletadasEnSemana[actividad.getDiaEnQueSeCompleto() - 1]++;
+            }
+        }
+
+        return actividadesCompletadasEnSemana;
     }
 }

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -26,7 +27,7 @@ public class EstadisticasFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.activity_grafico_ejemplo, container,false);
+        View view = inflater.inflate(R.layout.layout_line_chart, container,false);
 
         LineChart grafico = (LineChart) view.findViewById(R.id.ejemploGrafico);
 

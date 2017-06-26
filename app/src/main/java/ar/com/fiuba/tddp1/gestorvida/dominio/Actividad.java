@@ -1,6 +1,6 @@
 package ar.com.fiuba.tddp1.gestorvida.dominio;
 
-import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 /**
@@ -24,10 +24,12 @@ public class Actividad {
     private String horasEstimadas;
     private String minutosEstimados;
     private boolean esPrivada;
+    private Integer diaEnQueSeCompleto;
 
     public Actividad(String nombre) {
         this.nombre = nombre;
         this.estaCompletada = false;
+        this.diaEnQueSeCompleto = null;
     }
 
     public void setDescripcion(String descripcion) {
@@ -49,7 +51,7 @@ public class Actividad {
 
 
 
-    public boolean estaCompletada() {
+    public boolean estaCompleta() {
         return this.estaCompletada;
     }
 
@@ -59,6 +61,15 @@ public class Actividad {
 
     public void completar() {
         this.estaCompletada = true;
+        //Por ahora el dia en que se completo va a ser random, para probarlo
+        Random random = new Random();
+        //Entre 1 y 7
+        this.diaEnQueSeCompleto = random.nextInt(7) + 1;
+    }
+
+    private void pasarAPendiente() {
+        this.estaCompletada = false;
+        this.diaEnQueSeCompleto = null;
     }
 
     public void setEtiquetas(Set<String> etiquetas) {
@@ -91,6 +102,15 @@ public class Actividad {
     }
 
     public void alternarEstadoCompleta() {
-        this.estaCompletada = !this.estaCompletada;
+        if (this.estaCompleta()) {
+            this.pasarAPendiente();
+        }
+        else {
+            this.completar();
+        }
+    }
+
+    public Integer getDiaEnQueSeCompleto() {
+        return this.diaEnQueSeCompleto;
     }
 }

@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.fiuba.tddp1.gestorvida.MainActivity;
@@ -41,7 +40,7 @@ public class ActividadAdapter extends RecyclerView.Adapter<ActividadViewHolder>{
 
         Actividad actividad = this.lista.get(position);
         String nombre = actividad.getNombre();
-        String completada = "Completa: " + (actividad.estaCompletada() ? "SI" : "NO");
+        String completada = "Completa: " + (actividad.estaCompleta() ? "SI" : "NO");
 
         TextView txtNombre = holder.textViewNombre;
         txtNombre.setText(nombre);

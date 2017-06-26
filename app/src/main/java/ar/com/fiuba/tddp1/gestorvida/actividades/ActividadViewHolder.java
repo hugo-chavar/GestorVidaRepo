@@ -1,7 +1,6 @@
 package ar.com.fiuba.tddp1.gestorvida.actividades;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -58,7 +57,7 @@ public class ActividadViewHolder extends RecyclerView.ViewHolder
     }
 
     private void mostrarImagenCompletada() {
-        if (this.actividad.estaCompletada()) {
+        if (this.actividad.estaCompleta()) {
             this.imageViewCompletada.setImageResource(R.drawable.completar_actividad);
         }
         else {

@@ -33,7 +33,7 @@ public class Objetivo {
         float actividadesCompletadas = 0;
         if (this.tieneActividades()) {
             for (Actividad actividad : this.actividades) {
-                if (actividad.estaCompletada()) {
+                if (actividad.estaCompleta()) {
                     actividadesCompletadas++;
                 }
             }
