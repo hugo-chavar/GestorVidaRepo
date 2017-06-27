@@ -249,7 +249,7 @@ public class AgregarActividadFragment extends Fragment{
     private Fecha parsearFecha(TextView textoFecha) {
         String fecha = textoFecha.getText().toString();
         String[] fechaParseada = fecha.split("/");
-        if (fechaParseada.length == 3) {
+        if ( (fechaParseada.length == 3) && (!fecha.equals("dd/mm/aaaa"))){
             //Si el lenght es diferente de 3 entonces no hay una fecha ingresada
             return new Fecha(fechaParseada[0], fechaParseada[1], fechaParseada[2]);
         }
