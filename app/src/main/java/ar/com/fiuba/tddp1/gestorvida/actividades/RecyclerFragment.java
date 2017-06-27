@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,6 +73,12 @@ public abstract class RecyclerFragment extends Fragment implements View.OnClickL
         mList.getItemAnimator().setChangeDuration(1000);
         mList.getItemAnimator().setMoveDuration(1000);
         mList.getItemAnimator().setRemoveDuration(1000);
+
+        //Esto agrega la linea separadora entre items
+        DividerItemDecoration divisor = new DividerItemDecoration(mList.getContext(), DividerItemDecoration.VERTICAL);
+        //Si se quisiera usar una imagen como separador
+        //divisor.setDrawable(this.getActivity().getDrawable(R.drawable.mercurio));
+        mList.addItemDecoration(divisor);
 
 
         /*
