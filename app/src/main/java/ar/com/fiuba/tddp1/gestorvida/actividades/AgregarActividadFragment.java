@@ -58,7 +58,7 @@ public class AgregarActividadFragment extends Fragment{
         spinnerPrioridades.setAdapter(adapter);
 
         //No termino de entender para que sirve
-        spinnerPrioridades.setPrompt("Como funciona esto, el prompt? no lo veo cuando lo corro");
+        //spinnerPrioridades.setPrompt("Como funciona esto, el prompt? no lo veo cuando lo corro");
 
         Spinner spinnerObjetivos = (Spinner) view.findViewById(R.id.spinnerObjetivos);
         LinkedList<Objetivo> objetivos = Perfil.getObjetivos();
@@ -160,9 +160,18 @@ public class AgregarActividadFragment extends Fragment{
 
 
     public void agregarEtiqueta(String nombreEtiqueta) {
-        TextView textViewEtiquetaIngresada = new TextView(this.getActivity());
+
+        LinearLayout grupoEtiquetasView = ( (LinearLayout) this.getView().findViewById(R.id.linearLayoutEtiquetas));
+
+
+        //TODO: puede llegar a haber algun problema si al getLayoutInflater le paso null?
+        View etiquetaIndividualView = getLayoutInflater(null).inflate(R.layout.layout_etiqueta, null);
+
+        TextView textViewEtiquetaIngresada = (TextView) etiquetaIndividualView.findViewById(R.id.nombreEtiqueta);
         textViewEtiquetaIngresada.setText(nombreEtiqueta);
-        ( (LinearLayout) this.getView().findViewById(R.id.linearLayoutEtiquetas)).addView(textViewEtiquetaIngresada);
+
+        grupoEtiquetasView.addView(etiquetaIndividualView);
+
         this.listaDeEtiquetas.add(nombreEtiqueta);
     }
 
