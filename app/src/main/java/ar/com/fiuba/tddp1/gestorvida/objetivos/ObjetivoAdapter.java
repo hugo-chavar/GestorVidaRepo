@@ -44,10 +44,19 @@ class ObjetivoAdapter extends RecyclerView.Adapter<ObjetivoViewHolder> {
         Objetivo objetivo = this.listaObjetivos.get(position);
 
         String nombreObjetivo = objetivo.getNombre();
-        String textoProgreso =  objetivo.tieneActividades() ? ("Progreso: " + objetivo.getProgreso() + "%") : "";
+        String progreso = String.format("%.2f", objetivo.getProgreso());
+        String textoProgreso =  objetivo.tieneActividades() ? ("Progreso: " + progreso + "%") : "";
 
         holder.textViewNombreObjetivo.setText(nombreObjetivo);
         holder.textViewProgresoObjetivo.setText(textoProgreso);
+
+        if ( objetivo.tieneActividades() ) {
+            holder.barraDeProgreso.setMax(objetivo.getCantidadActividades());
+            holder.barraDeProgreso.setProgress(objetivo.getCantidadActividadesCompletadas());
+        }
+        else {
+            holder.layoutProgreso.setVisibility(View.GONE);
+        }
     }
 
     @Override

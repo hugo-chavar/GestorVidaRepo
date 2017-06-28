@@ -45,4 +45,18 @@ public class Objetivo {
     public boolean tieneActividades() {
         return this.actividades.size() != 0;
     }
+
+    public int getCantidadActividades() {
+        return this.actividades.size();
+    }
+
+    public int getCantidadActividadesCompletadas() {
+        int actividadesCompletadas = 0;
+        for (Actividad actividad : this.actividades) {
+            if (actividad.estaCompleta()) {
+                actividadesCompletadas++;
+            }
+        }
+        return actividadesCompletadas;
+    }
 }

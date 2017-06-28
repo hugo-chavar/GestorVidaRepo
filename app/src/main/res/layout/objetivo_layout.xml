@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+
+
     <LinearLayout
         android:layout_marginLeft="10dp"
         android:orientation="vertical"
@@ -18,11 +20,26 @@
             android:text="Medium Text"
             android:id="@+id/txtNombreObjetivo" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="Small Text"
-            android:id="@+id/txtProgresoObjetivo" />
+        <LinearLayout
+            android:id="@+id/linearLayoutProgreso"
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Progreso: "
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/txtProgresoObjetivo" />
+
+            <ProgressBar
+                android:id="@+id/progressBarObjetivo"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>
