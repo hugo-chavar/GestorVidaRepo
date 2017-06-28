@@ -4,7 +4,8 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.util.ArraySet;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -22,7 +23,7 @@ import android.widget.TextView;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -41,8 +42,8 @@ public class BuscarActividadActivity extends AppCompatActivity {
     private EditText mDesde;
     private EditText mHasta;
 
-    private Date filtro_desde = null;
-    private Date filtro_hasta = null;
+    private Date filtro_desde;
+    private Date filtro_hasta;
 
     private AutoCompleteTextView mFiltroEtiqueta;
 
@@ -53,6 +54,7 @@ public class BuscarActividadActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        inicializarFiltroFechas();
         inicializarFiltroEtiquetas();
 
         mockearActividades();
@@ -65,6 +67,16 @@ public class BuscarActividadActivity extends AppCompatActivity {
                 popupInit();
             }
         });
+    }
+
+    private void inicializarFiltroFechas() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            filtro_desde = formatter.parse("1/1/1900");
+            filtro_hasta = formatter.parse("31/12/2999");
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     private void inicializarFiltroEtiquetas() {
@@ -117,11 +129,23 @@ public class BuscarActividadActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-
+                String desde = "", hasta = "";
+                if (mDesde != null) {
+                    desde = mDesde.getText().toString();
+                }
+                if (mHasta != null) {
+                    hasta = mHasta.getText().toString();
+                }
                 try {
-                    if (mDesde != null && mHasta != null) {
-                        filtro_desde = formatter.parse(mDesde.getText().toString());
-                        filtro_hasta = formatter.parse(mHasta.getText().toString());
+                    if (!desde.equals("")) {
+                        filtro_desde = formatter.parse(desde);
+                    } else {
+                        filtro_desde = formatter.parse("1/1/1900");
+                    }
+                    if (!hasta.equals("")) {
+                        filtro_hasta = formatter.parse(hasta);
+                    } else {
+                        filtro_hasta = formatter.parse("31/12/2999");
                     }
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -144,24 +168,24 @@ public class BuscarActividadActivity extends AppCompatActivity {
         lista.removeAllViews();
 
         //TODO: Esta debe ser la lista de todas las actividades en el server
-        for (Actividad actividad: this.mockedActivities) {
+        for (final Actividad actividad : this.mockedActivities) {
             LinearLayout elementoActividad = new LinearLayout(this);
             elementoActividad.setOrientation(LinearLayout.VERTICAL);
 
             TextView nombre = new TextView(this);
-            nombre.setTextSize(20);
+            nombre.setTextSize(24);
             String nombre_actividad = actividad.getNombre();
             nombre.setText(nombre_actividad);
             elementoActividad.addView(nombre);
 
             TextView inicio = new TextView(this);
-            inicio.setTextSize(14);
+            inicio.setTextSize(16);
             Fecha fechaInicio = actividad.getFechaInicio();
             inicio.setText("Inicio: " + fechaInicio.dia + "/" + fechaInicio.mes + "/" + fechaInicio.anio);
             elementoActividad.addView(inicio);
 
             TextView fin = new TextView(this);
-            fin.setTextSize(14);
+            fin.setTextSize(16);
             Fecha fechaFin = actividad.getFechaFin();
             fin.setText("Fin: " + fechaFin.dia + "/" + fechaFin.mes + "/" + fechaFin.anio);
             elementoActividad.addView(fin);
@@ -179,19 +203,22 @@ public class BuscarActividadActivity extends AppCompatActivity {
             Set<String> etiquetas = actividad.getEtiquetas();
 
             if (textoEnFiltroEtiquetas.equals("") || (etiquetas != null && matcheaEtiquetas(textoEnFiltroEtiquetas, etiquetas.toArray(new String[etiquetas.size()])))) {
-                if ((filtro_hasta == null && filtro_desde == null) || (filtro_desde.before(finicio) && filtro_hasta.after(finicio))) {
+                if ((filtro_desde.before(finicio) || filtro_desde.equals(finicio)) && (filtro_hasta.after(finicio) || filtro_hasta.equals(finicio))) {
+                    elementoActividad.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            actividadOnClick(v, actividad);
+                        }
+                    });
                     lista.addView(elementoActividad);
                 }
             }
         }
     }
 
-    public boolean matcheaEtiquetas(String etiqueta, String[] etiquetas)
-    {
-        for (String etiq : etiquetas)
-        {
-            if((etiq.toLowerCase()).contains(etiqueta.toLowerCase()))
-            {
+    public boolean matcheaEtiquetas(String etiqueta, String[] etiquetas) {
+        for (String etiq : etiquetas) {
+            if ((etiq.toLowerCase()).contains(etiqueta.toLowerCase())) {
                 return true;
             }
         }
@@ -203,8 +230,8 @@ public class BuscarActividadActivity extends AppCompatActivity {
 
         Actividad actividad = new Actividad("Correr 4km");
         actividad.setDescripcion("Quiero correr para prepararme fisicamente");
-        actividad.setFechaInicio(new Fecha("1","6","2017"));
-        actividad.setFechaFin(new Fecha("3","8","2017"));
+        actividad.setFechaInicio(new Fecha("8", "9", "2017"));
+        actividad.setFechaFin(new Fecha("8", "9", "2017"));
         Set<String> etiquetas = new HashSet<>();
         etiquetas.add("Deportes");
         actividad.setEtiquetas(etiquetas);
@@ -212,8 +239,8 @@ public class BuscarActividadActivity extends AppCompatActivity {
 
         Actividad actividad2 = new Actividad("Ir al cine");
         actividad2.setDescripcion("Quiero ir a ver Star Wars VIII");
-        actividad2.setFechaInicio(new Fecha("15","12","2017"));
-        actividad2.setFechaFin(new Fecha("15","12","2017"));
+        actividad2.setFechaInicio(new Fecha("15", "12", "2017"));
+        actividad2.setFechaFin(new Fecha("15", "12", "2017"));
         Set<String> etiquetas2 = new HashSet<>();
         etiquetas2.add("Cine");
         actividad2.setEtiquetas(etiquetas2);
@@ -221,8 +248,8 @@ public class BuscarActividadActivity extends AppCompatActivity {
 
         Actividad actividad3 = new Actividad("Aprobar álgrebra");
         actividad3.setDescripcion("Quiero aprobarlaaa");
-        actividad3.setFechaInicio(new Fecha("1","7","2017"));
-        actividad3.setFechaFin(new Fecha("3","7","2017"));
+        actividad3.setFechaInicio(new Fecha("1", "7", "2017"));
+        actividad3.setFechaFin(new Fecha("3", "7", "2017"));
         Set<String> etiquetas3 = new HashSet<>();
         etiquetas3.add("Facultad");
         actividad3.setEtiquetas(etiquetas3);
@@ -230,12 +257,48 @@ public class BuscarActividadActivity extends AppCompatActivity {
 
         Actividad actividad4 = new Actividad("Jugar al fútbol");
         actividad4.setDescripcion("Futbol con los pibes");
-        actividad4.setFechaInicio(new Fecha("5","8","2017"));
-        actividad4.setFechaFin(new Fecha("5","8","2017"));
+        actividad4.setFechaInicio(new Fecha("5", "8", "2017"));
+        actividad4.setFechaFin(new Fecha("5", "8", "2017"));
         Set<String> etiquetas4 = new HashSet<>();
         etiquetas4.add("Deportes");
         actividad4.setEtiquetas(etiquetas4);
         this.mockedActivities.add(actividad4);
+
+        Actividad actividad5 = new Actividad("Clases de guitarra");
+        actividad5.setDescripcion("Clases para aprender a tocar");
+        actividad5.setFechaInicio(new Fecha("5", "10", "2017"));
+        actividad5.setFechaFin(new Fecha("10", "11", "2017"));
+        Set<String> etiquetas5 = new HashSet<>();
+        etiquetas5.add("Musica");
+        actividad5.setEtiquetas(etiquetas5);
+        this.mockedActivities.add(actividad5);
+
+        Actividad actividad6 = new Actividad("Fiesta en mi casa");
+        actividad6.setDescripcion("Bebidas y asado van por mi cuenta");
+        actividad6.setFechaInicio(new Fecha("1", "10", "2017"));
+        actividad6.setFechaFin(new Fecha("1", "10", "2017"));
+        Set<String> etiquetas6 = new HashSet<>();
+        etiquetas6.add("Fiestas");
+        actividad6.setEtiquetas(etiquetas6);
+        this.mockedActivities.add(actividad6);
+
+        Actividad actividad7 = new Actividad("Fiesta en Avellaneda");
+        actividad7.setDescripcion("Festejo por la clasificación de Racing a la Libertadores");
+        actividad7.setFechaInicio(new Fecha("6", "7", "2017"));
+        actividad7.setFechaFin(new Fecha("6", "7", "2017"));
+        Set<String> etiquetas7 = new HashSet<>();
+        etiquetas7.add("Fiestas");
+        actividad7.setEtiquetas(etiquetas7);
+        this.mockedActivities.add(actividad7);
+
+        Actividad actividad8 = new Actividad("Cine gratis!");
+        actividad8.setDescripcion("Pochoclos no");
+        actividad8.setFechaInicio(new Fecha("6", "7", "2017"));
+        actividad8.setFechaFin(new Fecha("20", "7", "2017"));
+        Set<String> etiquetas8 = new HashSet<>();
+        etiquetas8.add("Cine");
+        actividad8.setEtiquetas(etiquetas8);
+        this.mockedActivities.add(actividad8);
     }
 
     public void desdeOnClick(final View v) {
@@ -246,15 +309,16 @@ public class BuscarActividadActivity extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
 
-                int s=monthOfYear+1;
-                String a = dayOfMonth+"/"+s+"/"+year;
-                ((EditText)v).setText(""+a);
+                int s = monthOfYear + 1;
+                String a = dayOfMonth + "/" + s + "/" + year;
+                ((EditText) v).setText("" + a);
             }
         };
 
         Time date = new Time();
-        DatePickerDialog d = new DatePickerDialog(BuscarActividadActivity.this, dpd, date.year ,date.month, date.monthDay);
-        d.updateDate(2017,6,1);
+        DatePickerDialog d = new DatePickerDialog(BuscarActividadActivity.this, dpd, date.year, date.month, date.monthDay);
+        Calendar calendario = Calendar.getInstance();
+        d.updateDate(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), calendario.get(Calendar.DAY_OF_MONTH));
         d.show();
 
     }
@@ -267,17 +331,42 @@ public class BuscarActividadActivity extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int monthOfYear,
                                   int dayOfMonth) {
 
-                int s=monthOfYear+1;
-                String a = dayOfMonth+"/"+s+"/"+year;
-                ((EditText)v).setText(""+a);
+                int s = monthOfYear + 1;
+                String a = dayOfMonth + "/" + s + "/" + year;
+                ((EditText) v).setText("" + a);
             }
         };
 
         Time date = new Time();
-        DatePickerDialog d = new DatePickerDialog(BuscarActividadActivity.this, dpd, date.year ,date.month, date.monthDay);
-        d.updateDate(2017,6,1);
+        DatePickerDialog d = new DatePickerDialog(BuscarActividadActivity.this, dpd, date.year, date.month, date.monthDay);
+        Calendar calendario = Calendar.getInstance();
+        d.updateDate(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), calendario.get(Calendar.DAY_OF_MONTH));
         d.show();
 
+    }
+
+    public void actividadOnClick(final View v, final Actividad actividad) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(actividad.getNombre());
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        TextView descripcion = new TextView(this);
+        descripcion.setText(actividad.getDescripcion());
+        layout.addView(descripcion);
+        builder.setView(layout);
+        builder.setPositiveButton("Agregar actividad", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Perfil.agregarActividad(actividad);
+            }
+        });
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //No hacer nada
+            }
+        });
+        builder.show();
     }
 
 }
