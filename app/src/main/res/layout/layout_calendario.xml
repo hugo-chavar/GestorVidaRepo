@@ -28,15 +28,35 @@
             app:compactCalendarCurrentDayBackgroundColor="#00ec0c"
             app:compactCalendarMultiEventIndicatorColor="#1520e4" />
 
+
+        <TextView
+            android:id="@+id/textoFecha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lunes 12 de Julio del 2017" />
+
         <LinearLayout
             android:id="@+id/layoutNoHayActividades"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="MENSAJE QUE DEBERIA MOSTRARSE SI EL RECYCLER ESTA VACIO"/>
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
+
+            <TextView
+                android:id="@+id/textoSinActividades"
+                android:layout_width="304dp"
+                android:layout_height="wrap_content"
+                android:text="Sin actividades"
+                android:textAlignment="center"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"/>
 
         </LinearLayout>
 

@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
@@ -22,6 +23,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import ar.com.fiuba.tddp1.gestorvida.R;
@@ -45,6 +47,10 @@ public class CalendarioFragment extends Fragment {
     private LinearLayout layoutNoHayActividades;
     private RecyclerView recyclerActividadesDelDia;
     private CompactCalendarView calendario;
+    private TextView textoFecha;
+
+    private Map<String, String> traduccionesDias = new HashMap<>();
+    String[] traduccionesMeses;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -61,9 +67,6 @@ public class CalendarioFragment extends Fragment {
         calendario.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
             public void onDayClick(Date dateClicked) {
-
-                //Perfil, buscar eventos para el dia seleccionado
-                //Crear la vista para todos esos eventos y agregarlas
                 mostrarEventos(dateClicked);
             }
 
@@ -74,6 +77,8 @@ public class CalendarioFragment extends Fragment {
         });
 
         this.linearLayoutActividadesDia = (LinearLayout) rootView.findViewById(R.id.linearLayoutActividadesDia);
+        this.textoFecha = (TextView) rootView.findViewById(R.id.textoFecha);
+
         this.linearLayoutActividadesDia.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
 
 
@@ -83,6 +88,17 @@ public class CalendarioFragment extends Fragment {
         this.recyclerActividadesDelDia = (RecyclerView) rootView.findViewById(R.id.recyclerActividadesDiaSeleccionado);
         this.inicializarRecyclerActividadesDelDia();
 
+
+
+        this.traduccionesDias.put("Monday", "Lunes");
+        this.traduccionesDias.put("Tuesday", "Martes");
+        this.traduccionesDias.put("Wednesday", "Miercoles");
+        this.traduccionesDias.put("Thursday", "Jueves");
+        this.traduccionesDias.put("Friday", "Viernes");
+        this.traduccionesDias.put("Saturday", "Sabado");
+        this.traduccionesDias.put("Sunday", "Domingo");
+
+        this.traduccionesMeses = new String[]{"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};;
 
         return rootView;
     }
@@ -119,25 +135,29 @@ public class CalendarioFragment extends Fragment {
         recyclerActividadesDelDia.getItemAnimator().setMoveDuration(1000);
         recyclerActividadesDelDia.getItemAnimator().setRemoveDuration(1000);
 
-        /*
-        DividerItemDecoration divisor = new DividerItemDecoration(recyclerActividadesDelDia.getContext(), DividerItemDecoration.VERTICAL);
-        recyclerActividadesDelDia.addItemDecoration(divisor);
-        */
 
         recyclerActividadesDelDia.setHasFixedSize(true);
         recyclerActividadesDelDia.addItemDecoration(new DividerItemDecoration(recyclerActividadesDelDia.getContext(), LinearLayoutManager.VERTICAL));
 
-        /*ActividadesDelDiaAdapter actividadesDelDiaAdapter = new ActividadesDelDiaAdapter(actividades, getActivity());
-        recyclerActividadesDelDia.setAdapter(actividadesDelDiaAdapter);
-        */
-        /*
-        ObjetivoAdapter objetivoAdapter = new ObjetivoAdapter(Perfil.getObjetivos(), getActivity());
-        recyclerActividadesDelDia.setAdapter(objetivoAdapter);
-        */
     }
 
     boolean hayActividades = true;
+
+
+
     public void mostrarEventos(Date fecha) {
+
+        //No aparece en espaniol
+        String diaDeLaSemana = new SimpleDateFormat("EEEE", Locale.ENGLISH).format(fecha);
+        diaDeLaSemana = this.traduccionesDias.get(diaDeLaSemana);
+
+        Calendar numerosFecha = Calendar.getInstance();
+        numerosFecha.setTime(fecha);
+        int dia = numerosFecha.get(Calendar.DAY_OF_MONTH);
+        String nombreMes = this.traduccionesMeses[numerosFecha.get(Calendar.MONTH)];
+        int anio = numerosFecha.get(Calendar.YEAR);
+
+        this.textoFecha.setText(diaDeLaSemana + " " + dia + " de " + nombreMes + " del " + anio);
 
         List<Event> eventosFechaSeleccionada = this.calendario.getEvents(fecha);
         List<Actividad> todasLasActividadesFechaSeleccionada = new ArrayList<>();
@@ -183,14 +203,13 @@ public class CalendarioFragment extends Fragment {
             mSectionedAdapter.setSections(sections.toArray(dummy));
 
             recyclerActividadesDelDia.setAdapter(mSectionedAdapter);
-
-
-
             recyclerActividadesDelDia.setVisibility(View.VISIBLE);
             this.hayActividades = !this.hayActividades;
         }
         else {
             this.layoutNoHayActividades.setVisibility(View.VISIBLE);
+
+
             this.recyclerActividadesDelDia.setVisibility(View.GONE);
             this.hayActividades = !this.hayActividades;
         }
