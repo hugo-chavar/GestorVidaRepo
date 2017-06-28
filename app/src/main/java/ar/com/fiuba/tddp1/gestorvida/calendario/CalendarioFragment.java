@@ -18,8 +18,10 @@ import com.github.sundeepk.compactcalendarview.domain.Event;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import ar.com.fiuba.tddp1.gestorvida.R;
 import ar.com.fiuba.tddp1.gestorvida.actividades.ActividadAdapter;
@@ -37,44 +39,19 @@ public class CalendarioFragment extends Fragment {
     private LinearLayout linearLayoutActividadesDia;
     private LinearLayout layoutNoHayActividades;
     private RecyclerView recyclerActividadesDelDia;
+    private CompactCalendarView calendario;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.layout_calendario, container, false);
-
         final Toolbar toolbar = (Toolbar) this.getActivity().findViewById(R.id.toolbar);
-        String fecha = 2017 + "/" + 7 + "/" + 4;
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
 
-        CompactCalendarView calendario = (CompactCalendarView) rootView.findViewById(R.id.calendario);
+        this.calendario = (CompactCalendarView) rootView.findViewById(R.id.calendario);
         calendario.setUseThreeLetterAbbreviation(true);
-
-
         toolbar.setTitle(this.formatterToolbar.format(calendario.getFirstDayOfCurrentMonth()));
 
-        Date dia = null;
-        try {
-            dia = formatter.parse(fecha);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        long diaEpoch = dia.getTime();
-
-        Event ev1 = new Event(Color.BLUE, diaEpoch, "FR,LOL;MII,USA");
-        calendario.addEvent(ev1,false);
-
-
-        this.linearLayoutActividadesDia = (LinearLayout) rootView.findViewById(R.id.linearLayoutActividadesDia);
-        this.linearLayoutActividadesDia.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
-
-
-        this.layoutNoHayActividades = (LinearLayout) rootView.findViewById(R.id.layoutNoHayActividades);
-
-
-        this.recyclerActividadesDelDia = (RecyclerView) rootView.findViewById(R.id.recyclerActividadesDiaSeleccionado);
-        this.inicializarRecyclerActividadesDelDia();
-
+        this.cargarEventos();
 
         calendario.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
@@ -91,7 +68,31 @@ public class CalendarioFragment extends Fragment {
             }
         });
 
+        this.linearLayoutActividadesDia = (LinearLayout) rootView.findViewById(R.id.linearLayoutActividadesDia);
+        this.linearLayoutActividadesDia.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS);
+
+
+        this.layoutNoHayActividades = (LinearLayout) rootView.findViewById(R.id.layoutNoHayActividades);
+
+
+        this.recyclerActividadesDelDia = (RecyclerView) rootView.findViewById(R.id.recyclerActividadesDiaSeleccionado);
+        this.inicializarRecyclerActividadesDelDia();
+
+
         return rootView;
+    }
+
+    private void cargarEventos() {
+
+        //Le cargo todos los eventos a una fecha
+        Map<Date, List<Actividad>> fechasDeActividades = Perfil.getFechasDeActividades();
+        for (Map.Entry<Date, List<Actividad>> fecha : fechasDeActividades.entrySet()) {
+            for (Actividad actividad : fecha.getValue()) {
+                Event evento = new Event(Color.BLUE, fecha.getKey().getTime(), actividad);
+                this.calendario.addEvent(evento,false);
+            }
+        }
+
     }
 
     private void inicializarRecyclerActividadesDelDia() {
@@ -105,7 +106,7 @@ public class CalendarioFragment extends Fragment {
         recyclerActividadesDelDia.addItemDecoration(divisor);
 
 
-        List<Actividad> actividades = new ArrayList<>();
+
         /*ActividadesDelDiaAdapter actividadesDelDiaAdapter = new ActividadesDelDiaAdapter(actividades, getActivity());
         recyclerActividadesDelDia.setAdapter(actividadesDelDiaAdapter);
         */
@@ -118,7 +119,17 @@ public class CalendarioFragment extends Fragment {
     }
 
     boolean hayActividades = true;
-    public void mostrarEventos(Date dia) {
+    public void mostrarEventos(Date fecha) {
+
+        this.calendario.getEvents(fecha);
+
+        Calendar fechaCalendario = Calendar.getInstance();
+        fechaCalendario.setTime(fecha);
+        int anio = fechaCalendario.get(Calendar.YEAR);
+        int mes = fechaCalendario.get(Calendar.MONTH);
+        int dia = fechaCalendario.get(Calendar.DAY_OF_MONTH);
+
+
 
 
         if (hayActividades) {

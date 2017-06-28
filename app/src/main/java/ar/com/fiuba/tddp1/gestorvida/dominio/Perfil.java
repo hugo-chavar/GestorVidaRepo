@@ -1,6 +1,10 @@
 package ar.com.fiuba.tddp1.gestorvida.dominio;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -16,6 +20,7 @@ public class Perfil {
 
     private static LinkedList<Objetivo> objetivos = new LinkedList<>();
     private static LinkedList<Actividad> actividades = new LinkedList<>();
+    private static Map<Date, List<Actividad>> fechasDeActividades = new HashMap<>();
 
     public static void agregarObjetivo(Objetivo objetivo) {
         Perfil.objetivos.add(objetivo);
@@ -34,6 +39,24 @@ public class Perfil {
     public static void agregarActividad(Actividad nuevaActividad) {
         Perfil.actividades.add(nuevaActividad);
         Perfil.etiquetas.addAll(nuevaActividad.getEtiquetas());
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+
+
+        if (nuevaActividad.getFechaInicio() != null) {
+            Fecha fechaInicio = nuevaActividad.getFechaInicio();
+            try {
+                Date date = formatter.parse(fechaInicio.anio + "/" + fechaInicio.mes + "/" + fechaInicio.dia);
+                if ( !Perfil.fechasDeActividades.containsKey(date) ) {
+                    Perfil.fechasDeActividades.put( date, new ArrayList<Actividad>() );
+                }
+                Perfil.fechasDeActividades.get(date).add(nuevaActividad);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+
     }
 
 
@@ -95,5 +118,9 @@ public class Perfil {
             }
         }
         return actividadesCompletadas;
+    }
+
+    public static Map<Date,List<Actividad>> getFechasDeActividades() {
+        return Perfil.fechasDeActividades;
     }
 }
