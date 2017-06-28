@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -114,10 +115,13 @@ public class CalendarioFragment extends Fragment {
         recyclerActividadesDelDia.getItemAnimator().setMoveDuration(1000);
         recyclerActividadesDelDia.getItemAnimator().setRemoveDuration(1000);
 
+        /*
         DividerItemDecoration divisor = new DividerItemDecoration(recyclerActividadesDelDia.getContext(), DividerItemDecoration.VERTICAL);
         recyclerActividadesDelDia.addItemDecoration(divisor);
+        */
 
-
+        recyclerActividadesDelDia.setHasFixedSize(true);
+        recyclerActividadesDelDia.addItemDecoration(new DividerItemDecoration(recyclerActividadesDelDia.getContext(), LinearLayoutManager.VERTICAL));
 
         /*ActividadesDelDiaAdapter actividadesDelDiaAdapter = new ActividadesDelDiaAdapter(actividades, getActivity());
         recyclerActividadesDelDia.setAdapter(actividadesDelDiaAdapter);
@@ -138,11 +142,27 @@ public class CalendarioFragment extends Fragment {
             actividadesFechaSeleccionada.add((Actividad) evento.getData());
         }
 
+
         if (actividadesFechaSeleccionada.size() > 0) {
             this.layoutNoHayActividades.setVisibility(View.GONE);
 
+
+
             ActividadAdapter objetivoAdapter = new ActividadAdapter(actividadesFechaSeleccionada, getActivity());
-            recyclerActividadesDelDia.setAdapter(objetivoAdapter);
+            List<SimpleSectionedRecyclerViewAdapter.Section> sections = new ArrayList<>();
+
+
+            sections.add(new SimpleSectionedRecyclerViewAdapter.Section(0, "FAFAFAF"));
+            sections.add(new SimpleSectionedRecyclerViewAdapter.Section(5, "IFHMLWCIBWESTD"));
+
+
+            SimpleSectionedRecyclerViewAdapter.Section[] dummy = new SimpleSectionedRecyclerViewAdapter.Section[sections.size()];
+            SimpleSectionedRecyclerViewAdapter mSectionedAdapter = new SimpleSectionedRecyclerViewAdapter(recyclerActividadesDelDia.getContext(), R.layout.section, R.id.section_text, objetivoAdapter);
+            mSectionedAdapter.setSections(sections.toArray(dummy));
+
+            recyclerActividadesDelDia.setAdapter(mSectionedAdapter);
+
+
 
             recyclerActividadesDelDia.setVisibility(View.VISIBLE);
             this.hayActividades = !this.hayActividades;
