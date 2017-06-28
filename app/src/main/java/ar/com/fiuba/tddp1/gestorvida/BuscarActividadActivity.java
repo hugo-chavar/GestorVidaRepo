@@ -1,34 +1,37 @@
 package ar.com.fiuba.tddp1.gestorvida;
 
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.util.ArraySet;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.format.Time;
-import android.view.Gravity;
-import android.view.LayoutInflater;
+import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Button;
+import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Fecha;
+import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 
 public class BuscarActividadActivity extends AppCompatActivity {
 
@@ -41,12 +44,17 @@ public class BuscarActividadActivity extends AppCompatActivity {
     private Date filtro_desde = null;
     private Date filtro_hasta = null;
 
+    private AutoCompleteTextView mFiltroEtiqueta;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buscar_actividad);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        inicializarFiltroEtiquetas();
+
         mockearActividades();
         mostrarActividades();
 
@@ -55,6 +63,26 @@ public class BuscarActividadActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 popupInit();
+            }
+        });
+    }
+
+    private void inicializarFiltroEtiquetas() {
+        mFiltroEtiqueta = (AutoCompleteTextView) findViewById(R.id.filtro_etiquetas);
+        List<String> etiquetas = new ArrayList<>(Perfil.getActividadDeEtiquetas().keySet());
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, etiquetas);
+        mFiltroEtiqueta.setAdapter(adapter);
+
+        mFiltroEtiqueta.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+
+                    mostrarActividades();
+
+                    return true;
+                }
+                return false;
             }
         });
     }
@@ -146,10 +174,28 @@ public class BuscarActividadActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            if ((filtro_hasta == null && filtro_desde == null) || (filtro_desde.before(finicio) && filtro_hasta.after(finicio))) {
-                lista.addView(elementoActividad);
+            String textoEnFiltroEtiquetas = mFiltroEtiqueta.getText().toString();
+
+            Set<String> etiquetas = actividad.getEtiquetas();
+
+            if (textoEnFiltroEtiquetas.equals("") || (etiquetas != null && matcheaEtiquetas(textoEnFiltroEtiquetas, etiquetas.toArray(new String[etiquetas.size()])))) {
+                if ((filtro_hasta == null && filtro_desde == null) || (filtro_desde.before(finicio) && filtro_hasta.after(finicio))) {
+                    lista.addView(elementoActividad);
+                }
             }
         }
+    }
+
+    public boolean matcheaEtiquetas(String etiqueta, String[] etiquetas)
+    {
+        for (String etiq : etiquetas)
+        {
+            if((etiq.toLowerCase()).contains(etiqueta.toLowerCase()))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void mockearActividades() {
@@ -159,19 +205,37 @@ public class BuscarActividadActivity extends AppCompatActivity {
         actividad.setDescripcion("Quiero correr para prepararme fisicamente");
         actividad.setFechaInicio(new Fecha("1","6","2017"));
         actividad.setFechaFin(new Fecha("3","8","2017"));
+        Set<String> etiquetas = new HashSet<>();
+        etiquetas.add("Deportes");
+        actividad.setEtiquetas(etiquetas);
         this.mockedActivities.add(actividad);
 
         Actividad actividad2 = new Actividad("Ir al cine");
         actividad2.setDescripcion("Quiero ir a ver Star Wars VIII");
         actividad2.setFechaInicio(new Fecha("15","12","2017"));
         actividad2.setFechaFin(new Fecha("15","12","2017"));
+        Set<String> etiquetas2 = new HashSet<>();
+        etiquetas2.add("Cine");
+        actividad2.setEtiquetas(etiquetas2);
         this.mockedActivities.add(actividad2);
 
         Actividad actividad3 = new Actividad("Aprobar álgrebra");
         actividad3.setDescripcion("Quiero aprobarlaaa");
         actividad3.setFechaInicio(new Fecha("1","7","2017"));
         actividad3.setFechaFin(new Fecha("3","7","2017"));
+        Set<String> etiquetas3 = new HashSet<>();
+        etiquetas3.add("Facultad");
+        actividad3.setEtiquetas(etiquetas3);
         this.mockedActivities.add(actividad3);
+
+        Actividad actividad4 = new Actividad("Jugar al fútbol");
+        actividad4.setDescripcion("Futbol con los pibes");
+        actividad4.setFechaInicio(new Fecha("5","8","2017"));
+        actividad4.setFechaFin(new Fecha("5","8","2017"));
+        Set<String> etiquetas4 = new HashSet<>();
+        etiquetas4.add("Deportes");
+        actividad4.setEtiquetas(etiquetas4);
+        this.mockedActivities.add(actividad4);
     }
 
     public void desdeOnClick(final View v) {
