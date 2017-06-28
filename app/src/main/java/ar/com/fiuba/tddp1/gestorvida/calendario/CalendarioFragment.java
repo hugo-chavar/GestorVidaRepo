@@ -85,14 +85,26 @@ public class CalendarioFragment extends Fragment {
     private void cargarEventos() {
 
         //Le cargo todos los eventos a una fecha
-        Map<Date, List<Actividad>> fechasDeActividades = Perfil.getFechasDeActividades();
+
+        //Cargar fechas inicio, cargar fechas fin, cargar fechas recordatorio
+        /*
+            Azul->Inicio
+            Rojo->Fin
+            Verde->Recordatorio
+         */
+        this.cargarEventosDeListaDeFechas(Color.BLUE, Perfil.getFechasDeInicioDeActividades());
+        this.cargarEventosDeListaDeFechas(Color.RED, Perfil.getFechasDeFinDeActividades());
+        this.cargarEventosDeListaDeFechas(Color.GREEN, Perfil.getFechasDeRecordatoriosDeActividades());
+
+    }
+
+    private void cargarEventosDeListaDeFechas(int color, Map<Date, List<Actividad>> fechasDeActividades) {
         for (Map.Entry<Date, List<Actividad>> fecha : fechasDeActividades.entrySet()) {
             for (Actividad actividad : fecha.getValue()) {
-                Event evento = new Event(Color.BLUE, fecha.getKey().getTime(), actividad);
+                Event evento = new Event(color, fecha.getKey().getTime(), actividad);
                 this.calendario.addEvent(evento,false);
             }
         }
-
     }
 
     private void inicializarRecyclerActividadesDelDia() {

@@ -118,4 +118,9 @@ public class Actividad {
     public Set<String> getEtiquetas() {
         return this.etiquetas;
     }
+
+    public Fecha getFechaRecordatorio() {
+        return this.fechaRecordatorio;
+
+    }
 }
