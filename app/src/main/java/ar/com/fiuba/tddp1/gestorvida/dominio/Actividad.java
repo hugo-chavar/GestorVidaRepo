@@ -123,4 +123,8 @@ public class Actividad {
         return this.fechaRecordatorio;
 
     }
+
+    public int getPeriodicidad() {
+        return this.periodicidad;
+    }
 }

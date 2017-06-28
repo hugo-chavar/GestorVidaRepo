@@ -3,6 +3,7 @@ package ar.com.fiuba.tddp1.gestorvida.dominio;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -48,15 +49,37 @@ public class Perfil {
 
     }
 
-    private static void cargarFecha(Actividad nuevaActividad, Fecha fecha, Map<Date, List<Actividad>> fechaDeActividade) {
+    private static void cargarFecha(Actividad nuevaActividad, Fecha fecha, Map<Date, List<Actividad>> fechaDeActividad) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
         if (fecha != null) {
             try {
                 Date date = formatter.parse(fecha.anio + "/" + fecha.mes + "/" + fecha.dia);
-                if ( !fechaDeActividade.containsKey(date) ) {
-                    fechaDeActividade.put( date, new ArrayList<Actividad>() );
+                if ( !fechaDeActividad.containsKey(date) ) {
+                    fechaDeActividad.put( date, new ArrayList<Actividad>() );
                 }
-                fechaDeActividade.get(date).add(nuevaActividad);
+                fechaDeActividad.get(date).add(nuevaActividad);
+
+
+                //Si la periodicidad es mayor a 0 --> cargarla de nuevo en otra fecha
+                int periodicidad = nuevaActividad.getPeriodicidad();
+                if (periodicidad > 0) {
+                    Calendar fechaCalendario = Calendar.getInstance();
+                    fechaCalendario.setTime(date);
+                    int mesInicial = fechaCalendario.get(Calendar.MONTH);
+
+                    //Por ahora solo lo repite 10 veces
+                    while ( (mesInicial + 3) >=  fechaCalendario.get(Calendar.MONTH) ) {
+                        fechaCalendario.add(Calendar.DATE, periodicidad);
+                        date = fechaCalendario.getTime();
+
+                        if ( !fechaDeActividad.containsKey(date) ) {
+                            fechaDeActividad.put( date, new ArrayList<Actividad>() );
+                        }
+                        fechaDeActividad.get(date).add(nuevaActividad);
+
+                    }
+                }
+
             } catch (ParseException e) {
                 e.printStackTrace();
             }
