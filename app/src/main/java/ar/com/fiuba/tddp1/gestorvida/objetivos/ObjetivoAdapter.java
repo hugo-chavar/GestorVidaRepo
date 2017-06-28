@@ -18,7 +18,7 @@ import ar.com.fiuba.tddp1.gestorvida.dominio.Objetivo;
  * Created by User on 21/06/2017.
  */
 
-class ObjetivoAdapter extends RecyclerView.Adapter<ObjetivoViewHolder> {
+public class ObjetivoAdapter extends RecyclerView.Adapter<ObjetivoViewHolder> {
 
 
     private List<Objetivo> listaObjetivos;

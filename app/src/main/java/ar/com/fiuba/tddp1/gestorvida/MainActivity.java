@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import ar.com.fiuba.tddp1.gestorvida.actividades.ActividadesFragment;
+import ar.com.fiuba.tddp1.gestorvida.calendario.CalendarioFragment;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Objetivo;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 import ar.com.fiuba.tddp1.gestorvida.estadisticas.EstadisticasActividadesCompletadasFragment;
@@ -126,7 +127,8 @@ public class MainActivity extends AppCompatActivity
 
             //Mostrar pantalla calendario
 
-            setFragment(new EjemploFragment());
+            //setFragment(new EjemploFragment());
+            setFragment(new CalendarioFragment());
 
 
         } else if (id == R.id.nav_objetivos) {

@@ -31,5 +31,6 @@ dependencies {
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
     compile 'com.google.code.gson:gson:2.8.1'
     compile 'com.android.volley:volley:1.0.0'
+    compile 'com.github.sundeepk:compact-calendar-view:2.0.2.1'
     testCompile 'junit:junit:4.12'
 }
