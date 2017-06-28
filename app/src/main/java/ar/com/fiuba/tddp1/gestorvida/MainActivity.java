@@ -142,8 +142,8 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_estadisticas) {
             //Mostrar pantalla de estadisticas
             //setFragment( new EstadisticasFragment() );
-            //setFragment( new EstadisticasActividadesCompletadasFragment() );
-            setFragment( new EstadisticasEtiquetasPieChartFragment() );
+            setFragment( new EstadisticasActividadesCompletadasFragment() );
+            //setFragment( new EstadisticasEtiquetasPieChartFragment() );
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

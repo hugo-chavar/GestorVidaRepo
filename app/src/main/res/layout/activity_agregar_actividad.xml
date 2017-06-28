@@ -23,11 +23,13 @@
 
         <EditText
             android:id="@+id/edittextNombre"
-            android:layout_width="wrap_content"
+            android:layout_width="784dp"
             android:layout_height="wrap_content"
-            android:text="Input text" android:inputType="text"
+            android:inputType="text"
+            android:text="Texto para testear"
+            app:layout_constraintLeft_toLeftOf="@+id/textNombre"
             app:layout_constraintTop_toBottomOf="@+id/textNombre"
-            app:layout_constraintLeft_toLeftOf="@+id/textNombre"/>
+            android:background="@drawable/inputtext_box"/>
 
         <TextView
             android:id="@+id/textDescripcion"
@@ -39,11 +41,12 @@
 
         <EditText
             android:id="@+id/edittextDescripcion"
-            android:layout_width="wrap_content"
+            android:layout_width="784dp"
             android:layout_height="wrap_content"
-            android:text="Descripcion" android:inputType="text"
+            android:inputType="text"
             app:layout_constraintTop_toBottomOf="@+id/textDescripcion"
-            app:layout_constraintLeft_toLeftOf="@+id/textDescripcion"/>
+            app:layout_constraintLeft_toLeftOf="@+id/textDescripcion"
+            android:background="@drawable/inputtext_box"/>
 
         <TextView
             android:id="@+id/textInicioActividad"
@@ -57,41 +60,29 @@
             android:id="@+id/textViewInicioActividad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Input text" android:inputType="date"
+            android:text="dd/mm/aaaa" android:inputType="date"
             app:layout_constraintTop_toBottomOf="@+id/textInicioActividad"
-            app:layout_constraintLeft_toLeftOf="@+id/textInicioActividad"/>
+            app:layout_constraintLeft_toRightOf="@+id/imageViewInicioActividad"
+            android:background="@drawable/inputtext_box"/>
 
-        <Button
-            android:id="@+id/buttonInicioActividad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Selecionar fecha"
-            app:layout_constraintTop_toBottomOf="@+id/textInicioActividad"
-            app:layout_constraintLeft_toRightOf="@+id/textViewInicioActividad"/>
 
         <TextView
             android:id="@+id/textViewFinActividad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Input text" android:inputType="date"
-            app:layout_constraintTop_toBottomOf="@+id/textViewInicioActividad"
-            app:layout_constraintLeft_toLeftOf="@+id/textViewInicioActividad"/>
+            android:text="dd/mm/aaaa" android:inputType="date"
+            app:layout_constraintTop_toTopOf="@+id/imageViewFinActividad"
+            app:layout_constraintLeft_toRightOf="@+id/imageViewFinActividad"
+            android:background="@drawable/inputtext_box"/>
 
-        <Button
-            android:id="@+id/buttonFinActividad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Selecionar fecha"
-            app:layout_constraintTop_toBottomOf="@+id/textViewInicioActividad"
-            app:layout_constraintLeft_toRightOf="@+id/textViewFinActividad"/>
 
         <TextView
             android:id="@+id/textViewPrioridad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Prioridad"
-            app:layout_constraintTop_toBottomOf="@+id/buttonRecordatorio"
-            app:layout_constraintLeft_toLeftOf="@+id/buttonRecordatorio" />
+            app:layout_constraintTop_toBottomOf="@+id/imageViewRecordatorio"
+            app:layout_constraintLeft_toLeftOf="@+id/imageViewRecordatorio" />
 
         <Spinner
             android:id="@+id/spinnerPrioridades"
@@ -105,8 +96,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Etiquetas"
-            app:layout_constraintTop_toBottomOf="@+id/textViewFinActividad"
-            app:layout_constraintLeft_toLeftOf="@+id/textViewFinActividad" />
+            app:layout_constraintTop_toBottomOf="@+id/imageViewFinActividad"
+            app:layout_constraintLeft_toLeftOf="@+id/imageViewFinActividad" />
 
 
         <RadioGroup
@@ -133,11 +124,12 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="Semanal"/>
+
             <RadioButton
                 android:id="@+id/radioButtonPeriodicidadCadaXDias"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="Cada X dias"/>
+                android:layout_height="wrap_content"
+                android:text="Cada X dias:" />
         </RadioGroup>
 
         <CheckBox
@@ -146,18 +138,24 @@
             android:layout_height="wrap_content"
             android:text="Tiempo estimado:"
             app:layout_constraintLeft_toLeftOf="@+id/textViewEstimacion"
-            app:layout_constraintTop_toBottomOf="@+id/textViewEstimacion" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewEstimacion"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="-2dp" />
 
         <EditText
             android:id="@+id/editTextTiempoEstimado"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0:00"
+            android:hint="hh:mm"
             android:enabled="false"
             android:maxLines="1"
             android:inputType="time"
             app:layout_constraintLeft_toRightOf="@+id/checkBoxTiempoEstimado"
-            app:layout_constraintTop_toBottomOf="@+id/textViewEstimacion" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewEstimacion"
+            android:background="@drawable/inputtext_box"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="5dp"
+            android:textSize="14dp"/>
 
         <Spinner
             android:id="@+id/spinnerObjetivos"
@@ -174,7 +172,8 @@
             android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/radioGroupTipoActividad"
             android:layout_marginLeft="8dp"
-            app:layout_constraintLeft_toLeftOf="@+id/radioGroupTipoActividad" />
+            app:layout_constraintLeft_toLeftOf="@+id/radioGroupTipoActividad"
+            android:layout_marginStart="8dp" />
 
 
         <LinearLayout
@@ -186,13 +185,6 @@
             android:orientation="vertical">
         </LinearLayout>
 
-        <Button
-            android:id="@+id/buttonAgregarEtiqueta"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="+"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayoutEtiquetas"
-            app:layout_constraintLeft_toLeftOf="@+id/linearLayoutEtiquetas"/>
 
 
         <TextView
@@ -203,33 +195,30 @@
             app:layout_constraintTop_toBottomOf="@+id/buttonAgregarEtiqueta"
             app:layout_constraintLeft_toLeftOf="@+id/buttonAgregarEtiqueta" />
 
-        <Button
-            android:id="@+id/buttonRecordatorio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Seleccionar fecha"
-            app:layout_constraintLeft_toLeftOf="@+id/textViewRecordatorio"
-            app:layout_constraintTop_toBottomOf="@+id/textViewRecordatorio" />
 
         <TextView
             android:id="@+id/textViewFechaRecordatorio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintLeft_toRightOf="@+id/buttonRecordatorio"
-            app:layout_constraintTop_toTopOf="@+id/buttonRecordatorio"
-            android:text=""/>
+            app:layout_constraintLeft_toRightOf="@+id/imageViewRecordatorio"
+            app:layout_constraintTop_toTopOf="@+id/imageViewRecordatorio"
+            android:text="dd/mm/aaaa" android:inputType="date"
+            android:background="@drawable/inputtext_box"/>
 
         <EditText
             android:id="@+id/editTextXDias"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1"
-            app:layout_constraintLeft_toRightOf="@+id/radioGroupPerioridicidad"
-            android:layout_marginLeft="9dp"
             app:layout_constraintTop_toTopOf="@+id/radioGroupPerioridicidad"
-            android:layout_marginTop="81dp"
+            android:layout_marginTop="102dp"
             android:inputType="number"
-            android:enabled="false"/>
+            android:enabled="false"
+            android:layout_marginStart="9dp"
+            android:textSize="14dp"
+            android:background="@drawable/inputtext_box"
+            app:layout_constraintLeft_toRightOf="@+id/radioGroupPerioridicidad"
+            android:layout_marginLeft="6dp"
+            android:hint="X Dias"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -286,8 +275,39 @@
 
         </RadioGroup>
 
+        <ImageView
+            android:id="@+id/imageViewInicioActividad"
+            android:layout_width="29dp"
+            android:layout_height="20dp"
+            app:srcCompat="@drawable/calendar_light_blue"
+            app:layout_constraintTop_toBottomOf="@+id/textInicioActividad"
+            app:layout_constraintLeft_toLeftOf="@+id/textInicioActividad" />
 
+        <ImageView
+            android:id="@+id/imageViewFinActividad"
+            android:layout_width="29dp"
+            android:layout_height="20dp"
+            app:srcCompat="@drawable/calendar_light_blue"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewInicioActividad"
+            app:layout_constraintLeft_toLeftOf="@+id/imageViewInicioActividad" />
 
+        <ImageView
+            android:id="@+id/imageViewRecordatorio"
+            android:layout_width="29dp"
+            android:layout_height="20dp"
+            app:srcCompat="@drawable/calendar_light_blue"
+            app:layout_constraintLeft_toLeftOf="@+id/textViewRecordatorio"
+            app:layout_constraintTop_toBottomOf="@+id/textViewRecordatorio" />
+
+        <ImageView
+            android:id="@+id/buttonAgregarEtiqueta"
+            android:layout_width="33dp"
+            android:layout_height="27dp"
+            app:srcCompat="@android:drawable/ic_input_add"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutEtiquetas"
+            app:layout_constraintLeft_toLeftOf="@+id/linearLayoutEtiquetas"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="-1dp" />
 
     </android.support.constraint.ConstraintLayout>
 

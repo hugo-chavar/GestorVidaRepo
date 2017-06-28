@@ -3,7 +3,9 @@ package ar.com.fiuba.tddp1.gestorvida.estadisticas;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,11 +39,17 @@ import ar.com.fiuba.tddp1.gestorvida.web.Pair;
 
 
 
-public class EstadisticasEtiquetasPieChartFragment extends Fragment {
+public class EstadisticasEtiquetasPieChartFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.layout_pie_chart, container, false);
+
+
+        FloatingActionButton fabSiguienteGrafico = (FloatingActionButton) view.findViewById(R.id.fabPieChartSiguienteGrafico);
+        fabSiguienteGrafico.setOnClickListener(this);
+
+
 
         PieChart grafico = (PieChart) view.findViewById(R.id.pieChartEtiquetas);
 
@@ -121,5 +129,18 @@ public class EstadisticasEtiquetasPieChartFragment extends Fragment {
 
 
         return view;
+    }
+
+    @Override
+    public void onClick(View v) {
+        Fragment siguienteGrafico = new EstadisticasActividadesCompletadasFragment();
+        Bundle bundle = new Bundle();
+
+        siguienteGrafico.setArguments(bundle);
+
+        FragmentManager fragmentManager = this.getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.contenedor, siguienteGrafico )
+                .commit();
     }
 }

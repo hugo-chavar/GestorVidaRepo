@@ -2,10 +2,8 @@ package ar.com.fiuba.tddp1.gestorvida.actividades;
 
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.support.annotation.IntegerRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
@@ -16,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -49,9 +48,9 @@ public class AgregarActividadFragment extends Fragment{
         View view = inflater.inflate(R.layout.activity_agregar_actividad, container,false);
 
         //A cada boton de fecha le asocio un textView en donde se va a escribir la fecha seleccionada
-        this.textosFechas.put(R.id.buttonInicioActividad, (TextView) view.findViewById(R.id.textViewInicioActividad) );
-        this.textosFechas.put(R.id.buttonFinActividad, (TextView) view.findViewById(R.id.textViewFinActividad) );
-        this.textosFechas.put(R.id.buttonRecordatorio, (TextView) view.findViewById(R.id.textViewFechaRecordatorio) );
+        this.textosFechas.put(R.id.imageViewInicioActividad, (TextView) view.findViewById(R.id.textViewInicioActividad) );
+        this.textosFechas.put(R.id.imageViewFinActividad, (TextView) view.findViewById(R.id.textViewFinActividad) );
+        this.textosFechas.put(R.id.imageViewRecordatorio, (TextView) view.findViewById(R.id.textViewFechaRecordatorio) );
 
         String[] prioridades = new String[] {"ALTA", "MEDIA", "BAJA"};
         Spinner spinnerPrioridades = (Spinner) view.findViewById(R.id.spinnerPrioridades);
@@ -59,7 +58,7 @@ public class AgregarActividadFragment extends Fragment{
         spinnerPrioridades.setAdapter(adapter);
 
         //No termino de entender para que sirve
-        spinnerPrioridades.setPrompt("Como funciona esto, el prompt? no lo veo cuando lo corro");
+        //spinnerPrioridades.setPrompt("Como funciona esto, el prompt? no lo veo cuando lo corro");
 
         Spinner spinnerObjetivos = (Spinner) view.findViewById(R.id.spinnerObjetivos);
         LinkedList<Objetivo> objetivos = Perfil.getObjetivos();
@@ -68,7 +67,7 @@ public class AgregarActividadFragment extends Fragment{
 
 
         //Seteo el clickListener de los botones de fechas
-        Button buttonInicioActividad = (Button) view.findViewById(R.id.buttonInicioActividad);
+        ImageView buttonInicioActividad = (ImageView) view.findViewById(R.id.imageViewInicioActividad);
         buttonInicioActividad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +75,7 @@ public class AgregarActividadFragment extends Fragment{
             }
         });
 
-        Button buttonFinActividad = (Button) view.findViewById(R.id.buttonFinActividad);
+        ImageView buttonFinActividad = (ImageView) view.findViewById(R.id.imageViewFinActividad);
         buttonFinActividad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,7 +84,7 @@ public class AgregarActividadFragment extends Fragment{
         });
 
 
-        Button buttonAgregarEtiqueta = (Button) view.findViewById(R.id.buttonAgregarEtiqueta);
+        ImageView buttonAgregarEtiqueta = (ImageView) view.findViewById(R.id.buttonAgregarEtiqueta);
         buttonAgregarEtiqueta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,7 +112,7 @@ public class AgregarActividadFragment extends Fragment{
         });
 
 
-        Button buttonRecordatorio = (Button) view.findViewById(R.id.buttonRecordatorio);
+        ImageView buttonRecordatorio = (ImageView) view.findViewById(R.id.imageViewRecordatorio);
         buttonRecordatorio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -161,9 +160,18 @@ public class AgregarActividadFragment extends Fragment{
 
 
     public void agregarEtiqueta(String nombreEtiqueta) {
-        TextView textViewEtiquetaIngresada = new TextView(this.getActivity());
+
+        LinearLayout grupoEtiquetasView = ( (LinearLayout) this.getView().findViewById(R.id.linearLayoutEtiquetas));
+
+
+        //TODO: puede llegar a haber algun problema si al getLayoutInflater le paso null?
+        View etiquetaIndividualView = getLayoutInflater(null).inflate(R.layout.layout_etiqueta, null);
+
+        TextView textViewEtiquetaIngresada = (TextView) etiquetaIndividualView.findViewById(R.id.nombreEtiqueta);
         textViewEtiquetaIngresada.setText(nombreEtiqueta);
-        ( (LinearLayout) this.getView().findViewById(R.id.linearLayoutEtiquetas)).addView(textViewEtiquetaIngresada);
+
+        grupoEtiquetasView.addView(etiquetaIndividualView);
+
         this.listaDeEtiquetas.add(nombreEtiqueta);
     }
 
@@ -250,7 +258,7 @@ public class AgregarActividadFragment extends Fragment{
     private Fecha parsearFecha(TextView textoFecha) {
         String fecha = textoFecha.getText().toString();
         String[] fechaParseada = fecha.split("/");
-        if (fechaParseada.length == 3) {
+        if ( (fechaParseada.length == 3) && (!fecha.equals("dd/mm/aaaa"))){
             //Si el lenght es diferente de 3 entonces no hay una fecha ingresada
             return new Fecha(fechaParseada[0], fechaParseada[1], fechaParseada[2]);
         }

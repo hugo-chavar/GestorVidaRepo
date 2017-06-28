@@ -1,7 +1,9 @@
 package ar.com.fiuba.tddp1.gestorvida.estadisticas;
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,13 +26,16 @@ import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
  * Created by User on 26/06/2017.
  */
 
-public class EstadisticasActividadesCompletadasFragment extends Fragment{
+public class EstadisticasActividadesCompletadasFragment extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.layout_line_chart, container,false);
 
         LineChart grafico = (LineChart) view.findViewById(R.id.ejemploGrafico);
+
+        FloatingActionButton fabSiguienteGrafico = (FloatingActionButton) view.findViewById(R.id.fabLineChartSiguienteGrafico);
+        fabSiguienteGrafico.setOnClickListener(this);
 
         //Primero se crea una lista de Entry (un punto X,Y) con los valores que pongamos
         Integer[] valoresXDias = new Integer[]{1,2,3,4,5,6,7}; //Para la demo solo vamos a usar 1 semana, 7 dias
@@ -68,5 +73,18 @@ public class EstadisticasActividadesCompletadasFragment extends Fragment{
 
 
         return view;
+    }
+
+    @Override
+    public void onClick(View v) {
+        Fragment siguienteGrafico = new EstadisticasEtiquetasPieChartFragment();
+        Bundle bundle = new Bundle();
+
+        siguienteGrafico .setArguments(bundle);
+
+        FragmentManager fragmentManager = this.getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.contenedor, siguienteGrafico )
+                .commit();
     }
 }
