@@ -11,6 +11,8 @@ import android.widget.TextView;
 import java.util.Arrays;
 import java.util.Comparator;
 
+
+//Fuente: https://gist.github.com/gabrielemariotti/4c189fb1124df4556058
 public class SimpleSectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final Context mContext;

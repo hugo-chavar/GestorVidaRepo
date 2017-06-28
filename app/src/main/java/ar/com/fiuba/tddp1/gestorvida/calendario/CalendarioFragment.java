@@ -36,6 +36,10 @@ import ar.com.fiuba.tddp1.gestorvida.objetivos.ObjetivoAdapter;
 
 public class CalendarioFragment extends Fragment {
 
+    public static final int COLOR_INICIO = Color.BLUE;
+    public static final int COLOR_FIN = Color.RED;
+    public static final int COLOR_RECORDATORIO = Color.GREEN;
+
     private SimpleDateFormat formatterToolbar = new SimpleDateFormat("MMMM, yyyy");
     private LinearLayout linearLayoutActividadesDia;
     private LinearLayout layoutNoHayActividades;
@@ -93,9 +97,9 @@ public class CalendarioFragment extends Fragment {
             Rojo->Fin
             Verde->Recordatorio
          */
-        this.cargarEventosDeListaDeFechas(Color.BLUE, Perfil.getFechasDeInicioDeActividades());
-        this.cargarEventosDeListaDeFechas(Color.RED, Perfil.getFechasDeFinDeActividades());
-        this.cargarEventosDeListaDeFechas(Color.GREEN, Perfil.getFechasDeRecordatoriosDeActividades());
+        this.cargarEventosDeListaDeFechas(COLOR_INICIO, Perfil.getFechasDeInicioDeActividades());
+        this.cargarEventosDeListaDeFechas(COLOR_FIN, Perfil.getFechasDeFinDeActividades());
+        this.cargarEventosDeListaDeFechas(COLOR_RECORDATORIO, Perfil.getFechasDeRecordatoriosDeActividades());
 
     }
 
@@ -136,25 +140,43 @@ public class CalendarioFragment extends Fragment {
     public void mostrarEventos(Date fecha) {
 
         List<Event> eventosFechaSeleccionada = this.calendario.getEvents(fecha);
-        List<Actividad> actividadesFechaSeleccionada = new ArrayList<>();
+        List<Actividad> todasLasActividadesFechaSeleccionada = new ArrayList<>();
+
+        HashMap<Integer, List<Actividad>> fechasDeAcividadesPorColor = new HashMap<>();
+        fechasDeAcividadesPorColor.put(COLOR_INICIO, new ArrayList<Actividad>());
+        fechasDeAcividadesPorColor.put(COLOR_FIN, new ArrayList<Actividad>());
+        fechasDeAcividadesPorColor.put(COLOR_RECORDATORIO, new ArrayList<Actividad>());
 
         for (Event evento : eventosFechaSeleccionada) {
-            actividadesFechaSeleccionada.add((Actividad) evento.getData());
+            //Segun el color del evento, agrego actividades a su correspondiente lista
+            fechasDeAcividadesPorColor.get(evento.getColor()).add((Actividad) evento.getData());
         }
+        //A la  lista de todas las actividades le agrego primero las de inicio, luego las de fin y por ultimo los recordatorios
+        todasLasActividadesFechaSeleccionada.addAll(fechasDeAcividadesPorColor.get(COLOR_INICIO));
+        todasLasActividadesFechaSeleccionada.addAll(fechasDeAcividadesPorColor.get(COLOR_FIN));
+        todasLasActividadesFechaSeleccionada.addAll(fechasDeAcividadesPorColor.get(COLOR_RECORDATORIO));
 
 
-        if (actividadesFechaSeleccionada.size() > 0) {
+        if (todasLasActividadesFechaSeleccionada.size() > 0) {
             this.layoutNoHayActividades.setVisibility(View.GONE);
 
-
-
-            ActividadAdapter objetivoAdapter = new ActividadAdapter(actividadesFechaSeleccionada, getActivity());
+            //Cortesia de https://gist.github.com/gabrielemariotti/4c189fb1124df4556058
+            ActividadAdapter objetivoAdapter = new ActividadAdapter(todasLasActividadesFechaSeleccionada, getActivity());
             List<SimpleSectionedRecyclerViewAdapter.Section> sections = new ArrayList<>();
 
-
-            sections.add(new SimpleSectionedRecyclerViewAdapter.Section(0, "FAFAFAF"));
-            sections.add(new SimpleSectionedRecyclerViewAdapter.Section(5, "IFHMLWCIBWESTD"));
-
+            int posicionSiguienteSeccion = 0;
+            if (fechasDeAcividadesPorColor.get(COLOR_INICIO).size() > 0) {
+                sections.add(new SimpleSectionedRecyclerViewAdapter.Section(posicionSiguienteSeccion, "Inicio actividad:"));
+                posicionSiguienteSeccion += fechasDeAcividadesPorColor.get(COLOR_INICIO).size();
+            }
+            if (fechasDeAcividadesPorColor.get(COLOR_FIN).size() > 0) {
+                sections.add(new SimpleSectionedRecyclerViewAdapter.Section(posicionSiguienteSeccion, "Fin actividad:"));
+                posicionSiguienteSeccion += fechasDeAcividadesPorColor.get(COLOR_FIN).size();
+            }
+            if (fechasDeAcividadesPorColor.get(COLOR_RECORDATORIO).size() > 0) {
+                sections.add(new SimpleSectionedRecyclerViewAdapter.Section(posicionSiguienteSeccion, "Recordatorio:"));
+                posicionSiguienteSeccion += fechasDeAcividadesPorColor.get(COLOR_RECORDATORIO).size();
+            }
 
             SimpleSectionedRecyclerViewAdapter.Section[] dummy = new SimpleSectionedRecyclerViewAdapter.Section[sections.size()];
             SimpleSectionedRecyclerViewAdapter mSectionedAdapter = new SimpleSectionedRecyclerViewAdapter(recyclerActividadesDelDia.getContext(), R.layout.section, R.id.section_text, objetivoAdapter);
