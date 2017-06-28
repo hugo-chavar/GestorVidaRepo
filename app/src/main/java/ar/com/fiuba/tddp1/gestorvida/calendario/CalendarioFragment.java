@@ -106,13 +106,6 @@ public class CalendarioFragment extends Fragment {
     private void cargarEventos() {
 
         //Le cargo todos los eventos a una fecha
-
-        //Cargar fechas inicio, cargar fechas fin, cargar fechas recordatorio
-        /*
-            Azul->Inicio
-            Rojo->Fin
-            Verde->Recordatorio
-         */
         this.cargarEventosDeListaDeFechas(COLOR_INICIO, Perfil.getFechasDeInicioDeActividades());
         this.cargarEventosDeListaDeFechas(COLOR_FIN, Perfil.getFechasDeFinDeActividades());
         this.cargarEventosDeListaDeFechas(COLOR_RECORDATORIO, Perfil.getFechasDeRecordatoriosDeActividades());
@@ -141,7 +134,7 @@ public class CalendarioFragment extends Fragment {
 
     }
 
-    boolean hayActividades = true;
+
 
 
 
@@ -181,7 +174,7 @@ public class CalendarioFragment extends Fragment {
             this.layoutNoHayActividades.setVisibility(View.GONE);
 
             //Cortesia de https://gist.github.com/gabrielemariotti/4c189fb1124df4556058
-            ActividadAdapter objetivoAdapter = new ActividadAdapter(todasLasActividadesFechaSeleccionada, getActivity());
+            ActividadCalendarioAdapter actividadCalendarioAdapter = new ActividadCalendarioAdapter(todasLasActividadesFechaSeleccionada, getActivity());
             List<SimpleSectionedRecyclerViewAdapter.Section> sections = new ArrayList<>();
 
             int posicionSiguienteSeccion = 0;
@@ -199,19 +192,15 @@ public class CalendarioFragment extends Fragment {
             }
 
             SimpleSectionedRecyclerViewAdapter.Section[] dummy = new SimpleSectionedRecyclerViewAdapter.Section[sections.size()];
-            SimpleSectionedRecyclerViewAdapter mSectionedAdapter = new SimpleSectionedRecyclerViewAdapter(recyclerActividadesDelDia.getContext(), R.layout.section, R.id.section_text, objetivoAdapter);
+            SimpleSectionedRecyclerViewAdapter mSectionedAdapter = new SimpleSectionedRecyclerViewAdapter(recyclerActividadesDelDia.getContext(), R.layout.section, R.id.section_text, actividadCalendarioAdapter);
             mSectionedAdapter.setSections(sections.toArray(dummy));
 
             recyclerActividadesDelDia.setAdapter(mSectionedAdapter);
             recyclerActividadesDelDia.setVisibility(View.VISIBLE);
-            this.hayActividades = !this.hayActividades;
         }
         else {
             this.layoutNoHayActividades.setVisibility(View.VISIBLE);
-
-
             this.recyclerActividadesDelDia.setVisibility(View.GONE);
-            this.hayActividades = !this.hayActividades;
         }
     }
 }
