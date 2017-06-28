@@ -126,26 +126,24 @@ public class CalendarioFragment extends Fragment {
         ObjetivoAdapter objetivoAdapter = new ObjetivoAdapter(Perfil.getObjetivos(), getActivity());
         recyclerActividadesDelDia.setAdapter(objetivoAdapter);
         */
-        ActividadAdapter objetivoAdapter = new ActividadAdapter(Perfil.getTodasLasActividades(), getActivity());
-        recyclerActividadesDelDia.setAdapter(objetivoAdapter);
     }
 
     boolean hayActividades = true;
     public void mostrarEventos(Date fecha) {
 
-        this.calendario.getEvents(fecha);
+        List<Event> eventosFechaSeleccionada = this.calendario.getEvents(fecha);
+        List<Actividad> actividadesFechaSeleccionada = new ArrayList<>();
 
-        Calendar fechaCalendario = Calendar.getInstance();
-        fechaCalendario.setTime(fecha);
-        int anio = fechaCalendario.get(Calendar.YEAR);
-        int mes = fechaCalendario.get(Calendar.MONTH);
-        int dia = fechaCalendario.get(Calendar.DAY_OF_MONTH);
+        for (Event evento : eventosFechaSeleccionada) {
+            actividadesFechaSeleccionada.add((Actividad) evento.getData());
+        }
 
-
-
-
-        if (hayActividades) {
+        if (actividadesFechaSeleccionada.size() > 0) {
             this.layoutNoHayActividades.setVisibility(View.GONE);
+
+            ActividadAdapter objetivoAdapter = new ActividadAdapter(actividadesFechaSeleccionada, getActivity());
+            recyclerActividadesDelDia.setAdapter(objetivoAdapter);
+
             recyclerActividadesDelDia.setVisibility(View.VISIBLE);
             this.hayActividades = !this.hayActividades;
         }
