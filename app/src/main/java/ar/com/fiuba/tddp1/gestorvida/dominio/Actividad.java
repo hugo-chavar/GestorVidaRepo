@@ -127,4 +127,8 @@ public class Actividad {
     public int getPeriodicidad() {
         return this.periodicidad;
     }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
 }

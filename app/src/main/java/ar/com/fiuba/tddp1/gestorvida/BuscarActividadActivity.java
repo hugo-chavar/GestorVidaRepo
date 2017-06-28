@@ -168,7 +168,7 @@ public class BuscarActividadActivity extends AppCompatActivity {
         lista.removeAllViews();
 
         //TODO: Esta debe ser la lista de todas las actividades en el server
-        for (Actividad actividad : this.mockedActivities) {
+        for (final Actividad actividad : this.mockedActivities) {
             LinearLayout elementoActividad = new LinearLayout(this);
             elementoActividad.setOrientation(LinearLayout.VERTICAL);
 
@@ -207,7 +207,7 @@ public class BuscarActividadActivity extends AppCompatActivity {
                     elementoActividad.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            actividadOnClick(v);
+                            actividadOnClick(v, actividad);
                         }
                     });
                     lista.addView(elementoActividad);
@@ -345,19 +345,28 @@ public class BuscarActividadActivity extends AppCompatActivity {
 
     }
 
-    public void actividadOnClick(final View v) {
-        //setFragment(new VerActividadBuscadaFragment());
+    public void actividadOnClick(final View v, final Actividad actividad) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(actividad.getNombre());
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        TextView descripcion = new TextView(this);
+        descripcion.setText(actividad.getDescripcion());
+        layout.addView(descripcion);
+        builder.setView(layout);
+        builder.setPositiveButton("Agregar actividad", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Perfil.agregarActividad(actividad);
+            }
+        });
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //No hacer nada
+            }
+        });
+        builder.show();
     }
 
-    public void setFragment(Fragment fragment) {
-
-        Bundle bundle = new Bundle();
-
-        fragment.setArguments(bundle);
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.contenedor, fragment)
-                .commit();
-    }
 }
