@@ -19,7 +19,7 @@ public class ActividadesListener implements ResponseListener {
     public void onRequestCompleted(JSONObject response) {
 
         Log.d("ActividadesListener", response.toString());
-        Toast.makeText(context, "Ping to server ok", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, response.toString(), Toast.LENGTH_LONG).show();
     }
 
     @Override

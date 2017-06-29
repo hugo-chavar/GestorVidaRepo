@@ -1,6 +1,8 @@
 package ar.com.fiuba.tddp1.gestorvida.web;
 
 
+import android.util.Log;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
 import com.android.volley.NetworkResponse;
@@ -14,6 +16,11 @@ import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 
 public class CustomRequest extends JsonObjectRequest {
 
@@ -96,11 +103,40 @@ public class CustomRequest extends JsonObjectRequest {
     protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
 
         if (response.data == null || response.data.length == 0) {
+            Log.d("CustomRequest", "response is null");
             return Response.success(new JSONObject(), HttpHeaderParser.parseCacheHeaders(response));
         } else {
             return super.parseNetworkResponse(response);
         }
     }
+
+    @Override
+    public Map getHeaders() throws AuthFailureError {
+        Map headers = new HashMap<>();
+        //String credentials = "ezhu:Ccare@123";
+        //String auth = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
+        String auth = Perfil.token;
+        headers.put("Content-Type", "application/json");
+        if (Perfil.token != null) {
+            headers.put("Authorization", auth);
+        }
+
+
+        return headers;
+    }
+
+    /*@Override
+    protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+        try {
+            if (response.data.length == 0) {
+                byte[] responseData = "{}".getBytes("UTF8");
+                response = new NetworkResponse(response.statusCode, responseData, response.headers, response.notModified);
+            }
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return super.parseNetworkResponse(response);
+    }*/
 
 
 }
