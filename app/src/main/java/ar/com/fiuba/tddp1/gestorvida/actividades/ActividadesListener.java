@@ -4,8 +4,6 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-import org.json.JSONObject;
-
 import ar.com.fiuba.tddp1.gestorvida.web.ResponseListener;
 
 public class ActividadesListener implements ResponseListener {
@@ -16,7 +14,7 @@ public class ActividadesListener implements ResponseListener {
         this.context = context;
     }
     @Override
-    public void onRequestCompleted(JSONObject response) {
+    public void onRequestCompleted(Object response) {
 
         Log.d("ActividadesListener", response.toString());
         Toast.makeText(context, response.toString(), Toast.LENGTH_LONG).show();

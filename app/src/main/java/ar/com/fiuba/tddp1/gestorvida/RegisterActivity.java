@@ -325,12 +325,13 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
     }
 
     @Override
-    public void onRequestCompleted(JSONObject response) {
+    public void onRequestCompleted(Object response) {
 
         showProgress(false);
         try {
-            Perfil.token = response.getString("token");
-            Perfil.id = response.getString("id");
+            JSONObject jsonObject = (JSONObject)response;
+            Perfil.token = jsonObject.getString("token");
+            Perfil.id = jsonObject.getString("id");
             Toast.makeText(this, "Registro exitoso", Toast.LENGTH_LONG).show();
             goToMain();
         } catch (JSONException e) {

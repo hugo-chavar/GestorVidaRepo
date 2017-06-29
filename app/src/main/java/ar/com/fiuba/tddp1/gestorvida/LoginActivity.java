@@ -139,7 +139,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         RequestSender requestSender = new RequestSender(this);
         Map<String,String> _params;
         _params = new HashMap<String,String>();
-        _params.put("username", name); //mUsuario es en realidad el tipo de usuario
+        _params.put("username", name);
         _params.put("password", password);
 
         JSONObject obj = new JSONObject(_params);
@@ -218,11 +218,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private void loadUserActivities() {
 
         RequestSender requestSender = new RequestSender(this);
-        /*Map<String,String> _params;
-        _params = new HashMap<String,String>();
-        _params.put("Authorization", Perfil.token);
-
-        JSONObject obj = new JSONObject(_params);*/
 
         String url = getString(R.string.url) + "activities";
 
@@ -232,17 +227,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     @Override
-    public void onRequestCompleted(JSONObject response) {
+    public void onRequestCompleted(Object response) {
+        showProgress(false);
         try {
-            Perfil.token = response.getString("token");
+            JSONObject jsonObject = (JSONObject)response;
+            Perfil.token = jsonObject.getString("token");
             //Perfil.id = response.getString("id");
 
-
-            //loadUserActivities();
+            loadUserActivities();
 
             goToMain();
+
         } catch (JSONException e) {
             showError("No se pudo obtener el Token");
+            mNameView.setError(getString(R.string.error_username_invalid));
+            mNameView.requestFocus();
         }
     }
 
