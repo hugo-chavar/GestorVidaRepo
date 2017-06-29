@@ -22,10 +22,10 @@ import java.util.Map;
 
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 
-public class CustomRequest extends JsonObjectRequest {
+public class CustomJsonObjetRequest extends JsonObjectRequest {
 
 
-    public CustomRequest(String url, JSONObject jsonRequest, final ResponseListener listener) {
+    public CustomJsonObjetRequest(String url, JSONObject jsonRequest, final ResponseListener listener) {
         super
             (
                 url,
@@ -103,7 +103,7 @@ public class CustomRequest extends JsonObjectRequest {
     protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
 
         if (response.data == null || response.data.length == 0) {
-            Log.d("CustomRequest", "response is null");
+            Log.d("CustomJsonObjetRequest", "response is null");
             return Response.success(new JSONObject(), HttpHeaderParser.parseCacheHeaders(response));
         } else {
             return super.parseNetworkResponse(response);
@@ -113,8 +113,6 @@ public class CustomRequest extends JsonObjectRequest {
     @Override
     public Map getHeaders() throws AuthFailureError {
         Map headers = new HashMap<>();
-        //String credentials = "ezhu:Ccare@123";
-        //String auth = "Basic " + Base64.encodeToString(credentials.getBytes(), Base64.NO_WRAP);
         String auth = Perfil.token;
         headers.put("Content-Type", "application/json");
         if (Perfil.token != null) {

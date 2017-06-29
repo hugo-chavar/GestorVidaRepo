@@ -23,7 +23,7 @@ public class RequestSender {
 
     public void doRequest(final ResponseListener listener, String url, final JSONObject params){
 
-        JsonObjectRequest jsonObjectRequest = new CustomRequest(url, params, listener);
+        JsonObjectRequest jsonObjectRequest = new CustomJsonObjetRequest(url, params, listener);
 
         queue.add(jsonObjectRequest);
     }

@@ -139,7 +139,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         RequestSender requestSender = new RequestSender(this);
         Map<String,String> _params;
         _params = new HashMap<String,String>();
-        _params.put("username", name); //mUsuario es en realidad el tipo de usuario
+        _params.put("username", name);
         _params.put("password", password);
 
         JSONObject obj = new JSONObject(_params);
@@ -218,11 +218,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private void loadUserActivities() {
 
         RequestSender requestSender = new RequestSender(this);
-        /*Map<String,String> _params;
-        _params = new HashMap<String,String>();
-        _params.put("Authorization", Perfil.token);
-
-        JSONObject obj = new JSONObject(_params);*/
 
         String url = getString(R.string.url) + "activities";
 
@@ -236,7 +231,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         try {
             Perfil.token = response.getString("token");
             //Perfil.id = response.getString("id");
-
 
             //loadUserActivities();
 
