@@ -239,6 +239,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             goToMain();
         } catch (JSONException e) {
             showError("No se pudo obtener el Token");
+            mNameView.setError(getString(R.string.error_username_invalid));
+            mNameView.requestFocus();
         }
     }
 
