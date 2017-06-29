@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
@@ -20,6 +21,10 @@ public class RequestSender {
         queue = Volley.newRequestQueue(context);
     }
 
+    public void doRequest(JsonRequest request){
+
+        queue.add(request);
+    }
 
     public void doRequest(final ResponseListener listener, String url, final JSONObject params){
 
@@ -30,7 +35,9 @@ public class RequestSender {
 
     public void doPost(final ResponseListener listener, String url, final JSONObject jsonObject){
         Log.d("RequestSender", "Sending post to " + url + " params " + jsonObject.toString());
-        doRequest(listener, url, jsonObject);
+        //doRequest(listener, url, jsonObject);
+
+        doRequest(new CustomJsonObjetRequest(url, jsonObject, listener));
 
     }
 

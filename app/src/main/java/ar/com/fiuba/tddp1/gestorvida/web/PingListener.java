@@ -4,8 +4,6 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-import org.json.JSONObject;
-
 
 public class PingListener implements ResponseListener {
 
@@ -15,7 +13,7 @@ public class PingListener implements ResponseListener {
         this.context = context;
     }
     @Override
-    public void onRequestCompleted(JSONObject response) {
+    public void onRequestCompleted(Object response) {
 
         Log.d("PingListener", response.toString());
         Toast.makeText(context, "Ping to server ok", Toast.LENGTH_LONG).show();

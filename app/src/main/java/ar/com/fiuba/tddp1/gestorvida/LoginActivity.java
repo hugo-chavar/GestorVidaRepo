@@ -227,9 +227,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     @Override
-    public void onRequestCompleted(JSONObject response) {
+    public void onRequestCompleted(Object response) {
+        showProgress(false);
         try {
-            Perfil.token = response.getString("token");
+            JSONObject jsonObject = (JSONObject)response;
+            Perfil.token = jsonObject.getString("token");
             //Perfil.id = response.getString("id");
 
             //loadUserActivities();
