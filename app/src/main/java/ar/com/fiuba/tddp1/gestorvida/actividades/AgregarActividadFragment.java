@@ -2,15 +2,22 @@ package ar.com.fiuba.tddp1.gestorvida.actividades;
 
 
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.ShapeDrawable;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.Space;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -20,9 +27,11 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -135,18 +144,99 @@ public class AgregarActividadFragment extends Fragment{
         return view;
     }
 
+
+    private Map<ImageView, Integer> mapaBotonColor;
+    private Integer colorEtiquetaElegido;
+
     private void agregarEtiqueta(View view) {
-        final EditText editTextEtiquetaIngresada = new EditText(this.getActivity());
-        editTextEtiquetaIngresada.setMaxLines(1);
-        editTextEtiquetaIngresada.setInputType(InputType.TYPE_CLASS_TEXT);
+
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
         builder.setTitle("Agregar etiqueta");
+
+
+        /*
+        final EditText editTextEtiquetaIngresada = new EditText(this.getActivity());
+        editTextEtiquetaIngresada.setMaxLines(1);
+        editTextEtiquetaIngresada.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setView(editTextEtiquetaIngresada);
+
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 agregarEtiqueta(editTextEtiquetaIngresada.getText().toString());
+            }
+        });
+        */
+
+
+        final LinearLayout parametrosEtiqueta = new LinearLayout(this.getActivity());
+        parametrosEtiqueta.setOrientation(LinearLayout.VERTICAL);
+
+        //TODO: agregarle un autocompletar y un color para seleccionar
+        final AutoCompleteTextView nombreEtiquetaAutoComplete = new AutoCompleteTextView(this.getActivity());
+        List<String> etiquetas = new ArrayList<>(Perfil.getNombresEtiquetas());
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_dropdown_item_1line, etiquetas);
+        nombreEtiquetaAutoComplete.setAdapter(adapter);
+        parametrosEtiqueta.addView(nombreEtiquetaAutoComplete);
+
+
+        LinearLayout linearLayoutColores = new LinearLayout(this.getActivity());
+        linearLayoutColores.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        linearLayoutColores.setOrientation(LinearLayout.HORIZONTAL);
+
+        Space espacioInicialEntreColores = new Space(this.getActivity());
+        espacioInicialEntreColores.setLayoutParams(new LinearLayout.LayoutParams( 0, 1, 1));
+        linearLayoutColores.addView(espacioInicialEntreColores);
+
+        int[] coloresEtiquetas = new int[]{ Color.rgb(250,250,250), Color.rgb(255,138,128), Color.rgb(255,209,128),
+                                            Color.rgb(255,255,141), Color.rgb(204,255,144),Color.rgb(167,255,235),
+                                            Color.rgb(128,216,255),Color.rgb(207,216,220) };
+        int[] coloresBordes = new int[]{ Color.rgb(202,202,202), Color.rgb(224,124,114), Color.rgb(227,187,116),
+                                         Color.rgb(204,204,148), Color.rgb(173,212,129),Color.rgb(154,210,196),
+                                         Color.rgb(114,193,228),Color.rgb(180,185,189) };
+
+
+        this.mapaBotonColor = new HashMap<>();
+        this.colorEtiquetaElegido = null;
+        for (int i = 0; i < coloresEtiquetas.length; i++) {
+            ImageView circuloColorImage = new ImageView(this.getActivity());
+            GradientDrawable circuloColor = (GradientDrawable) this.getActivity().getDrawable(R.drawable.circulo_color);
+            circuloColor.setColor(coloresEtiquetas[i]);
+            circuloColor.setStroke(1, coloresBordes[i]);
+
+            circuloColorImage.setBackground(circuloColor);
+
+
+            int radio = 20; //parametrosEtiqueta.getWidth() / 10; <---Esto no funciona, debe ser porque debe tener un match_parent de width o algo asi..., devuelve siempre 0 el width
+            circuloColorImage.setLayoutParams( new LinearLayout.LayoutParams( radio, radio));
+            //circuloColorImage.setLayoutParams( new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)  );
+            //circuloColorImage.setLayoutParams( new ViewGroup.LayoutParams(10,10)  );
+            //circuloColorImage.setLayoutParams( new LinearLayout.LayoutParams( 0, radio , 1));
+
+            Space espacioEntreColores = new Space(this.getActivity());
+            espacioEntreColores.setLayoutParams(new LinearLayout.LayoutParams( 0, 1, 1));
+
+
+            this.mapaBotonColor.put(circuloColorImage, coloresEtiquetas[i]);
+            circuloColorImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View imageColorClickeada) {
+                    colorEtiquetaElegido = mapaBotonColor.get(imageColorClickeada);
+                }
+            });
+
+            linearLayoutColores.addView(circuloColorImage);
+            linearLayoutColores.addView(espacioEntreColores);
+        }
+        parametrosEtiqueta.addView(linearLayoutColores);
+
+        builder.setView(parametrosEtiqueta);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                agregarEtiqueta(nombreEtiquetaAutoComplete.getText().toString());
             }
         });
         builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -169,6 +259,12 @@ public class AgregarActividadFragment extends Fragment{
 
         TextView textViewEtiquetaIngresada = (TextView) etiquetaIndividualView.findViewById(R.id.nombreEtiqueta);
         textViewEtiquetaIngresada.setText(nombreEtiqueta);
+
+        //TODO: sacar esto
+        if (this.colorEtiquetaElegido != null ) {
+            textViewEtiquetaIngresada.setTextColor(this.colorEtiquetaElegido);
+        }
+
 
         grupoEtiquetasView.addView(etiquetaIndividualView);
 
@@ -243,11 +339,6 @@ public class AgregarActividadFragment extends Fragment{
 
         RadioGroup groupTipoActividad = (RadioGroup) rootView.findViewById(R.id.radioGroupTipoActividad);
         nuevaActividad.esActividadPrivada(groupTipoActividad.getCheckedRadioButtonId() == R.id.radioButtonActividadPrivada);
-
-
-
-
-
 
         //esto deberia ser solo si se eligio agregarlo a un objetivo
         Objetivo objetivoSeleccionado =  (Objetivo)((Spinner)rootView.findViewById(R.id.spinnerObjetivos)).getSelectedItem();

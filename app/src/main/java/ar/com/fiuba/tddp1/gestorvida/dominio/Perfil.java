@@ -159,4 +159,8 @@ public class Perfil {
     public static Map<Date,List<Actividad>> getFechasDeRecordatoriosDeActividades() {
         return Perfil.fechasDeRecordatoriosDeActividades;
     }
+
+    public static Set<String> getNombresEtiquetas() {
+        return Perfil.etiquetas;
+    }
 }

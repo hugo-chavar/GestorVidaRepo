@@ -29,6 +29,6 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Small Text"
-            android:id="@+id/txtCompletada" />
+            android:id="@+id/txtCompletada"/>
     </LinearLayout>
 </LinearLayout>
