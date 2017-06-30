@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
+import ar.com.fiuba.tddp1.gestorvida.dominio.Beneficio;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Fecha;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 import ar.com.fiuba.tddp1.gestorvida.web.ResponseListener;
@@ -71,6 +72,31 @@ public class ActividadesListener implements ResponseListener {
         }
 
         actividad.setEtiquetas(etiquetas);
+
+        boolean completada = jsonObject.getBoolean("completada");
+        if (completada) {
+            actividad.completar();
+        }
+
+        st = jsonObject.getJSONArray("categorias");
+        Set<String> participantes = new HashSet<String>();
+        for (int i = 0; i < st.length(); i++) {
+            participantes.add(st.getString(i));
+        }
+
+        actividad.setParticipantes(participantes);
+
+        JSONArray benef = jsonObject.getJSONArray("beneficios");
+
+        for (int i = 0; i < benef.length(); i++) {
+            Beneficio beneficio = new Beneficio();
+            JSONObject jo = benef.getJSONObject(i);
+            beneficio.setDescripcion(jo.getString("descripcion"));
+            beneficio.setDescuento(jo.getDouble("descuento"));
+            beneficio.setPrecio(jo.getDouble("precio"));
+            actividad.addBeneficio(beneficio);
+        }
+
 
 
         return actividad;

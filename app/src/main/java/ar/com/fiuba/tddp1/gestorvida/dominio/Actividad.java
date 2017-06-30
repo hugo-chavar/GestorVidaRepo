@@ -1,5 +1,7 @@
 package ar.com.fiuba.tddp1.gestorvida.dominio;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -20,6 +22,8 @@ public class Actividad {
 
     String prioridad = null;
     private Set<String> etiquetas;
+    private Set<String> participantes;
+    private List<Beneficio> beneficios = new ArrayList<Beneficio>();
 
     private Fecha fechaRecordatorio;
     private int periodicidad;
@@ -58,9 +62,6 @@ public class Actividad {
         this.prioridad = prioridad;
     }
 
-
-
-
     public boolean estaCompleta() {
         return this.estaCompletada;
     }
@@ -88,6 +89,10 @@ public class Actividad {
 
     public void setFechaRecordatorio(Fecha fechaRecordatorio) {
         this.fechaRecordatorio = fechaRecordatorio;
+    }
+
+    public void setParticipantes(Set<String> participantes) {
+        this.participantes = participantes;
     }
 
     public void setPeriodicidad(int periodicidad) {
@@ -139,5 +144,9 @@ public class Actividad {
 
     public String getDescripcion() {
         return descripcion;
+    }
+
+    public void addBeneficio(Beneficio beneficio) {
+        beneficios.add(beneficio);
     }
 }
