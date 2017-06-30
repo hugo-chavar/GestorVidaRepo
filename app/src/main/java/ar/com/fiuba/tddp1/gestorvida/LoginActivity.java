@@ -30,6 +30,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import ar.com.fiuba.tddp1.gestorvida.actividades.ActividadesListener;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 import ar.com.fiuba.tddp1.gestorvida.web.RequestSender;
 import ar.com.fiuba.tddp1.gestorvida.web.ResponseListener;
@@ -44,6 +45,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+
+    private ActividadesListener actividadeslistener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +77,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.form_login);
         mProgressView = findViewById(R.id.progress_login);
+
+        actividadeslistener = new ActividadesListener(this);
     }
 
     /**
@@ -134,7 +139,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         RequestSender requestSender = new RequestSender(this);
         Map<String,String> _params;
         _params = new HashMap<String,String>();
-        _params.put("username", name); //mUsuario es en realidad el tipo de usuario
+        _params.put("username", name);
         _params.put("password", password);
 
         JSONObject obj = new JSONObject(_params);
@@ -147,12 +152,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private boolean isNameValid(String name) {
-        //TODO: Replace this with your own logic
         return name.length() > 2;
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return password.length() > 4;
     }
 
@@ -212,23 +215,46 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     }
 
+    private void loadUserActivities() {
+
+        RequestSender requestSender = new RequestSender(this);
+
+        String url = getString(R.string.url) + "activities";
+
+
+        requestSender.doGet(actividadeslistener, url);
+
+    }
+
     @Override
-    public void onRequestCompleted(JSONObject response) {
+    public void onRequestCompleted(Object response) {
+        showProgress(false);
         try {
-            Perfil.token = response.getString("token");
+            JSONObject jsonObject = (JSONObject)response;
+            Perfil.token = jsonObject.getString("token");
             //Perfil.id = response.getString("id");
+            Log.d("LoginActivity", "Logged in, token:");
+            Log.d("LoginActivity", Perfil.token);
+
+            loadUserActivities();
+
             goToMain();
+
         } catch (JSONException e) {
             showError("No se pudo obtener el Token");
+            mNameView.setError(getString(R.string.error_username_invalid));
+            mNameView.requestFocus();
         }
     }
 
     @Override
     public void onRequestError(int codError, String errorMessage) {
+        showProgress(false);
+
         if (codError == 404) {
             mNameView.setError(getString(R.string.error_username_invalid));
             mNameView.requestFocus();
-            showProgress(false);
+
             return;
         }
         showError(errorMessage);

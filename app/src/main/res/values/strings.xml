@@ -54,4 +54,5 @@
     <string name="error_invalid_nacimiento">Ingrese su fecha de nacimiento así: DD-MM-AAAA</string>
     <!-- <string name="url">http://192.168.1.101:8080/</string> -->
     <string name="url">http://10.0.2.2:8080/</string>
+    <!-- <string name="url">http://192.168.0.10:8080/</string> -->
 </resources>
