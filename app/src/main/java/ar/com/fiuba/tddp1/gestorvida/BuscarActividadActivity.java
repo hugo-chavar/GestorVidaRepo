@@ -2,6 +2,7 @@ package ar.com.fiuba.tddp1.gestorvida;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -31,6 +32,7 @@ import java.util.List;
 import java.util.Set;
 
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
+import ar.com.fiuba.tddp1.gestorvida.dominio.Etiqueta;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Fecha;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 
@@ -81,7 +83,7 @@ public class BuscarActividadActivity extends AppCompatActivity {
 
     private void inicializarFiltroEtiquetas() {
         mFiltroEtiqueta = (AutoCompleteTextView) findViewById(R.id.filtro_etiquetas);
-        List<String> etiquetas = new ArrayList<>(Perfil.getActividadDeEtiquetas().keySet());
+        List<String> etiquetas = new ArrayList<>(Perfil.getNombresEtiquetas());
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, etiquetas);
         mFiltroEtiqueta.setAdapter(adapter);
 
@@ -200,7 +202,7 @@ public class BuscarActividadActivity extends AppCompatActivity {
 
             String textoEnFiltroEtiquetas = mFiltroEtiqueta.getText().toString();
 
-            Set<String> etiquetas = actividad.getEtiquetas();
+            Set<String> etiquetas = actividad.getNombresDeEtiquetas();
 
             if (textoEnFiltroEtiquetas.equals("") || (etiquetas != null && matcheaEtiquetas(textoEnFiltroEtiquetas, etiquetas.toArray(new String[etiquetas.size()])))) {
                 if ((filtro_desde.before(finicio) || filtro_desde.equals(finicio)) && (filtro_hasta.after(finicio) || filtro_hasta.equals(finicio))) {
@@ -232,17 +234,19 @@ public class BuscarActividadActivity extends AppCompatActivity {
         actividad.setDescripcion("Quiero correr para prepararme fisicamente");
         actividad.setFechaInicio(new Fecha("8", "9", "2017"));
         actividad.setFechaFin(new Fecha("8", "9", "2017"));
-        Set<String> etiquetas = new HashSet<>();
-        etiquetas.add("Deportes");
+
+        Set<Etiqueta> etiquetas = new HashSet<>();
+        etiquetas.add(new Etiqueta("Deportes", Color.GREEN));
         actividad.setEtiquetas(etiquetas);
+
         this.mockedActivities.add(actividad);
 
         Actividad actividad2 = new Actividad("Ir al cine");
         actividad2.setDescripcion("Quiero ir a ver Star Wars VIII");
         actividad2.setFechaInicio(new Fecha("15", "12", "2017"));
         actividad2.setFechaFin(new Fecha("15", "12", "2017"));
-        Set<String> etiquetas2 = new HashSet<>();
-        etiquetas2.add("Cine");
+        Set<Etiqueta> etiquetas2 = new HashSet<>();
+        etiquetas2.add(new Etiqueta("Cine", Color.GREEN));
         actividad2.setEtiquetas(etiquetas2);
         this.mockedActivities.add(actividad2);
 
@@ -250,8 +254,8 @@ public class BuscarActividadActivity extends AppCompatActivity {
         actividad3.setDescripcion("Quiero aprobarlaaa");
         actividad3.setFechaInicio(new Fecha("1", "7", "2017"));
         actividad3.setFechaFin(new Fecha("3", "7", "2017"));
-        Set<String> etiquetas3 = new HashSet<>();
-        etiquetas3.add("Facultad");
+        Set<Etiqueta> etiquetas3 = new HashSet<>();
+        etiquetas3.add(new Etiqueta("Facultad", Color.GREEN));
         actividad3.setEtiquetas(etiquetas3);
         this.mockedActivities.add(actividad3);
 
@@ -259,8 +263,8 @@ public class BuscarActividadActivity extends AppCompatActivity {
         actividad4.setDescripcion("Futbol con los pibes");
         actividad4.setFechaInicio(new Fecha("5", "8", "2017"));
         actividad4.setFechaFin(new Fecha("5", "8", "2017"));
-        Set<String> etiquetas4 = new HashSet<>();
-        etiquetas4.add("Deportes");
+        Set<Etiqueta> etiquetas4 = new HashSet<>();
+        etiquetas4.add(new Etiqueta("Deportes", Color.GREEN));
         actividad4.setEtiquetas(etiquetas4);
         this.mockedActivities.add(actividad4);
 
@@ -268,8 +272,8 @@ public class BuscarActividadActivity extends AppCompatActivity {
         actividad5.setDescripcion("Clases para aprender a tocar");
         actividad5.setFechaInicio(new Fecha("5", "10", "2017"));
         actividad5.setFechaFin(new Fecha("10", "11", "2017"));
-        Set<String> etiquetas5 = new HashSet<>();
-        etiquetas5.add("Musica");
+        Set<Etiqueta> etiquetas5 = new HashSet<>();
+        etiquetas5.add(new Etiqueta("Musica", Color.GREEN));
         actividad5.setEtiquetas(etiquetas5);
         this.mockedActivities.add(actividad5);
 
@@ -277,8 +281,8 @@ public class BuscarActividadActivity extends AppCompatActivity {
         actividad6.setDescripcion("Bebidas y asado van por mi cuenta");
         actividad6.setFechaInicio(new Fecha("1", "10", "2017"));
         actividad6.setFechaFin(new Fecha("1", "10", "2017"));
-        Set<String> etiquetas6 = new HashSet<>();
-        etiquetas6.add("Fiestas");
+        Set<Etiqueta> etiquetas6 = new HashSet<>();
+        etiquetas6.add(new Etiqueta("Fiestas", Color.GREEN));
         actividad6.setEtiquetas(etiquetas6);
         this.mockedActivities.add(actividad6);
 
@@ -286,8 +290,8 @@ public class BuscarActividadActivity extends AppCompatActivity {
         actividad7.setDescripcion("Festejo por la clasificación de Racing a la Libertadores");
         actividad7.setFechaInicio(new Fecha("6", "7", "2017"));
         actividad7.setFechaFin(new Fecha("6", "7", "2017"));
-        Set<String> etiquetas7 = new HashSet<>();
-        etiquetas7.add("Fiestas");
+        Set<Etiqueta> etiquetas7 = new HashSet<>();
+        etiquetas7.add(new Etiqueta("Fiestas", Color.GREEN));
         actividad7.setEtiquetas(etiquetas7);
         this.mockedActivities.add(actividad7);
 
@@ -295,8 +299,8 @@ public class BuscarActividadActivity extends AppCompatActivity {
         actividad8.setDescripcion("Pochoclos no");
         actividad8.setFechaInicio(new Fecha("6", "7", "2017"));
         actividad8.setFechaFin(new Fecha("20", "7", "2017"));
-        Set<String> etiquetas8 = new HashSet<>();
-        etiquetas8.add("Cine");
+        Set<Etiqueta> etiquetas8 = new HashSet<>();
+        etiquetas8.add(new Etiqueta("Cine", Color.GREEN));
         actividad8.setEtiquetas(etiquetas8);
         this.mockedActivities.add(actividad8);
     }

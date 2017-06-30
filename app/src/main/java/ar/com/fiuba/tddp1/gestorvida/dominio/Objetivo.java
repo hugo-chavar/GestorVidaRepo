@@ -28,7 +28,6 @@ public class Objetivo {
         return this.nombre;
     }
 
-
     public float getProgreso() {
         float actividadesCompletadas = 0;
         if (this.tieneActividades()) {

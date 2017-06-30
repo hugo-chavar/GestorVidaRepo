@@ -1,5 +1,7 @@
 package ar.com.fiuba.tddp1.gestorvida.dominio;
 
+import android.graphics.Color;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,10 +38,13 @@ public class Perfil {
     public static String id;
 
 
-    private static Set<String> etiquetas = new HashSet<>();
+    //private static Set<String> etiquetas = new HashSet<>();
+    //private static HashMap<String, Integer> etiquetasColor = new HashMap<>();
+    private static Set<Etiqueta> etiquetas = new HashSet<>();
 
     public static void agregarActividad(Actividad nuevaActividad) {
         Perfil.actividades.add(nuevaActividad);
+
         Perfil.etiquetas.addAll(nuevaActividad.getEtiquetas());
 
 
@@ -117,7 +122,7 @@ public class Perfil {
         return actividadesCompletadasEnSemana;
     }
 
-
+/*
     public static Map<String,Float> getActividadDeEtiquetas() {
         Map<String, Float> actividadDeEtiquetas = new HashMap<>();
         for ( String etiqueta : Perfil.etiquetas ) {
@@ -129,6 +134,26 @@ public class Perfil {
             float pesoEtiqueta = (float) 1/etiquetasDeActividad.size();
 
             for (String etiqueta : etiquetasDeActividad) {
+                float actividadActualizada = actividadDeEtiquetas.get(etiqueta) + pesoEtiqueta;
+                actividadDeEtiquetas.put(etiqueta, actividadActualizada);
+            }
+        }
+
+        return actividadDeEtiquetas;
+    }
+    */
+
+    public static Map<Etiqueta,Float> getActividadDeEtiquetas() {
+        Map<Etiqueta, Float> actividadDeEtiquetas = new HashMap<>();
+        for ( Etiqueta etiqueta : Perfil.etiquetas ) {
+            actividadDeEtiquetas.put(etiqueta, 0f);
+        }
+
+        for (Actividad actividad : Perfil.getActividadesCompletadas()) {
+            Set<Etiqueta> etiquetasDeActividad = actividad.getEtiquetas();
+            float pesoEtiqueta = (float) 1/etiquetasDeActividad.size();
+
+            for (Etiqueta etiqueta : etiquetasDeActividad) {
                 float actividadActualizada = actividadDeEtiquetas.get(etiqueta) + pesoEtiqueta;
                 actividadDeEtiquetas.put(etiqueta, actividadActualizada);
             }
@@ -161,6 +186,11 @@ public class Perfil {
     }
 
     public static Set<String> getNombresEtiquetas() {
-        return Perfil.etiquetas;
+        Set<String> nombresEtiquetas = new HashSet<>();
+        for (Etiqueta etiqueta : Perfil.etiquetas){
+            nombresEtiquetas.add(etiqueta.nombre);
+        }
+        //return Perfil.etiquetas;
+        return nombresEtiquetas;
     }
 }

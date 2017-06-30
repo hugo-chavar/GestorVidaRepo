@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 import ar.com.fiuba.tddp1.gestorvida.R;
+import ar.com.fiuba.tddp1.gestorvida.dominio.Etiqueta;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 import ar.com.fiuba.tddp1.gestorvida.web.Pair;
 
@@ -54,11 +55,22 @@ public class EstadisticasEtiquetasPieChartFragment extends Fragment implements V
         PieChart grafico = (PieChart) view.findViewById(R.id.pieChartEtiquetas);
 
 
-        Map<String, Float> actividadDeEtiquetas = Perfil.getActividadDeEtiquetas();
+        //Map<String, Float> actividadDeEtiquetas = Perfil.getActividadDeEtiquetas();
+        Map<Etiqueta, Float> actividadDeEtiquetas = Perfil.getActividadDeEtiquetas();
+
         List<PieEntry> etiquetas = new ArrayList<>();
+        /*
         for (Map.Entry<String, Float> etiqueta : actividadDeEtiquetas.entrySet()) {
             if (etiqueta.getValue() > 0) {
                 etiquetas.add(new PieEntry(etiqueta.getValue(),etiqueta.getKey()));
+            }
+        }
+        */
+        List<Integer> listaDeColoresDeEtiquetas = new ArrayList<>();
+        for (Map.Entry<Etiqueta, Float> etiqueta : actividadDeEtiquetas.entrySet()) {
+            if (etiqueta.getValue() > 0) {
+                etiquetas.add(new PieEntry(etiqueta.getValue(),etiqueta.getKey().nombre));
+                listaDeColoresDeEtiquetas.add(etiqueta.getKey().color);
             }
         }
 
@@ -83,7 +95,10 @@ public class EstadisticasEtiquetasPieChartFragment extends Fragment implements V
                 Color.rgb(128,0, 255), Color.rgb(255, 0, 128), Color.rgb(128, 128, 128),
                 Color.rgb(0, 128,0)
         };
-        datosSet.setColors(DIEZ_COLORES);
+        //datosSet.setColors(DIEZ_COLORES);
+        datosSet.setColors(listaDeColoresDeEtiquetas);
+
+        //Aca tengo que cargar TODOS los colores de las etiquetas
 
 
         /*

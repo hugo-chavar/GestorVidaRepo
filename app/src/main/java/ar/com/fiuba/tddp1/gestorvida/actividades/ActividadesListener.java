@@ -1,6 +1,7 @@
 package ar.com.fiuba.tddp1.gestorvida.actividades;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -13,6 +14,7 @@ import java.util.Set;
 
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Beneficio;
+import ar.com.fiuba.tddp1.gestorvida.dominio.Etiqueta;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Fecha;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 import ar.com.fiuba.tddp1.gestorvida.web.ResponseListener;
@@ -66,11 +68,14 @@ public class ActividadesListener implements ResponseListener {
         actividad.setTiempoEstimado(String.valueOf(jsonObject.getInt("estimacion")), "0");
 
         JSONArray st = jsonObject.getJSONArray("categorias");
-        Set<String> etiquetas = new HashSet<String>();
-        for (int i = 0; i < st.length(); i++) {
-            etiquetas.add(st.getString(i));
-        }
 
+        //TODO: aca ademas deberia parsearse el color
+        //Set<String> etiquetas = new HashSet<String>();
+        Set<Etiqueta> etiquetas = new HashSet<Etiqueta>();
+        for (int i = 0; i < st.length(); i++) {
+            //etiquetas.add(st.getString(i));
+            etiquetas.add(new Etiqueta(st.getString(i), Color.BLACK));// TODO: sacar el color BLACK hardcodeado y poner el del server
+        }
         actividad.setEtiquetas(etiquetas);
 
         boolean completada = jsonObject.getBoolean("completada");

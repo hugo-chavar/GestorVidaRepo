@@ -1,6 +1,7 @@
 package ar.com.fiuba.tddp1.gestorvida.dominio;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -21,7 +22,10 @@ public class Actividad {
     private Fecha fechaFin = null;
 
     String prioridad = null;
-    private Set<String> etiquetas;
+
+    //private Set<String> etiquetas;
+    private Set<Etiqueta> etiquetas;
+
     private Set<String> participantes;
     private List<Beneficio> beneficios = new ArrayList<Beneficio>();
 
@@ -83,7 +87,8 @@ public class Actividad {
         this.diaEnQueSeCompleto = null;
     }
 
-    public void setEtiquetas(Set<String> etiquetas) {
+    //public void setEtiquetas(Set<String> etiquetas) {
+    public void setEtiquetas(Set<Etiqueta> etiquetas) {
         this.etiquetas = etiquetas;
     }
 
@@ -129,9 +134,20 @@ public class Actividad {
         return this.diaEnQueSeCompleto;
     }
 
-    public Set<String> getEtiquetas() {
+
+    //public Set<String> getEtiquetas() {
+    public Set<Etiqueta> getEtiquetas() {
         return this.etiquetas;
     }
+
+    public Set<String> getNombresDeEtiquetas() {
+        Set<String> nombresEtiquetas = new HashSet<>();
+        for (Etiqueta etiqueta : this.etiquetas) {
+            nombresEtiquetas.add(etiqueta.nombre);
+        }
+        return nombresEtiquetas;
+    }
+
 
     public Fecha getFechaRecordatorio() {
         return this.fechaRecordatorio;

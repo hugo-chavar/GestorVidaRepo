@@ -38,6 +38,7 @@ import java.util.Set;
 import ar.com.fiuba.tddp1.gestorvida.DatePickerFragment;
 import ar.com.fiuba.tddp1.gestorvida.R;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
+import ar.com.fiuba.tddp1.gestorvida.dominio.Etiqueta;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Fecha;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Objetivo;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
@@ -49,7 +50,8 @@ import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 public class AgregarActividadFragment extends Fragment{
 
     private Map<Integer, TextView> textosFechas = new HashMap<>();
-    private Set<String> listaDeEtiquetas = new HashSet<>();
+    //private Set<String> listaDeEtiquetas = new HashSet<>();
+    private Set<Etiqueta> listaDeEtiquetas = new HashSet<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -268,7 +270,8 @@ public class AgregarActividadFragment extends Fragment{
 
         grupoEtiquetasView.addView(etiquetaIndividualView);
 
-        this.listaDeEtiquetas.add(nombreEtiqueta);
+        //this.listaDeEtiquetas.add(nombreEtiqueta);
+        this.listaDeEtiquetas.add(new Etiqueta(nombreEtiqueta, colorEtiquetaElegido));
     }
 
 
