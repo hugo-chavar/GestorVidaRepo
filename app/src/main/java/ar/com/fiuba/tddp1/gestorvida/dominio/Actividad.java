@@ -1,6 +1,5 @@
 package ar.com.fiuba.tddp1.gestorvida.dominio;
 
-import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
@@ -13,6 +12,8 @@ public class Actividad {
     private String nombre;
     private String descripcion;
     private boolean estaCompletada;
+    private String foto;
+    private String _id;
 
     private Fecha fechaInicio = null;
     private Fecha fechaFin = null;
@@ -35,6 +36,14 @@ public class Actividad {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
+
+    public void setId(String id) {
+        this._id = id;
     }
 
     public void setFechaInicio(Fecha fechaInicio) {
@@ -74,7 +83,7 @@ public class Actividad {
     }
 
     public void setEtiquetas(Set<String> etiquetas) {
-        this.etiquetas = new HashSet<>(etiquetas);
+        this.etiquetas = etiquetas;
     }
 
     public void setFechaRecordatorio(Fecha fechaRecordatorio) {

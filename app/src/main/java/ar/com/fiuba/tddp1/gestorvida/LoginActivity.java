@@ -233,6 +233,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             JSONObject jsonObject = (JSONObject)response;
             Perfil.token = jsonObject.getString("token");
             //Perfil.id = response.getString("id");
+            Log.d("LoginActivity", "Logged in, token:");
+            Log.d("LoginActivity", Perfil.token);
 
             loadUserActivities();
 
