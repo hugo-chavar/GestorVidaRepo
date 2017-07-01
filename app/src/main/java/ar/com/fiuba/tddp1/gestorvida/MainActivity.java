@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import ar.com.fiuba.tddp1.gestorvida.actividades.ActividadesFragment;
 import ar.com.fiuba.tddp1.gestorvida.calendario.CalendarioFragment;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
+import ar.com.fiuba.tddp1.gestorvida.dominio.Contacto;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Objetivo;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 import ar.com.fiuba.tddp1.gestorvida.estadisticas.EstadisticasActividadesCompletadasFragment;
@@ -65,6 +66,11 @@ public class MainActivity extends AppCompatActivity
         Perfil.agregarObjetivo(new Objetivo("Obj8"));
         Perfil.agregarObjetivo(new Objetivo("Obj9"));
         Perfil.agregarObjetivo(new Objetivo("Obj10"));
+
+        Perfil.agregarContacto(new Contacto("Juanma", R.drawable.avatar));
+        Perfil.agregarContacto(new Contacto("Definitely not Juanma", R.drawable.ic_filter));
+        Perfil.agregarContacto(new Contacto("Mordekaiser", R.drawable.mercurio));
+        Perfil.agregarContacto(new Contacto("Cosme Fulanito", R.drawable.circulo_color));
     }
 
     @Override
@@ -121,6 +127,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_perfil) {
             //Mostrar pantalla perfil
+            setFragment(new AgregarParticipantesFragment());
 
         } else if (id == R.id.nav_actividades) {
             //Mostrar pantalla actividades
