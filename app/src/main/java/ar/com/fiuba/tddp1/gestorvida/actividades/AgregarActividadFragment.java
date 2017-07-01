@@ -167,12 +167,7 @@ public class AgregarActividadFragment extends Fragment{
     private Map<ImageView, Integer> mapaBotonColor;
     private Integer colorEtiquetaElegido = Color.rgb(250,250,250);
 
-    private int[] coloresEtiquetas = new int[]{ Color.rgb(250,250,250), Color.rgb(255,138,128), Color.rgb(255,209,128),
-                                                Color.rgb(255,255,141), Color.rgb(204,255,144),Color.rgb(167,255,235),
-                                                Color.rgb(128,216,255),Color.rgb(207,216,220) };
-    private int[] coloresBordes = new int[]{ Color.rgb(202,202,202), Color.rgb(224,124,114), Color.rgb(227,187,116),
-                                             Color.rgb(204,204,148), Color.rgb(173,212,129),Color.rgb(154,210,196),
-                                             Color.rgb(114,193,228),Color.rgb(180,185,189) };
+
 
     private void agregarEtiqueta(View view) {
 
@@ -218,11 +213,11 @@ public class AgregarActividadFragment extends Fragment{
 
         this.mapaBotonColor = new HashMap<>();
         this.colorEtiquetaElegido = Color.rgb(250,250,250);
-        for (int i = 0; i < coloresEtiquetas.length; i++) {
+        for (int i = 0; i < Etiqueta.COLORES_ETIQUETAS.length; i++) {
             ImageView circuloColorImage = new ImageView(this.getActivity());
             GradientDrawable circuloColor = (GradientDrawable) this.getActivity().getDrawable(R.drawable.circulo_color);
-            circuloColor.setColor(coloresEtiquetas[i]);
-            circuloColor.setStroke(1, coloresBordes[i]);
+            circuloColor.setColor(Etiqueta.COLORES_ETIQUETAS[i]);
+            circuloColor.setStroke(1, Etiqueta.COLORES_BORDES[i]);
 
             circuloColorImage.setBackground(circuloColor);
 
@@ -238,7 +233,7 @@ public class AgregarActividadFragment extends Fragment{
             espacioEntreColores.setLayoutParams(new LinearLayout.LayoutParams( 0, 1, 1));
 
 
-            this.mapaBotonColor.put(circuloColorImage, coloresEtiquetas[i]);
+            this.mapaBotonColor.put(circuloColorImage, Etiqueta.COLORES_ETIQUETAS[i]);
             circuloColorImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View imageColorClickeada) {
