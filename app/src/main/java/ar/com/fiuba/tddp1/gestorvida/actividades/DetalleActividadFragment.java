@@ -8,18 +8,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import ar.com.fiuba.tddp1.gestorvida.BuscarActividadActivity;
 import ar.com.fiuba.tddp1.gestorvida.MainActivity;
 import ar.com.fiuba.tddp1.gestorvida.R;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
-import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
+import ar.com.fiuba.tddp1.gestorvida.dominio.Fecha;
 
 public class DetalleActividadFragment extends Fragment {
 
     TextView mNombre;
     TextView mDescripcion;
-    Button mBotonAgregar;
-    Button mBotonCancelar;
+    TextView mFechaInicio;
+    TextView mFechaFin;
+    Button mBotonSeeMore;
 
     Actividad actividad;
 
@@ -27,39 +27,46 @@ public class DetalleActividadFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.detalle_actividad_layout, container, false);
 
+        init(rootView);
+
+        return rootView;
+    }
+
+    protected void init(View rootView) {
         mNombre = (TextView) rootView.findViewById(R.id.nombre_detalle);
         mDescripcion = (TextView) rootView.findViewById(R.id.descripcion_detalle);
-        mBotonAgregar = (Button) rootView.findViewById(R.id.boton_agregar_detalle);
-        mBotonCancelar = (Button) rootView.findViewById(R.id.boton_cancelar_detalle);
+        mFechaInicio = (TextView) rootView.findViewById(R.id.fecha_inicio_detalle);
+        mFechaFin = (TextView) rootView.findViewById(R.id.fecha_fin_detalle);
+        mBotonSeeMore = (Button) rootView.findViewById(R.id.boton_seemore_detalle);
 
         actividad = ((MainActivity) getActivity()).getActividad_detalle();
 
         inicializarTexto();
         inicializarBotones();
-
-        return rootView;
-    }
-
-    private void inicializarTexto() {
-        mNombre.setText(actividad.getNombre());
-        mDescripcion.setText(actividad.getDescripcion());
     }
 
     private void inicializarBotones() {
-        mBotonCancelar.setOnClickListener(new View.OnClickListener() {
+        mBotonSeeMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).setFragment(new BuscarActividadActivity());
+                mFechaInicio.setVisibility(View.VISIBLE);
+                mFechaFin.setVisibility(View.VISIBLE);
+                mBotonSeeMore.setVisibility(View.GONE);
             }
         });
+    }
 
-        mBotonAgregar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Perfil.agregarActividad(actividad);
-                ((MainActivity) getActivity()).setFragment(new BuscarActividadActivity());
-            }
-        });
+    private void inicializarTexto() {
+        mNombre.setTextSize(22);
+        mNombre.setText(actividad.getNombre());
+        mDescripcion.setTextSize(18);
+        mDescripcion.setText(actividad.getDescripcion());
+        Fecha fechaInicio = actividad.getFechaInicio();
+        mFechaInicio.setTextSize(16);
+        mFechaInicio.setText("Fecha de inicio: " + fechaInicio.dia + "/" + fechaInicio.mes + "/" + fechaInicio.anio);
+        Fecha fechaFin = actividad.getFechaFin();
+        mFechaFin.setTextSize(16);
+        mFechaFin.setText("Fecha de fin: " + fechaFin.dia + "/" + fechaFin.mes + "/" + fechaFin.anio);
     }
 
 }

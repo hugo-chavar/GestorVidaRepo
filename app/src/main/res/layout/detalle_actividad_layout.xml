@@ -1,29 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/nombre_detalle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/descripcion_detalle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_height="wrap_content" />
 
     <Button
-        android:id="@+id/boton_agregar_detalle"
-        android:layout_width="match_parent"
+        android:id="@+id/boton_seemore_detalle"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:text="Agregar Actividad" />
+        android:layout_gravity="right"
+        android:text="..." />
 
-    <Button
-        android:id="@+id/boton_cancelar_detalle"
+    <TextView
+        android:id="@+id/fecha_inicio_detalle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cancelar" />
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/fecha_fin_detalle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
 </LinearLayout>
