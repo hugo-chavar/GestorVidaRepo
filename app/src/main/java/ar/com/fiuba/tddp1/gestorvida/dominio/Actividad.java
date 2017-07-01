@@ -17,13 +17,13 @@ public class Actividad {
     private boolean estaCompletada;
     private String foto;
     private String _id;
+    private String __v; //version en el servidor
 
     private Fecha fechaInicio = null;
     private Fecha fechaFin = null;
 
     String prioridad = null;
 
-    //private Set<String> etiquetas;
     private Set<Etiqueta> etiquetas = new HashSet<>();
 
     private Set<String> participantes;
@@ -41,6 +41,8 @@ public class Actividad {
         this.estaCompletada = false;
         this.diaEnQueSeCompleto = null;
     }
+
+    public void set__v(String version) { this.__v = version; }
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
