@@ -12,11 +12,9 @@ import org.json.JSONObject;
 
 public class RequestSender {
 
-    //private Activity context;
     private RequestQueue queue;
 
     public RequestSender(Activity context) {
-        //this.context = context;
         queue = Volley.newRequestQueue(context);
     }
 

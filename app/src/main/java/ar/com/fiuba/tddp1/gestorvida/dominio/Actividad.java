@@ -177,4 +177,7 @@ public class Actividad {
         this.participantesAgregados.addAll(participantesAgregados);
     }
 
+    public String getPrioridad() {
+        return prioridad;
+    }
 }

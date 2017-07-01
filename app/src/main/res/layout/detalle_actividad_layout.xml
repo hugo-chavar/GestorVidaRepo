@@ -32,4 +32,25 @@
         android:layout_height="wrap_content"
         android:visibility="gone" />
 
+    <TextView
+        android:id="@+id/prioridad_detalle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/etiquetas_detalle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Etiquetas:"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/lista_etiquetas_detalle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:visibility="gone">
+    </LinearLayout>
+
 </LinearLayout>
