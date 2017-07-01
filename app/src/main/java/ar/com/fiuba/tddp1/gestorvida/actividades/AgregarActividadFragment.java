@@ -37,6 +37,7 @@ import java.util.Set;
 
 import ar.com.fiuba.tddp1.gestorvida.DatePickerFragment;
 import ar.com.fiuba.tddp1.gestorvida.R;
+import ar.com.fiuba.tddp1.gestorvida.TimePickerFragment;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Etiqueta;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Fecha;
@@ -143,7 +144,26 @@ public class AgregarActividadFragment extends Fragment{
         });
 
 
+
+
+        //TODO: ESTO SOLO ESTA ACA PARA TESTEAR
+        final TextView tiempo  = (TextView) view.findViewById(R.id.textViewParaTestearElTimePicker);
+        tiempo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mostrarTimePicker(v, tiempo);
+            }
+        });
+
+
         return view;
+    }
+
+
+    public void mostrarTimePicker(View view, TextView tiempo) {
+        TimePickerFragment timePickerFragment = new TimePickerFragment();
+        timePickerFragment.setTextView((TextView) view);
+        timePickerFragment.show(this.getFragmentManager(), "timePicker");
     }
 
 
