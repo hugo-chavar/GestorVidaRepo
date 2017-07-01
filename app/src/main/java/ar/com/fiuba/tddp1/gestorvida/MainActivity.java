@@ -14,9 +14,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import ar.com.fiuba.tddp1.gestorvida.actividades.ActividadesFragment;
 import ar.com.fiuba.tddp1.gestorvida.calendario.CalendarioFragment;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
+import ar.com.fiuba.tddp1.gestorvida.dominio.Contacto;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Objetivo;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 import ar.com.fiuba.tddp1.gestorvida.estadisticas.EstadisticasActividadesCompletadasFragment;
@@ -30,6 +35,9 @@ public class MainActivity extends AppCompatActivity
     private int fragmentActual = R.id.nav_actividades;
 
     private Actividad actividad_detalle;
+
+    private Date filtro_desde = null;
+    private Date filtro_hasta = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +73,13 @@ public class MainActivity extends AppCompatActivity
         Perfil.agregarObjetivo(new Objetivo("Obj8"));
         Perfil.agregarObjetivo(new Objetivo("Obj9"));
         Perfil.agregarObjetivo(new Objetivo("Obj10"));
+
+        Perfil.agregarContacto(new Contacto("Juanma", R.drawable.avatar));
+        Perfil.agregarContacto(new Contacto("Definitely not Juanma", R.drawable.ic_filter));
+        Perfil.agregarContacto(new Contacto("Mordekaiser", R.drawable.mercurio));
+        Perfil.agregarContacto(new Contacto("Cosme Fulanito", R.drawable.circulo_color));
+
+        inicializarFiltroFechas(); //Esto es para BuscarActividades
     }
 
     @Override
@@ -121,6 +136,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_perfil) {
             //Mostrar pantalla perfil
+            setFragment(new AgregarParticipantesFragment());
 
         } else if (id == R.id.nav_actividades) {
             //Mostrar pantalla actividades
@@ -179,5 +195,31 @@ public class MainActivity extends AppCompatActivity
 
     public void setActividad_detalle(Actividad actividad_detalle) {
         this.actividad_detalle = actividad_detalle;
+    }
+
+    public Date getFiltro_desde() {
+        return filtro_desde;
+    }
+
+    public void setFiltro_desde(Date filtro_desde) {
+        this.filtro_desde = filtro_desde;
+    }
+
+    public Date getFiltro_hasta() {
+        return filtro_hasta;
+    }
+
+    public void setFiltro_hasta(Date filtro_hasta) {
+        this.filtro_hasta = filtro_hasta;
+    }
+
+    public void inicializarFiltroFechas() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            setFiltro_desde(formatter.parse("1/1/1900"));
+            setFiltro_hasta(formatter.parse("31/12/2999"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }

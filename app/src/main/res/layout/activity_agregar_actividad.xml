@@ -8,6 +8,7 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
         android:focusable="true"
         android:focusableInTouchMode="true">
 
@@ -21,7 +22,6 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="50dp" />
 
-
         <!-- NOMBRE -->
 
         <TextView
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:text="Nombre"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/add_activity_horizontal_margin"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="8dp" />
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:gravity="left"
             android:orientation="horizontal"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/add_activity_horizontal_margin"
             app:layout_constraintLeft_toLeftOf="@+id/textNombre"
             app:layout_constraintTop_toBottomOf="@+id/textNombre"
             android:weightSum="1" >
@@ -50,7 +50,8 @@
                 android:id="@+id/edittextNombre"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.5"
+                android:layout_weight="0.7"
+                android:textSize="@dimen/text_size"
                 android:background="@drawable/inputtext_box"
                 android:inputType="text"
                 android:text="Texto para testear" />
@@ -63,6 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Descripcion"
+            android:textSize="@dimen/text_size"
             android:layout_marginTop="@dimen/agregar_actividad_vertical_margin"
             app:layout_constraintTop_toBottomOf="@+id/edittextNombreContainer"
             app:layout_constraintLeft_toLeftOf="@+id/edittextNombreContainer" />
@@ -74,14 +76,14 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/add_activity_horizontal_margin"
             app:layout_constraintTop_toBottomOf="@+id/textDescripcion"
             app:layout_constraintLeft_toLeftOf="@+id/textDescripcion">
             <EditText
                 android:id="@+id/edittextDescripcion"
                 android:layout_width="0dp"
-                android:layout_weight="0.5"
-                android:layout_height="wrap_content"
+                android:layout_weight="0.7"
+                android:layout_height="60dp"
                 android:inputType="text"
                 android:background="@drawable/inputtext_box"/>
         </LinearLayout>
@@ -103,7 +105,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="left"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/add_activity_horizontal_margin"
             app:layout_constraintTop_toBottomOf="@+id/textInicioActividad"
             app:layout_constraintLeft_toLeftOf="@+id/textInicioActividad"
             android:weightSum="1">
@@ -124,16 +126,23 @@
                 android:background="@drawable/inputtext_box"/>
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/textFinActividad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fin"
+            android:layout_marginTop="@dimen/agregar_actividad_vertical_margin"
+            app:layout_constraintTop_toBottomOf="@+id/textViewInicioActividadContainer"
+            app:layout_constraintLeft_toLeftOf="@+id/textViewInicioActividadContainer"/>
 
         <LinearLayout
             android:id="@+id/textViewFinActividadContainer"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="@dimen/agregar_actividad_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            app:layout_constraintTop_toBottomOf="@+id/textViewInicioActividadContainer"
-            app:layout_constraintLeft_toLeftOf="@+id/textViewInicioActividadContainer"
+            android:layout_marginLeft="@dimen/add_activity_horizontal_margin"
+            app:layout_constraintTop_toBottomOf="@+id/textFinActividad"
+            app:layout_constraintLeft_toLeftOf="@+id/textFinActividad"
             android:gravity="left"
             android:weightSum="1">
 
@@ -160,18 +169,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Etiquetas"
-            android:layout_marginTop="@dimen/agregar_actividad_vertical_margin"
-            app:layout_constraintTop_toBottomOf="@+id/textViewFinActividadContainer"
-            app:layout_constraintLeft_toLeftOf="@+id/textViewFinActividadContainer" />
+            tools:layout_editor_absoluteY="259dp"
+            tools:layout_editor_absoluteX="@dimen/add_activity_horizontal_margin" />
 
         <LinearLayout
             android:id="@+id/linearLayoutEtiquetas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/textViewEtiquetas"
-            app:layout_constraintLeft_toLeftOf="@+id/textViewEtiquetas"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginLeft="@dimen/add_activity_horizontal_margin"
+            tools:layout_editor_absoluteY="275dp"
+            tools:layout_editor_absoluteX="@dimen/add_activity_horizontal_margin">
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/buttonAgregarEtiqueta"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            app:srcCompat="@android:drawable/ic_input_add"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutEtiquetas"
+            app:layout_constraintLeft_toLeftOf="@+id/linearLayoutEtiquetas"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="-1dp" />
 
         <!-- RECORDATORIO -->
 
@@ -180,10 +199,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Recordatorio"
-            android:layout_marginTop="@dimen/agregar_actividad_vertical_margin"
             app:layout_constraintTop_toBottomOf="@+id/buttonAgregarEtiqueta"
             app:layout_constraintLeft_toLeftOf="@+id/buttonAgregarEtiqueta" />
-
 
         <LinearLayout
             android:id="@+id/textViewFechaRecordatorioContainer"
@@ -191,7 +208,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="@dimen/agregar_actividad_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/add_activity_horizontal_margin"
             app:layout_constraintTop_toBottomOf="@+id/textViewRecordatorio"
             app:layout_constraintLeft_toLeftOf="@+id/textViewRecordatorio"
             android:gravity="left"
@@ -235,16 +252,6 @@
             app:layout_constraintTop_toBottomOf="@+id/textViewPrioridad"
             app:layout_constraintLeft_toLeftOf="@+id/textViewPrioridad" />
 
-        <ImageView
-            android:id="@+id/buttonAgregarEtiqueta"
-            android:layout_width="33dp"
-            android:layout_height="27dp"
-            app:srcCompat="@android:drawable/ic_input_add"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayoutEtiquetas"
-            app:layout_constraintLeft_toLeftOf="@+id/linearLayoutEtiquetas"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="-1dp" />
-
         <!-- PERIODICIDAD -->
 
         <TextView
@@ -252,6 +259,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Periodicidad"
+            android:layout_marginTop="@dimen/agregar_actividad_vertical_margin"
             app:layout_constraintTop_toBottomOf="@+id/spinnerPrioridades"
             app:layout_constraintLeft_toLeftOf="@+id/spinnerPrioridades" />
 
@@ -312,7 +320,7 @@
             android:background="@drawable/inputtext_box"
             app:layout_constraintLeft_toRightOf="@+id/radioGroupPerioridicidad"
             android:layout_marginLeft="6dp"
-            android:hint="X Dias"/>
+            android:hint="X Dias  "/>
 
         <!-- TIEMPO ESTIMADO -->
 
@@ -329,7 +337,7 @@
             android:id="@+id/editTextTiempoEstimado"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="hh:mm"
+            android:hint="hh:mm  "
             android:enabled="false"
             android:maxLines="1"
             android:inputType="time"
@@ -394,16 +402,26 @@
 
         <!-- BOTON -->
 
-        <Button
-            android:id="@+id/buttonAgregarActividad"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/buttonAgregarActividadContainer"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Agregar actividad"
-            android:layout_marginTop="8dp"
+            android:weightSum="1"
+            android:gravity="right"
+            android:orientation="horizontal"
+            android:layout_marginLeft="@dimen/add_activity_horizontal_margin"
             app:layout_constraintTop_toBottomOf="@+id/radioGroupTipoActividad"
-            android:layout_marginLeft="8dp"
-            app:layout_constraintLeft_toLeftOf="@+id/radioGroupTipoActividad"
-            android:layout_marginStart="8dp" />
+            app:layout_constraintLeft_toLeftOf="@+id/radioGroupTipoActividad" >
+
+            <Button
+                android:id="@+id/buttonAgregarActividad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Agregar actividad"
+                android:layout_marginEnd="@dimen/icon_text_separation_margin"
+                android:layout_marginBottom="@dimen/icon_text_separation_margin"
+                android:background="@drawable/add_activity_button" />
+        </LinearLayout>
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

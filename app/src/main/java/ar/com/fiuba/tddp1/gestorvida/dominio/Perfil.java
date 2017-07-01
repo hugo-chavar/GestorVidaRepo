@@ -25,6 +25,7 @@ public class Perfil {
     private static Map<Date, List<Actividad>> fechasDeInicioDeActividades = new HashMap<>();
     private static Map<Date, List<Actividad>> fechasDeFinDeActividades = new HashMap<>();
     private static Map<Date, List<Actividad>> fechasDeRecordatoriosDeActividades = new HashMap<>();;
+    private static List<Contacto> listaDeContactos = new ArrayList<>();
 
     public static void agregarObjetivo(Objetivo objetivo) {
         Perfil.objetivos.add(objetivo);
@@ -192,5 +193,13 @@ public class Perfil {
         }
         //return Perfil.etiquetas;
         return nombresEtiquetas;
+    }
+
+    public static List<Contacto> getContactos() {
+        return Perfil.listaDeContactos;
+    }
+
+    public static void agregarContacto(Contacto nuevoContacto) {
+        Perfil.listaDeContactos.add(nuevoContacto);
     }
 }

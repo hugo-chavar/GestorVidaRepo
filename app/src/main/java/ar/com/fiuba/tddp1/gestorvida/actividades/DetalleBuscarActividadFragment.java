@@ -18,15 +18,16 @@ public class DetalleBuscarActividadFragment extends DetalleActividadFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        View rootView = inflater.inflate(R.layout.detalle_buscar_actividad_layout, container, false);
+        View view = inflater.inflate(R.layout.detalle_buscar_actividad_layout, container, false);
 
-        mBotonAgregar = (Button) rootView.findViewById(R.id.boton_agregar_detalle);
-        mBotonCancelar = (Button) rootView.findViewById(R.id.boton_cancelar_detalle);
+        init(view);
+
+        mBotonAgregar = (Button) view.findViewById(R.id.boton_agregar_detalle);
+        mBotonCancelar = (Button) view.findViewById(R.id.boton_cancelar_detalle);
 
         inicializarBotones();
 
-        return rootView;
+        return view;
     }
 
     private void inicializarBotones() {
