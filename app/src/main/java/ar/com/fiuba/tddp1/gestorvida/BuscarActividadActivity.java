@@ -45,16 +45,12 @@ public class BuscarActividadActivity extends Fragment {
     private EditText mDesde;
     private EditText mHasta;
 
-    private Date filtro_desde;
-    private Date filtro_hasta;
-
     private AutoCompleteTextView mFiltroEtiqueta;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_buscar_actividad, container, false);
 
-        inicializarFiltroFechas();
         inicializarFiltroEtiquetas(rootView);
 
         mockearActividades();
@@ -68,16 +64,6 @@ public class BuscarActividadActivity extends Fragment {
             }
         });
         return rootView;
-    }
-
-    private void inicializarFiltroFechas() {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            filtro_desde = formatter.parse("1/1/1900");
-            filtro_hasta = formatter.parse("31/12/2999");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
     }
 
     private void inicializarFiltroEtiquetas(View view) {
@@ -139,14 +125,14 @@ public class BuscarActividadActivity extends Fragment {
                 }
                 try {
                     if (!desde.equals("")) {
-                        filtro_desde = formatter.parse(desde);
+                        ((MainActivity) getActivity()).setFiltro_desde(formatter.parse(desde));
                     } else {
-                        filtro_desde = formatter.parse("1/1/1900");
+                        ((MainActivity) getActivity()).setFiltro_desde(formatter.parse("1/1/1900"));
                     }
                     if (!hasta.equals("")) {
-                        filtro_hasta = formatter.parse(hasta);
+                        ((MainActivity) getActivity()).setFiltro_hasta(formatter.parse(hasta));
                     } else {
-                        filtro_hasta = formatter.parse("31/12/2999");
+                        ((MainActivity) getActivity()).setFiltro_hasta(formatter.parse("31/12/2999"));
                     }
                 } catch (ParseException e) {
                     e.printStackTrace();
@@ -157,7 +143,8 @@ public class BuscarActividadActivity extends Fragment {
         builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //No hacer nada
+                ((MainActivity) getActivity()).inicializarFiltroFechas();
+                mostrarActividades(getView());
             }
         });
         builder.show();
@@ -203,8 +190,11 @@ public class BuscarActividadActivity extends Fragment {
 
             Set<String> etiquetas = actividad.getNombresDeEtiquetas();
 
+            Date f_desde = ((MainActivity) getActivity()).getFiltro_desde();
+            Date f_hasta = ((MainActivity) getActivity()).getFiltro_hasta();
+
             if (textoEnFiltroEtiquetas.equals("") || (etiquetas != null && matcheaEtiquetas(textoEnFiltroEtiquetas, etiquetas.toArray(new String[etiquetas.size()])))) {
-                if ((filtro_desde.before(finicio) || filtro_desde.equals(finicio)) && (filtro_hasta.after(finicio) || filtro_hasta.equals(finicio))) {
+                if ((f_desde.before(finicio) || f_desde.equals(finicio)) && (f_hasta.after(finicio) || f_hasta.equals(finicio))) {
                     elementoActividad.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
