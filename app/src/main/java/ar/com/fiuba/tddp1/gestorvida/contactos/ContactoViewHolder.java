@@ -18,6 +18,8 @@ import ar.com.fiuba.tddp1.gestorvida.dominio.Contacto;
 
 class ContactoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+    private int COLOR_CONTACTO_SELECCIONADO = Color.rgb(65,80,190);
+    private int COLOR_CONTACTO_NO_SELECCIONADO = Color.WHITE;
 
     public View contactoView;
     public TextView nombreContacto;
@@ -44,11 +46,11 @@ class ContactoViewHolder extends RecyclerView.ViewHolder implements View.OnClick
     public void onClick(View v) {
         if ( this.participantesAgregados.contains(this.contacto) ) {
             this.participantesAgregados.remove(this.contacto);
-            this.contactoView.setBackgroundColor(Color.WHITE);
+            this.contactoView.setBackgroundColor(this.COLOR_CONTACTO_NO_SELECCIONADO);
         }
         else {
             this.participantesAgregados.add(this.contacto);
-            this.contactoView.setBackgroundColor(Color.RED);
+            this.contactoView.setBackgroundColor(this.COLOR_CONTACTO_SELECCIONADO);
         }
     }
 }
