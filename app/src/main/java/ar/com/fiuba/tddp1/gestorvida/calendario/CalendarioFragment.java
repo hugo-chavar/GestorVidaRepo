@@ -61,6 +61,7 @@ public class CalendarioFragment extends Fragment {
         super.onDestroyView();
 
         this.toolbar.setTitle(R.string.app_name);
+
     }
 
     @Override
@@ -82,6 +83,7 @@ public class CalendarioFragment extends Fragment {
         this.textoToolbarPrevio = toolbar.getTitle();
 
         this.calendario = (CompactCalendarView) rootView.findViewById(R.id.calendario);
+        this.calendario.setUseThreeLetterAbbreviation(false);
         calendario.setUseThreeLetterAbbreviation(true);
 
         this.setMesAnioToolbar(calendario.getFirstDayOfCurrentMonth());

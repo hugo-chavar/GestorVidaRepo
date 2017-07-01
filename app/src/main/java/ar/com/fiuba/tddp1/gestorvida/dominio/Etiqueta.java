@@ -9,7 +9,8 @@ import android.support.annotation.NonNull;
 public class Etiqueta {
 
     public String nombre;
-    public  int color;
+    public int color;
+
 
     public Etiqueta(String nombre, int color) {
         this.nombre = nombre;

@@ -3,6 +3,7 @@ package ar.com.fiuba.tddp1.gestorvida.calendario;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import ar.com.fiuba.tddp1.gestorvida.MainActivity;
@@ -17,6 +18,7 @@ import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 class ActividadCalendarioViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     public TextView textViewNombre;
+    public LinearLayout layoutEtiquetas;
     public int position;
 
     public Actividad actividad;
@@ -30,6 +32,8 @@ class ActividadCalendarioViewHolder extends RecyclerView.ViewHolder implements V
 
         // hago los find y cargo los atributos
         textViewNombre = (TextView) itemView.findViewById(R.id.textActividadCalendario);
+        layoutEtiquetas = (LinearLayout) itemView.findViewById(R.id.layoutEtiquetasActividadCalendario);
+
     }
 
     @Override

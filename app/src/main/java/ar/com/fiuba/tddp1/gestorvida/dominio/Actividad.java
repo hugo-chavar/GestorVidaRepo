@@ -24,7 +24,7 @@ public class Actividad {
     String prioridad = null;
 
     //private Set<String> etiquetas;
-    private Set<Etiqueta> etiquetas;
+    private Set<Etiqueta> etiquetas = new HashSet<>();
 
     private Set<String> participantes;
     private List<Beneficio> beneficios = new ArrayList<Beneficio>();
@@ -89,7 +89,7 @@ public class Actividad {
 
     //public void setEtiquetas(Set<String> etiquetas) {
     public void setEtiquetas(Set<Etiqueta> etiquetas) {
-        this.etiquetas = etiquetas;
+        this.etiquetas.addAll(etiquetas);
     }
 
     public void setFechaRecordatorio(Fecha fechaRecordatorio) {

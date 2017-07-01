@@ -1,5 +1,7 @@
 package ar.com.fiuba.tddp1.gestorvida.calendario;
 
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import ar.com.fiuba.tddp1.gestorvida.MainActivity;
 import ar.com.fiuba.tddp1.gestorvida.R;
 import ar.com.fiuba.tddp1.gestorvida.actividades.ActividadViewHolder;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
+import ar.com.fiuba.tddp1.gestorvida.dominio.Etiqueta;
 
 /**
  * Created by User on 28/06/2017.
@@ -55,6 +58,19 @@ public class ActividadCalendarioAdapter extends RecyclerView.Adapter<ActividadCa
         //Guardo la actividad en el holder
         holder.asociarActividad(actividad);
         holder.adapter = this;
+
+        this.cargarEtiquetasAlHolder(holder, actividad);
+    }
+
+    private void cargarEtiquetasAlHolder(ActividadCalendarioViewHolder holder, Actividad actividad) {
+        for (Etiqueta etiqueta : actividad.getEtiquetas()) {
+            TextView textViewEtiqueta = new TextView(this.activ);
+            textViewEtiqueta.setText(etiqueta.nombre);
+            GradientDrawable fondoEtiqueta = (GradientDrawable) this.activ.getDrawable(R.drawable.etiqueta_background);
+            fondoEtiqueta.setColor(etiqueta.color);
+            textViewEtiqueta.setBackground(fondoEtiqueta);
+            holder.layoutEtiquetas.addView(textViewEtiqueta);
+        }
     }
 
     @Override

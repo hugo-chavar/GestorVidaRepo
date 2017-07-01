@@ -150,12 +150,17 @@ public class AgregarActividadFragment extends Fragment{
     private Map<ImageView, Integer> mapaBotonColor;
     private Integer colorEtiquetaElegido = Color.rgb(250,250,250);
 
-    private void agregarEtiqueta(View view) {
+    private int[] coloresEtiquetas = new int[]{ Color.rgb(250,250,250), Color.rgb(255,138,128), Color.rgb(255,209,128),
+                                                Color.rgb(255,255,141), Color.rgb(204,255,144),Color.rgb(167,255,235),
+                                                Color.rgb(128,216,255),Color.rgb(207,216,220) };
+    private int[] coloresBordes = new int[]{ Color.rgb(202,202,202), Color.rgb(224,124,114), Color.rgb(227,187,116),
+                                             Color.rgb(204,204,148), Color.rgb(173,212,129),Color.rgb(154,210,196),
+                                             Color.rgb(114,193,228),Color.rgb(180,185,189) };
 
+    private void agregarEtiqueta(View view) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
         builder.setTitle("Agregar etiqueta");
-
 
         /*
         final EditText editTextEtiquetaIngresada = new EditText(this.getActivity());
@@ -191,12 +196,7 @@ public class AgregarActividadFragment extends Fragment{
         espacioInicialEntreColores.setLayoutParams(new LinearLayout.LayoutParams( 0, 1, 1));
         linearLayoutColores.addView(espacioInicialEntreColores);
 
-        int[] coloresEtiquetas = new int[]{ Color.rgb(250,250,250), Color.rgb(255,138,128), Color.rgb(255,209,128),
-                                            Color.rgb(255,255,141), Color.rgb(204,255,144),Color.rgb(167,255,235),
-                                            Color.rgb(128,216,255),Color.rgb(207,216,220) };
-        int[] coloresBordes = new int[]{ Color.rgb(202,202,202), Color.rgb(224,124,114), Color.rgb(227,187,116),
-                                         Color.rgb(204,204,148), Color.rgb(173,212,129),Color.rgb(154,210,196),
-                                         Color.rgb(114,193,228),Color.rgb(180,185,189) };
+
 
 
         this.mapaBotonColor = new HashMap<>();
