@@ -18,8 +18,6 @@ public class DetalleActividadFragment extends Fragment {
 
     TextView mNombre;
     TextView mDescripcion;
-    Button mBotonAgregar;
-    Button mBotonCancelar;
 
     Actividad actividad;
 
@@ -29,13 +27,10 @@ public class DetalleActividadFragment extends Fragment {
 
         mNombre = (TextView) rootView.findViewById(R.id.nombre_detalle);
         mDescripcion = (TextView) rootView.findViewById(R.id.descripcion_detalle);
-        mBotonAgregar = (Button) rootView.findViewById(R.id.boton_agregar_detalle);
-        mBotonCancelar = (Button) rootView.findViewById(R.id.boton_cancelar_detalle);
 
         actividad = ((MainActivity) getActivity()).getActividad_detalle();
 
         inicializarTexto();
-        inicializarBotones();
 
         return rootView;
     }
@@ -43,23 +38,6 @@ public class DetalleActividadFragment extends Fragment {
     private void inicializarTexto() {
         mNombre.setText(actividad.getNombre());
         mDescripcion.setText(actividad.getDescripcion());
-    }
-
-    private void inicializarBotones() {
-        mBotonCancelar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((MainActivity) getActivity()).setFragment(new BuscarActividadActivity());
-            }
-        });
-
-        mBotonAgregar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Perfil.agregarActividad(actividad);
-                ((MainActivity) getActivity()).setFragment(new BuscarActividadActivity());
-            }
-        });
     }
 
 }
