@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.Set;
 
 import ar.com.fiuba.tddp1.gestorvida.actividades.DetalleActividadFragment;
+import ar.com.fiuba.tddp1.gestorvida.actividades.DetalleBuscarActividadFragment;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Etiqueta;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Fecha;
@@ -352,7 +353,7 @@ public class BuscarActividadActivity extends Fragment {
 
     public void actividadOnClick(final View v, final Actividad actividad) {
         ((MainActivity) getActivity()).setActividad_detalle(actividad);
-        ((MainActivity) getActivity()).setFragment(new DetalleActividadFragment());
+        ((MainActivity) getActivity()).setFragment(new DetalleBuscarActividadFragment());
     }
 
 }

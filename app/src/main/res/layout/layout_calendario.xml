@@ -17,11 +17,13 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/calendario"
             android:layout_width="fill_parent"
-            android:paddingRight="10dp"
-            android:paddingLeft="10dp"
-            android:layout_height="171dp"
-            app:compactCalendarTargetHeight="200dp"
-            app:compactCalendarTextSize="12sp"
+
+            android:layout_height="270dp"
+
+            app:compactCalendarTextSize="22sp"
+            app:paddingStart="15dp"
+            app:paddingEnd="15dp"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:compactCalendarBackgroundColor="#fee7e7d8"
             app:compactCalendarTextColor="#060606"
             app:compactCalendarCurrentSelectedDayBackgroundColor="#56656c"
