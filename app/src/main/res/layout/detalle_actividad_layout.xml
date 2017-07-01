@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/nombre_detalle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/descripcion_detalle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <Button
+        android:id="@+id/boton_agregar_detalle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Agregar Actividad" />
+
+    <Button
+        android:id="@+id/boton_cancelar_detalle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancelar" />
+</LinearLayout>

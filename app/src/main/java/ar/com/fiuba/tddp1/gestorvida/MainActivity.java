@@ -16,6 +16,7 @@ import android.view.MenuItem;
 
 import ar.com.fiuba.tddp1.gestorvida.actividades.ActividadesFragment;
 import ar.com.fiuba.tddp1.gestorvida.calendario.CalendarioFragment;
+import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Objetivo;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 import ar.com.fiuba.tddp1.gestorvida.estadisticas.EstadisticasActividadesCompletadasFragment;
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private int fragmentActual = R.id.nav_actividades;
+
+    private Actividad actividad_detalle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,5 +171,13 @@ public class MainActivity extends AppCompatActivity
         fragmentManager.beginTransaction()
                         .replace(R.id.contenedor, fragment)
                         .commit();
+    }
+
+    public Actividad getActividad_detalle() {
+        return actividad_detalle;
+    }
+
+    public void setActividad_detalle(Actividad actividad_detalle) {
+        this.actividad_detalle = actividad_detalle;
     }
 }
