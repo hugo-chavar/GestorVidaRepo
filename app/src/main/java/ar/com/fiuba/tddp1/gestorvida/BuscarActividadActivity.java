@@ -235,11 +235,7 @@ public class BuscarActividadActivity extends Fragment {
         actividad.setDescripcion("Quiero correr para prepararme fisicamente");
         actividad.setFechaInicio(new Fecha("8", "9", "2017"));
         actividad.setFechaFin(new Fecha("8", "9", "2017"));
-
-        Set<Etiqueta> etiquetas = new HashSet<>();
-        etiquetas.add(new Etiqueta("Deportes", Color.GREEN));
-        actividad.setEtiquetas(etiquetas);
-
+        actividad.setPrioridad("ALTA");
         this.mockedActivities.add(actividad);
 
         Actividad actividad2 = new Actividad("Ir al cine");
@@ -248,7 +244,9 @@ public class BuscarActividadActivity extends Fragment {
         actividad2.setFechaFin(new Fecha("15", "12", "2017"));
         Set<Etiqueta> etiquetas2 = new HashSet<>();
         etiquetas2.add(new Etiqueta("Cine", Color.GREEN));
+        etiquetas2.add(new Etiqueta("Peliculas", Color.RED));
         actividad2.setEtiquetas(etiquetas2);
+        actividad2.setPrioridad("BAJA");
         this.mockedActivities.add(actividad2);
 
         Actividad actividad3 = new Actividad("Aprobar álgrebra");
@@ -257,7 +255,10 @@ public class BuscarActividadActivity extends Fragment {
         actividad3.setFechaFin(new Fecha("3", "7", "2017"));
         Set<Etiqueta> etiquetas3 = new HashSet<>();
         etiquetas3.add(new Etiqueta("Facultad", Color.GREEN));
+        etiquetas3.add(new Etiqueta("Aburrido", Color.YELLOW));
+        etiquetas3.add(new Etiqueta("Noooo", Color.RED));
         actividad3.setEtiquetas(etiquetas3);
+        actividad3.setPrioridad("ALTA");
         this.mockedActivities.add(actividad3);
 
         Actividad actividad4 = new Actividad("Jugar al fútbol");
@@ -275,6 +276,7 @@ public class BuscarActividadActivity extends Fragment {
         actividad5.setFechaFin(new Fecha("10", "11", "2017"));
         Set<Etiqueta> etiquetas5 = new HashSet<>();
         etiquetas5.add(new Etiqueta("Musica", Color.GREEN));
+        etiquetas5.add(new Etiqueta("Guitarra", Color.BLUE));
         actividad5.setEtiquetas(etiquetas5);
         this.mockedActivities.add(actividad5);
 
