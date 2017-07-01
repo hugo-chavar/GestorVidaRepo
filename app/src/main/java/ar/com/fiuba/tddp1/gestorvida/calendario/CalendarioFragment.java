@@ -123,7 +123,7 @@ public class CalendarioFragment extends Fragment {
         //Le cargo todos los eventos a una fecha
         this.cargarEventosDeListaDeFechas(COLOR_INICIO, Perfil.getFechasDeInicioDeActividades());
         this.cargarEventosDeListaDeFechas(COLOR_FIN, Perfil.getFechasDeFinDeActividades());
-        this.cargarEventosDeListaDeFechas(COLOR_RECORDATORIO, Perfil.getFechasDeRecordatoriosDeActividades());
+        //this.cargarEventosDeListaDeFechas(COLOR_RECORDATORIO, Perfil.getFechasDeRecordatoriosDeActividades());
 
     }
 
@@ -182,7 +182,7 @@ public class CalendarioFragment extends Fragment {
         //A la  lista de todas las actividades le agrego primero las de inicio, luego las de fin y por ultimo los recordatorios
         todasLasActividadesFechaSeleccionada.addAll(fechasDeAcividadesPorColor.get(COLOR_INICIO));
         todasLasActividadesFechaSeleccionada.addAll(fechasDeAcividadesPorColor.get(COLOR_FIN));
-        todasLasActividadesFechaSeleccionada.addAll(fechasDeAcividadesPorColor.get(COLOR_RECORDATORIO));
+        //todasLasActividadesFechaSeleccionada.addAll(fechasDeAcividadesPorColor.get(COLOR_RECORDATORIO));
 
 
         if (todasLasActividadesFechaSeleccionada.size() > 0) {
@@ -201,10 +201,12 @@ public class CalendarioFragment extends Fragment {
                 sections.add(new SimpleSectionedRecyclerViewAdapter.Section(posicionSiguienteSeccion, "Actividades que finalizan"));
                 posicionSiguienteSeccion += fechasDeAcividadesPorColor.get(COLOR_FIN).size();
             }
+            /*
             if (fechasDeAcividadesPorColor.get(COLOR_RECORDATORIO).size() > 0) {
                 sections.add(new SimpleSectionedRecyclerViewAdapter.Section(posicionSiguienteSeccion, "Recordatorio:"));
                 posicionSiguienteSeccion += fechasDeAcividadesPorColor.get(COLOR_RECORDATORIO).size();
             }
+            */
 
             SimpleSectionedRecyclerViewAdapter.Section[] dummy = new SimpleSectionedRecyclerViewAdapter.Section[sections.size()];
             SimpleSectionedRecyclerViewAdapter mSectionedAdapter = new SimpleSectionedRecyclerViewAdapter(recyclerActividadesDelDia.getContext(), R.layout.section, R.id.section_text, actividadCalendarioAdapter);
