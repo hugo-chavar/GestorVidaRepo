@@ -33,6 +33,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import ar.com.fiuba.tddp1.gestorvida.actividades.DetalleActividadFragment;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Etiqueta;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Fecha;
@@ -350,27 +351,8 @@ public class BuscarActividadActivity extends Fragment {
     }
 
     public void actividadOnClick(final View v, final Actividad actividad) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
-        builder.setTitle(actividad.getNombre());
-        LinearLayout layout = new LinearLayout(this.getActivity());
-        layout.setOrientation(LinearLayout.VERTICAL);
-        TextView descripcion = new TextView(this.getActivity());
-        descripcion.setText(actividad.getDescripcion());
-        layout.addView(descripcion);
-        builder.setView(layout);
-        builder.setPositiveButton("Agregar actividad", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Perfil.agregarActividad(actividad);
-            }
-        });
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                //No hacer nada
-            }
-        });
-        builder.show();
+        ((MainActivity) getActivity()).setActividad_detalle(actividad);
+        ((MainActivity) getActivity()).setFragment(new DetalleActividadFragment());
     }
 
 }
