@@ -67,7 +67,7 @@ public abstract class RecyclerFragment extends Fragment implements View.OnClickL
 
         mList = (RecyclerView) rootView.findViewById(R.id.section_list);
         mList.setLayoutManager(getLayoutManager());
-        //mList.addItemDecoration(getItemDecoration());
+        mList.addItemDecoration(getItemDecoration());
 
         mList.getItemAnimator().setAddDuration(1000);
         mList.getItemAnimator().setChangeDuration(1000);
@@ -109,6 +109,10 @@ public abstract class RecyclerFragment extends Fragment implements View.OnClickL
         fragmentManager.beginTransaction()
                 .replace(R.id.contenedor, fragment)
                 .commit();
+    }
+
+    public RecyclerView.ItemDecoration getItemDecoration() {
+        return new InserDecoration(getActivity());
     }
 
     /*@Override

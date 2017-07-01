@@ -9,7 +9,6 @@ import ar.com.fiuba.tddp1.gestorvida.MainActivity;
 import ar.com.fiuba.tddp1.gestorvida.R;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 
-//import org.w3c.dom.Text;
 
 public class ActividadViewHolder extends RecyclerView.ViewHolder
         implements View.OnClickListener {
@@ -57,11 +56,9 @@ public class ActividadViewHolder extends RecyclerView.ViewHolder
     }
 
     private void mostrarImagenCompletada() {
-        if (this.actividad.estaCompleta()) {
-            this.imageViewCompletada.setImageResource(R.drawable.completar_actividad);
-        }
-        else {
-            this.imageViewCompletada.setImageResource(R.drawable.deshacer_actividad);
-        }
+
+        int image = actividad.estaCompleta() ? R.drawable.completar_actividad : R.drawable.deshacer_actividad;
+
+        imageViewCompletada.setImageResource(image);
     }
 }

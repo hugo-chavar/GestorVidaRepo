@@ -12,4 +12,5 @@
     <dimen name="add_activity_horizontal_margin">40dp</dimen>
     <dimen name="text_size">15dp</dimen>
     <dimen name="circulo_size">20dp</dimen>
+    <dimen name="tarjeta_size">20dp</dimen>
 </resources>

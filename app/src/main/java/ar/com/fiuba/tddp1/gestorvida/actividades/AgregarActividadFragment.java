@@ -224,6 +224,7 @@ public class AgregarActividadFragment extends Fragment{
             circuloColor.setColor(coloresEtiquetas[i]);
             circuloColor.setStroke(1, coloresBordes[i]);
 
+
             circuloColorImage.setBackground(circuloColor);
 
 
