@@ -12,7 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.format.Time;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -36,7 +38,7 @@ import ar.com.fiuba.tddp1.gestorvida.dominio.Etiqueta;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Fecha;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 
-public class BuscarActividadActivity extends AppCompatActivity {
+public class BuscarActividadActivity extends Fragment {
 
     FloatingActionButton filterButton;
     LinkedList<Actividad> mockedActivities;
@@ -50,25 +52,23 @@ public class BuscarActividadActivity extends AppCompatActivity {
     private AutoCompleteTextView mFiltroEtiqueta;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_buscar_actividad);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.activity_buscar_actividad, container, false);
 
         inicializarFiltroFechas();
-        inicializarFiltroEtiquetas();
+        inicializarFiltroEtiquetas(rootView);
 
         mockearActividades();
-        mostrarActividades();
+        mostrarActividades(rootView);
 
-        filterButton = (FloatingActionButton) findViewById(R.id.fab);
+        filterButton = (FloatingActionButton) rootView.findViewById(R.id.fab);
         filterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 popupInit();
             }
         });
+        return rootView;
     }
 
     private void inicializarFiltroFechas() {
@@ -81,10 +81,10 @@ public class BuscarActividadActivity extends AppCompatActivity {
         }
     }
 
-    private void inicializarFiltroEtiquetas() {
-        mFiltroEtiqueta = (AutoCompleteTextView) findViewById(R.id.filtro_etiquetas);
+    private void inicializarFiltroEtiquetas(View view) {
+        mFiltroEtiqueta = (AutoCompleteTextView) view.findViewById(R.id.filtro_etiquetas);
         List<String> etiquetas = new ArrayList<>(Perfil.getNombresEtiquetas());
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, etiquetas);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_dropdown_item_1line, etiquetas);
         mFiltroEtiqueta.setAdapter(adapter);
 
         mFiltroEtiqueta.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -92,7 +92,7 @@ public class BuscarActividadActivity extends AppCompatActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
 
-                    mostrarActividades();
+                    mostrarActividades(getView());
 
                     return true;
                 }
@@ -102,12 +102,12 @@ public class BuscarActividadActivity extends AppCompatActivity {
     }
 
     public void popupInit() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
         builder.setTitle("Filtro");
-        LinearLayout layout = new LinearLayout(this);
+        LinearLayout layout = new LinearLayout(this.getActivity());
         layout.setOrientation(LinearLayout.VERTICAL);
-        EditText desde_filtro = new EditText(this);
-        EditText hasta_filtro = new EditText(this);
+        EditText desde_filtro = new EditText(this.getActivity());
+        EditText hasta_filtro = new EditText(this.getActivity());
         desde_filtro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,7 +152,7 @@ public class BuscarActividadActivity extends AppCompatActivity {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                mostrarActividades();
+                mostrarActividades(getView());
             }
         });
         builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -164,29 +164,29 @@ public class BuscarActividadActivity extends AppCompatActivity {
         builder.show();
     }
 
-    private void mostrarActividades() {
+    private void mostrarActividades(View view) {
 
-        LinearLayout lista = (LinearLayout) findViewById(R.id.lista_actividades);
+        LinearLayout lista = (LinearLayout) view.findViewById(R.id.lista_actividades);
         lista.removeAllViews();
 
         //TODO: Esta debe ser la lista de todas las actividades en el server
         for (final Actividad actividad : this.mockedActivities) {
-            LinearLayout elementoActividad = new LinearLayout(this);
+            LinearLayout elementoActividad = new LinearLayout(this.getActivity());
             elementoActividad.setOrientation(LinearLayout.VERTICAL);
 
-            TextView nombre = new TextView(this);
+            TextView nombre = new TextView(this.getActivity());
             nombre.setTextSize(24);
             String nombre_actividad = actividad.getNombre();
             nombre.setText(nombre_actividad);
             elementoActividad.addView(nombre);
 
-            TextView inicio = new TextView(this);
+            TextView inicio = new TextView(this.getActivity());
             inicio.setTextSize(16);
             Fecha fechaInicio = actividad.getFechaInicio();
             inicio.setText("Inicio: " + fechaInicio.dia + "/" + fechaInicio.mes + "/" + fechaInicio.anio);
             elementoActividad.addView(inicio);
 
-            TextView fin = new TextView(this);
+            TextView fin = new TextView(this.getActivity());
             fin.setTextSize(16);
             Fecha fechaFin = actividad.getFechaFin();
             fin.setText("Fin: " + fechaFin.dia + "/" + fechaFin.mes + "/" + fechaFin.anio);
@@ -320,7 +320,7 @@ public class BuscarActividadActivity extends AppCompatActivity {
         };
 
         Time date = new Time();
-        DatePickerDialog d = new DatePickerDialog(BuscarActividadActivity.this, dpd, date.year, date.month, date.monthDay);
+        DatePickerDialog d = new DatePickerDialog(BuscarActividadActivity.this.getActivity(), dpd, date.year, date.month, date.monthDay);
         Calendar calendario = Calendar.getInstance();
         d.updateDate(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), calendario.get(Calendar.DAY_OF_MONTH));
         d.show();
@@ -342,7 +342,7 @@ public class BuscarActividadActivity extends AppCompatActivity {
         };
 
         Time date = new Time();
-        DatePickerDialog d = new DatePickerDialog(BuscarActividadActivity.this, dpd, date.year, date.month, date.monthDay);
+        DatePickerDialog d = new DatePickerDialog(BuscarActividadActivity.this.getActivity(), dpd, date.year, date.month, date.monthDay);
         Calendar calendario = Calendar.getInstance();
         d.updateDate(calendario.get(Calendar.YEAR), calendario.get(Calendar.MONTH), calendario.get(Calendar.DAY_OF_MONTH));
         d.show();
@@ -350,11 +350,11 @@ public class BuscarActividadActivity extends AppCompatActivity {
     }
 
     public void actividadOnClick(final View v, final Actividad actividad) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
         builder.setTitle(actividad.getNombre());
-        LinearLayout layout = new LinearLayout(this);
+        LinearLayout layout = new LinearLayout(this.getActivity());
         layout.setOrientation(LinearLayout.VERTICAL);
-        TextView descripcion = new TextView(this);
+        TextView descripcion = new TextView(this.getActivity());
         descripcion.setText(actividad.getDescripcion());
         layout.addView(descripcion);
         builder.setView(layout);
