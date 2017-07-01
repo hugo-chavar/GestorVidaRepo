@@ -30,7 +30,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import ar.com.fiuba.tddp1.gestorvida.actividades.DetalleActividadFragment;
 import ar.com.fiuba.tddp1.gestorvida.actividades.DetalleBuscarActividadFragment;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Etiqueta;
@@ -109,6 +108,23 @@ public class BuscarActividadActivity extends Fragment {
         hasta_filtro.setHint("Fecha hasta");
         desde_filtro.setFocusable(false);
         hasta_filtro.setFocusable(false);
+        Date f_desde = ((MainActivity) getActivity()).getFiltro_desde();
+        Date f_hasta = ((MainActivity) getActivity()).getFiltro_hasta();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(f_desde);
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH) + 1;
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        if (day != 1 && month != 1 && year != 1900) {
+            desde_filtro.setText(day + "/" + month + "/" + year);
+        }
+        cal.setTime(f_hasta);
+        year = cal.get(Calendar.YEAR);
+        month = cal.get(Calendar.MONTH) + 1;
+        day = cal.get(Calendar.DAY_OF_MONTH);
+        if (day != 31 && month != 12 && year != 2999) {
+            hasta_filtro.setText(day + "/" + month + "/" + year);
+        }
         layout.addView(desde_filtro);
         layout.addView(hasta_filtro);
         builder.setView(layout);
@@ -126,13 +142,9 @@ public class BuscarActividadActivity extends Fragment {
                 try {
                     if (!desde.equals("")) {
                         ((MainActivity) getActivity()).setFiltro_desde(formatter.parse(desde));
-                    } else {
-                        ((MainActivity) getActivity()).setFiltro_desde(formatter.parse("1/1/1900"));
                     }
                     if (!hasta.equals("")) {
                         ((MainActivity) getActivity()).setFiltro_hasta(formatter.parse(hasta));
-                    } else {
-                        ((MainActivity) getActivity()).setFiltro_hasta(formatter.parse("31/12/2999"));
                     }
                 } catch (ParseException e) {
                     e.printStackTrace();
