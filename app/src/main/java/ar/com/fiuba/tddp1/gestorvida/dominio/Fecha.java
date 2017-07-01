@@ -1,7 +1,5 @@
 package ar.com.fiuba.tddp1.gestorvida.dominio;
 
-import android.util.Log;
-
 /**
  * Created by User on 25/06/2017.
  */
@@ -23,7 +21,7 @@ public class Fecha {
         this.dia = datos[0];
         this.mes = datos[1];
         this.anio = datos[2];
-        Log.d("Fecha", toString() );
+        //Log.d("Fecha", toString() );
     }
 
     @Override
