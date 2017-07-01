@@ -1,6 +1,5 @@
 package ar.com.fiuba.tddp1.gestorvida;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -20,13 +19,12 @@ import java.util.Date;
 
 import ar.com.fiuba.tddp1.gestorvida.actividades.ActividadesFragment;
 import ar.com.fiuba.tddp1.gestorvida.calendario.CalendarioFragment;
+import ar.com.fiuba.tddp1.gestorvida.contactos.AgregarParticipantesFragment;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Contacto;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Objetivo;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 import ar.com.fiuba.tddp1.gestorvida.estadisticas.EstadisticasActividadesCompletadasFragment;
-import ar.com.fiuba.tddp1.gestorvida.estadisticas.EstadisticasEtiquetasPieChartFragment;
-import ar.com.fiuba.tddp1.gestorvida.estadisticas.EstadisticasFragment;
 import ar.com.fiuba.tddp1.gestorvida.objetivos.ObjetivosFragment;
 
 public class MainActivity extends AppCompatActivity
@@ -36,6 +34,7 @@ public class MainActivity extends AppCompatActivity
 
     private Actividad actividad_detalle;
 
+    private Actividad actividadGlobalMain = new Actividad("Actividad hardcodeada desde MainActivity.java");
     private Date filtro_desde = null;
     private Date filtro_hasta = null;
 
@@ -78,8 +77,10 @@ public class MainActivity extends AppCompatActivity
         Perfil.agregarContacto(new Contacto("Definitely not Juanma", R.drawable.ic_filter));
         Perfil.agregarContacto(new Contacto("Mordekaiser", R.drawable.mercurio));
         Perfil.agregarContacto(new Contacto("Cosme Fulanito", R.drawable.circulo_color));
+        Perfil.agregarActividad(actividadGlobalMain);
 
         inicializarFiltroFechas(); //Esto es para BuscarActividades
+
     }
 
     @Override
@@ -136,7 +137,9 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_perfil) {
             //Mostrar pantalla perfil
-            setFragment(new AgregarParticipantesFragment());
+            AgregarParticipantesFragment fragment = new AgregarParticipantesFragment();
+            fragment.setActividad(actividadGlobalMain);
+            setFragment(fragment);
 
         } else if (id == R.id.nav_actividades) {
             //Mostrar pantalla actividades

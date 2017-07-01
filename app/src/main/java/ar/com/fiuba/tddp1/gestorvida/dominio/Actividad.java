@@ -17,16 +17,19 @@ public class Actividad {
     private boolean estaCompletada;
     private String foto;
     private String _id;
+    private String __v; //version en el servidor
 
     private Fecha fechaInicio = null;
     private Fecha fechaFin = null;
 
     String prioridad = null;
 
-    //private Set<String> etiquetas;
     private Set<Etiqueta> etiquetas = new HashSet<>();
 
+    //TODO: hay que ver si conviene manejarlo como contacto o como string
     private Set<String> participantes;
+    private Set<Contacto> participantesAgregados = new HashSet<>();
+
     private List<Beneficio> beneficios = new ArrayList<Beneficio>();
 
     private Fecha fechaRecordatorio;
@@ -36,11 +39,14 @@ public class Actividad {
     private boolean esPrivada;
     private Integer diaEnQueSeCompleto;
 
+
     public Actividad(String nombre) {
         this.nombre = nombre;
         this.estaCompletada = false;
         this.diaEnQueSeCompleto = null;
     }
+
+    public void set__v(String version) { this.__v = version; }
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
@@ -164,5 +170,14 @@ public class Actividad {
 
     public void addBeneficio(Beneficio beneficio) {
         beneficios.add(beneficio);
+    }
+
+
+    public void agregarParticipantes(Set<Contacto> participantesAgregados) {
+        this.participantesAgregados.addAll(participantesAgregados);
+    }
+
+    public String getPrioridad() {
+        return prioridad;
     }
 }

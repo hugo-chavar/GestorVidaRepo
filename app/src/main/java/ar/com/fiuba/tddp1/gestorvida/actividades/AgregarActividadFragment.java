@@ -3,16 +3,12 @@ package ar.com.fiuba.tddp1.gestorvida.actividades;
 
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.ShapeDrawable;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.Space;
 import android.support.v7.app.AlertDialog;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,13 +47,14 @@ import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 public class AgregarActividadFragment extends Fragment{
 
     private Map<Integer, TextView> textosFechas = new HashMap<>();
-    //private Set<String> listaDeEtiquetas = new HashSet<>();
     private Set<Etiqueta> listaDeEtiquetas = new HashSet<>();
+    private LayoutInflater inflater;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.activity_agregar_actividad, container,false);
+        this.inflater = inflater;
+        View view = this.inflater.inflate(R.layout.activity_agregar_actividad, container,false);
 
         //A cada boton de fecha le asocio un textView en donde se va a escribir la fecha seleccionada
         this.textosFechas.put(R.id.imageViewInicioActividad, (TextView) view.findViewById(R.id.textViewInicioActividad) );
@@ -230,7 +227,8 @@ public class AgregarActividadFragment extends Fragment{
             circuloColorImage.setBackground(circuloColor);
 
 
-            int radio = 20; //parametrosEtiqueta.getWidth() / 10; <---Esto no funciona, debe ser porque debe tener un match_parent de width o algo asi..., devuelve siempre 0 el width
+            //TODO: ver si se maneja con dp o con sp
+            int radio = getContext().getResources().getDimensionPixelSize(R.dimen.circulo_size);
             circuloColorImage.setLayoutParams( new LinearLayout.LayoutParams( radio, radio));
             //circuloColorImage.setLayoutParams( new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)  );
             //circuloColorImage.setLayoutParams( new ViewGroup.LayoutParams(10,10)  );
@@ -275,14 +273,10 @@ public class AgregarActividadFragment extends Fragment{
 
         LinearLayout grupoEtiquetasView = ( (LinearLayout) this.getView().findViewById(R.id.linearLayoutEtiquetas));
 
-
-        //TODO: puede llegar a haber algun problema si al getLayoutInflater le paso null?
-        View etiquetaIndividualView = getLayoutInflater(null).inflate(R.layout.layout_etiqueta, null);
+        View etiquetaIndividualView = inflater.inflate(R.layout.layout_etiqueta, null);
 
         TextView textViewEtiquetaIngresada = (TextView) etiquetaIndividualView.findViewById(R.id.nombreEtiqueta);
         textViewEtiquetaIngresada.setText(nombreEtiqueta);
-
-
 
         grupoEtiquetasView.addView(etiquetaIndividualView);
 
@@ -362,17 +356,35 @@ public class AgregarActividadFragment extends Fragment{
         //esto deberia ser solo si se eligio agregarlo a un objetivo
         Objetivo objetivoSeleccionado =  (Objetivo)((Spinner)rootView.findViewById(R.id.spinnerObjetivos)).getSelectedItem();
         objetivoSeleccionado.agregarActividad(nuevaActividad);
-        Perfil.agregarActividad(nuevaActividad);
+
+        addActividad(nuevaActividad);
+
     }
 
     private Fecha parsearFecha(TextView textoFecha) {
-        String fecha = textoFecha.getText().toString();
-        String[] fechaParseada = fecha.split("/");
-        if ( (fechaParseada.length == 3) && (!fecha.equals("dd/mm/aaaa"))){
-            //Si el lenght es diferente de 3 entonces no hay una fecha ingresada
-            return new Fecha(fechaParseada[0], fechaParseada[1], fechaParseada[2]);
-        }
-        return null;
+        return new Fecha (textoFecha.getText().toString());
+    }
 
+    private void addActividad(Actividad actividad) {
+
+
+        Perfil.agregarActividad(actividad);
+
+        /*
+        AgregarActividadListener listener = new AgregarActividadListener(getActivity(), actividad);;
+
+        RequestSender requestSender = new RequestSender(getActivity());
+        Map<String,String> _params;
+        _params = new HashMap<String,String>();
+        _params.put("username", name);
+        _params.put("password", password);
+
+        JSONObject obj = new JSONObject(_params);
+
+        String url = getString(R.string.url) + "users/authenticate";
+
+
+        requestSender.doPost(listener, url, new JSONObject(_params));
+        */
     }
 }
