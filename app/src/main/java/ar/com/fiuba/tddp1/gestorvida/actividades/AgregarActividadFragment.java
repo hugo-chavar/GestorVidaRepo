@@ -230,6 +230,7 @@ public class AgregarActividadFragment extends Fragment{
             circuloColorImage.setBackground(circuloColor);
 
 
+            //TODO: ver si se maneja con dp o con sp
             int radio = 20; //parametrosEtiqueta.getWidth() / 10; <---Esto no funciona, debe ser porque debe tener un match_parent de width o algo asi..., devuelve siempre 0 el width
             circuloColorImage.setLayoutParams( new LinearLayout.LayoutParams( radio, radio));
             //circuloColorImage.setLayoutParams( new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)  );
