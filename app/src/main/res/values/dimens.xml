@@ -7,6 +7,8 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="text_margin">16dp</dimen>
-    <dimen name="agregar_actividad_vertical_margin">10dp</dimen>>
+    <dimen name="agregar_actividad_vertical_margin">15dp</dimen>>
     <dimen name="icon_text_separation_margin">10dp</dimen>>
+    <dimen name="add_activity_horizontal_margin">40dp</dimen>
+    <dimen name="text_size">15dp</dimen>>
 </resources>
