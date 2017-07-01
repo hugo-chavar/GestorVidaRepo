@@ -25,47 +25,51 @@
             app:compactCalendarBackgroundColor="#fee7e7d8"
             app:compactCalendarTextColor="#060606"
             app:compactCalendarCurrentSelectedDayBackgroundColor="#56656c"
-            app:compactCalendarCurrentDayBackgroundColor="#00ec0c"
-            app:compactCalendarMultiEventIndicatorColor="#1520e4" />
+            app:compactCalendarCurrentDayBackgroundColor="@android:color/holo_red_dark"
+            app:compactCalendarCurrentDayIndicatorStyle="no_fill_large_indicator"
+            app:compactCalendarMultiEventIndicatorColor="#1520e4"
+            app:compactCalendarDisplayOtherMonthDays="true"
+            app:compactCalendarOtherMonthDaysTextColor="@color/colorDarkGrey"/>
 
 
         <TextView
             android:id="@+id/textoFecha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingLeft="15dp"
             android:text=""
-            android:textAllCaps="true"
             android:textColor="@color/colorPrimaryDark"
             android:background="@android:color/transparent"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:textSize="16sp" />
 
         <LinearLayout
             android:id="@+id/layoutNoHayActividades"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="15dp">
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="5dp"
+                android:layout_height="1dp"
                 android:background="@android:color/darker_gray"/>
 
             <TextView
                 android:id="@+id/textoSinActividades"
-                android:layout_width="304dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Sin actividades"
                 android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@android:color/darker_gray"
                 android:background="@android:color/transparent"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textSize="10sp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"/>
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="5dp"
+                android:layout_height="1dp"
                 android:background="@android:color/darker_gray"/>
 
         </LinearLayout>

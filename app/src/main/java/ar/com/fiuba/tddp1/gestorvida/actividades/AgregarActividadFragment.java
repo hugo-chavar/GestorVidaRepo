@@ -148,7 +148,7 @@ public class AgregarActividadFragment extends Fragment{
 
 
     private Map<ImageView, Integer> mapaBotonColor;
-    private Integer colorEtiquetaElegido;
+    private Integer colorEtiquetaElegido = Color.rgb(250,250,250);
 
     private void agregarEtiqueta(View view) {
 
@@ -200,7 +200,7 @@ public class AgregarActividadFragment extends Fragment{
 
 
         this.mapaBotonColor = new HashMap<>();
-        this.colorEtiquetaElegido = null;
+        this.colorEtiquetaElegido = Color.rgb(250,250,250);
         for (int i = 0; i < coloresEtiquetas.length; i++) {
             ImageView circuloColorImage = new ImageView(this.getActivity());
             GradientDrawable circuloColor = (GradientDrawable) this.getActivity().getDrawable(R.drawable.circulo_color);
@@ -262,15 +262,11 @@ public class AgregarActividadFragment extends Fragment{
         TextView textViewEtiquetaIngresada = (TextView) etiquetaIndividualView.findViewById(R.id.nombreEtiqueta);
         textViewEtiquetaIngresada.setText(nombreEtiqueta);
 
-        //TODO: sacar esto
-        if (this.colorEtiquetaElegido != null ) {
-            textViewEtiquetaIngresada.setTextColor(this.colorEtiquetaElegido);
-        }
 
 
         grupoEtiquetasView.addView(etiquetaIndividualView);
 
-        //this.listaDeEtiquetas.add(nombreEtiqueta);
+
         this.listaDeEtiquetas.add(new Etiqueta(nombreEtiqueta, colorEtiquetaElegido));
     }
 

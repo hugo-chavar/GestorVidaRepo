@@ -1,5 +1,6 @@
 package ar.com.fiuba.tddp1.gestorvida.estadisticas;
 
+import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -49,9 +50,10 @@ public class EstadisticasActividadesCompletadasFragment extends Fragment impleme
         //Despues se crea un set de datos con los puntos que se pasaron
         LineDataSet datosSet = new LineDataSet(puntos, "Actividades completadas desde el 1/6/17 hasta el 7/6/17");
         /*Aca se le puede dar formato
-        datos.setColor(...)
+
         datos.setValueTextColor(...);
         */
+        datosSet.setColor(Color.RED);
         datosSet.setValueTextSize(15);
 
         //Por ultimo se crea una LineData a partir del LineDataSet y se agrega al grafico
@@ -70,6 +72,12 @@ public class EstadisticasActividadesCompletadasFragment extends Fragment impleme
         leyenda.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
 
         grafico.invalidate(); //refresh
+
+
+
+
+
+
 
 
         return view;

@@ -32,6 +32,8 @@ import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 import ar.com.fiuba.tddp1.gestorvida.objetivos.ObjetivoAdapter;
 
+import static ar.com.fiuba.tddp1.gestorvida.R.id.toolbar;
+
 /**
  * Created by User on 27/06/2017.
  */
@@ -51,16 +53,38 @@ public class CalendarioFragment extends Fragment {
 
     private Map<String, String> traduccionesDias = new HashMap<>();
     String[] traduccionesMeses;
+    private Toolbar toolbar;
+    private CharSequence textoToolbarPrevio;
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        this.toolbar.setTitle(R.string.app_name);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        this.traduccionesDias.put("Monday", "Lunes");
+        this.traduccionesDias.put("Tuesday", "Martes");
+        this.traduccionesDias.put("Wednesday", "Miercoles");
+        this.traduccionesDias.put("Thursday", "Jueves");
+        this.traduccionesDias.put("Friday", "Viernes");
+        this.traduccionesDias.put("Saturday", "Sabado");
+        this.traduccionesDias.put("Sunday", "Domingo");
+
+        this.traduccionesMeses = new String[]{"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};;
+
+
         View rootView = inflater.inflate(R.layout.layout_calendario, container, false);
-        final Toolbar toolbar = (Toolbar) this.getActivity().findViewById(R.id.toolbar);
+        this.toolbar = (Toolbar) this.getActivity().findViewById(R.id.toolbar);
+        this.textoToolbarPrevio = toolbar.getTitle();
 
         this.calendario = (CompactCalendarView) rootView.findViewById(R.id.calendario);
         calendario.setUseThreeLetterAbbreviation(true);
-        toolbar.setTitle(this.formatterToolbar.format(calendario.getFirstDayOfCurrentMonth()));
+
+        this.setMesAnioToolbar(calendario.getFirstDayOfCurrentMonth());
 
         this.cargarEventos();
 
@@ -72,7 +96,7 @@ public class CalendarioFragment extends Fragment {
 
             @Override
             public void onMonthScroll(Date firstDayOfNewMonth) {
-                toolbar.setTitle(formatterToolbar.format(firstDayOfNewMonth));
+                setMesAnioToolbar(firstDayOfNewMonth);
             }
         });
 
@@ -88,17 +112,6 @@ public class CalendarioFragment extends Fragment {
         this.recyclerActividadesDelDia = (RecyclerView) rootView.findViewById(R.id.recyclerActividadesDiaSeleccionado);
         this.inicializarRecyclerActividadesDelDia();
 
-
-
-        this.traduccionesDias.put("Monday", "Lunes");
-        this.traduccionesDias.put("Tuesday", "Martes");
-        this.traduccionesDias.put("Wednesday", "Miercoles");
-        this.traduccionesDias.put("Thursday", "Jueves");
-        this.traduccionesDias.put("Friday", "Viernes");
-        this.traduccionesDias.put("Saturday", "Sabado");
-        this.traduccionesDias.put("Sunday", "Domingo");
-
-        this.traduccionesMeses = new String[]{"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};;
 
         return rootView;
     }
@@ -179,11 +192,11 @@ public class CalendarioFragment extends Fragment {
 
             int posicionSiguienteSeccion = 0;
             if (fechasDeAcividadesPorColor.get(COLOR_INICIO).size() > 0) {
-                sections.add(new SimpleSectionedRecyclerViewAdapter.Section(posicionSiguienteSeccion, "Inicio actividad:"));
+                sections.add(new SimpleSectionedRecyclerViewAdapter.Section(posicionSiguienteSeccion, "Actividades que inician"));
                 posicionSiguienteSeccion += fechasDeAcividadesPorColor.get(COLOR_INICIO).size();
             }
             if (fechasDeAcividadesPorColor.get(COLOR_FIN).size() > 0) {
-                sections.add(new SimpleSectionedRecyclerViewAdapter.Section(posicionSiguienteSeccion, "Fin actividad:"));
+                sections.add(new SimpleSectionedRecyclerViewAdapter.Section(posicionSiguienteSeccion, "Actividades que finalizan"));
                 posicionSiguienteSeccion += fechasDeAcividadesPorColor.get(COLOR_FIN).size();
             }
             if (fechasDeAcividadesPorColor.get(COLOR_RECORDATORIO).size() > 0) {
@@ -202,5 +215,13 @@ public class CalendarioFragment extends Fragment {
             this.layoutNoHayActividades.setVisibility(View.VISIBLE);
             this.recyclerActividadesDelDia.setVisibility(View.GONE);
         }
+    }
+
+    public void setMesAnioToolbar(Date date) {
+        Calendar calendarioAuxiliar = Calendar.getInstance();
+        calendarioAuxiliar.setTime(date);
+        String mesAnio = traduccionesMeses[calendarioAuxiliar.get(Calendar.MONTH)] + ", " + calendarioAuxiliar.get(Calendar.YEAR);
+        //toolbar.setTitle(formatterToolbar.format(firstDayOfNewMonth));
+        toolbar.setTitle(mesAnio);
     }
 }

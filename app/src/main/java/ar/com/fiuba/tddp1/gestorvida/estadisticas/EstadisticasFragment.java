@@ -24,9 +24,11 @@ import ar.com.fiuba.tddp1.gestorvida.R;
 
 public class EstadisticasFragment extends Fragment {
 
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.layout_line_chart, container,false);
 
         LineChart grafico = (LineChart) view.findViewById(R.id.ejemploGrafico);
