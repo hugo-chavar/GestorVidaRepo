@@ -26,7 +26,10 @@ public class Actividad {
     //private Set<String> etiquetas;
     private Set<Etiqueta> etiquetas = new HashSet<>();
 
+    //TODO: hay que ver si conviene manejarlo como contacto o como string
     private Set<String> participantes;
+    private Set<Contacto> participantesAgregados = new HashSet<>();
+
     private List<Beneficio> beneficios = new ArrayList<Beneficio>();
 
     private Fecha fechaRecordatorio;
@@ -35,6 +38,7 @@ public class Actividad {
     private String minutosEstimados;
     private boolean esPrivada;
     private Integer diaEnQueSeCompleto;
+
 
     public Actividad(String nombre) {
         this.nombre = nombre;
@@ -165,4 +169,10 @@ public class Actividad {
     public void addBeneficio(Beneficio beneficio) {
         beneficios.add(beneficio);
     }
+
+
+    public void agregarParticipantes(Set<Contacto> participantesAgregados) {
+        this.participantesAgregados.addAll(participantesAgregados);
+    }
+
 }

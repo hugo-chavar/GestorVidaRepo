@@ -1,4 +1,4 @@
-package ar.com.fiuba.tddp1.gestorvida;
+package ar.com.fiuba.tddp1.gestorvida.contactos;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,8 +7,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
-import ar.com.fiuba.tddp1.gestorvida.actividades.ActividadAdapter;
+import java.util.HashSet;
+import java.util.Set;
+
+import ar.com.fiuba.tddp1.gestorvida.R;
+import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
+import ar.com.fiuba.tddp1.gestorvida.dominio.Contacto;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 
 /**
@@ -17,8 +23,16 @@ import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 
 public class AgregarParticipantesFragment extends Fragment {
 
-
     private RecyclerView recyclerContactos;
+    private Set<Contacto> participantesAgregados = new HashSet<>();
+
+    private Actividad actividad;
+
+
+    public void setActividad(Actividad actividad) {
+        this.actividad = actividad;
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,12 +49,19 @@ public class AgregarParticipantesFragment extends Fragment {
         this.recyclerContactos.getItemAnimator().setRemoveDuration(1000);
 
 
-        ContactosAdapter adapterContactos = new ContactosAdapter(Perfil.getContactos());
+        ContactosAdapter adapterContactos = new ContactosAdapter(Perfil.getContactos(), this.participantesAgregados);
         this.recyclerContactos.setAdapter(adapterContactos);
 
+
+        Button buttonInvitar = (Button) rootView.findViewById(R.id.buttonInvitar);
+        buttonInvitar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                actividad.agregarParticipantes(participantesAgregados);
+            }
+        });
 
         return rootView;
 
     }
-
 }
