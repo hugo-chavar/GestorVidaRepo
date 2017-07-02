@@ -408,7 +408,7 @@
 
         </RadioGroup>
 
-        <!-- BOTON -->
+        <!-- BOTON
 
         <LinearLayout
             android:id="@+id/buttonAgregarActividadContainer"
@@ -429,7 +429,7 @@
                 android:layout_marginEnd="@dimen/icon_text_separation_margin"
                 android:layout_marginBottom="@dimen/icon_text_separation_margin"
                 android:background="@drawable/add_activity_button" />
-        </LinearLayout>
+        </LinearLayout>-->
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>

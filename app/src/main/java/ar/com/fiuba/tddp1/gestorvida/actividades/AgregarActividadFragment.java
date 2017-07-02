@@ -47,9 +47,6 @@ import ar.com.fiuba.tddp1.gestorvida.dominio.Fecha;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Objetivo;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 
-/**
- * Created by User on 24/06/2017.
- */
 
 public class AgregarActividadFragment extends Fragment {
 
@@ -83,7 +80,6 @@ public class AgregarActividadFragment extends Fragment {
         ArrayAdapter<Objetivo> adapterObjetivos = new ArrayAdapter<Objetivo>(this.getActivity(), R.layout.support_simple_spinner_dropdown_item, objetivos);
         spinnerObjetivos.setAdapter(adapterObjetivos);
 
-
         //Seteo el clickListener de los botones de fechas
         ImageView buttonInicioActividad = (ImageView) view.findViewById(R.id.imageViewInicioActividad);
         buttonInicioActividad.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +107,6 @@ public class AgregarActividadFragment extends Fragment {
         });
 
 
-
         CheckBox checkBoxTiempoEstimado = (CheckBox) view.findViewById(R.id.checkBoxTiempoEstimado);
         checkBoxTiempoEstimado.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,16 +114,6 @@ public class AgregarActividadFragment extends Fragment {
                 clickTiempoEstimado(v);
             }
         });
-
-
-        /*Button buttonAgregarActividad = (Button) view.findViewById(R.id.buttonAgregarActividad);
-        buttonAgregarActividad.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                agregarActividad(v);
-            }
-        });*/
-
 
         ImageView buttonRecordatorio = (ImageView) view.findViewById(R.id.imageViewRecordatorio);
         buttonRecordatorio.setOnClickListener(new View.OnClickListener() {
@@ -152,8 +137,6 @@ public class AgregarActividadFragment extends Fragment {
         //deshabilito el navigationDrawer
         FragmentLoader.setDrawerEnabled((MainActivity)getActivity(), false);
 
-        //Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
-        //getActivity().setSupportActionBar(toolbar);
         setHasOptionsMenu(true);
 
 
@@ -172,9 +155,9 @@ public class AgregarActividadFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+
         menuInflater.inflate(R.menu.menu_buscar_actividad, menu);
-        //super.onCreateOptionsMenu(menu, menuInflater);
+
     }
 
 
@@ -411,6 +394,7 @@ public class AgregarActividadFragment extends Fragment {
                 Log.d("AgregarActividad", "Grabando..");
                 Toast.makeText(getActivity(), "Grabando actividad ... ", Toast.LENGTH_SHORT).show();
                 agregarActividad();
+                getActivity().onBackPressed();
                 break;
             default:
                 super.onOptionsItemSelected(item);
