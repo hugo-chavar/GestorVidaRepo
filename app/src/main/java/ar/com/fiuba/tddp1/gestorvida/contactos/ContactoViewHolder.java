@@ -38,7 +38,7 @@ class ContactoViewHolder extends RecyclerView.ViewHolder implements View.OnClick
 
         this.participantesAgregados = participantesAgregados;
 
-
+        contactoView.setOnClickListener(this);
     }
 
     @Override

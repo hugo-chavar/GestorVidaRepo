@@ -39,7 +39,6 @@ public class ActividadCalendarioAdapter extends RecyclerView.Adapter<ActividadCa
 
         ActividadCalendarioViewHolder vh = new ActividadCalendarioViewHolder(actividadCalendarioView,activ);
 
-        actividadCalendarioView.setOnClickListener(vh);
 
         return vh;
     }
