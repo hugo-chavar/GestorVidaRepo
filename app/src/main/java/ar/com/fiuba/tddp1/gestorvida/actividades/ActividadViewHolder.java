@@ -21,33 +21,35 @@ public class ActividadViewHolder extends RecyclerView.ViewHolder
     public Actividad actividad;
     public ActividadAdapter adapter;
 
-    private MainActivity activ;
+    private MainActivity mainActivity;
 
-    public ActividadViewHolder(View itemView, MainActivity activ) {
+    public ActividadViewHolder(View itemView, MainActivity mainActivity) {
         super(itemView);
-        this.activ = activ;
+        this.mainActivity = mainActivity;
 
         // hago los find y cargo los atributos
         textViewNombre = (TextView) itemView.findViewById(R.id.txtNombre);
         textViewCompletada = (TextView) itemView.findViewById(R.id.txtCompletada);
         imageViewCompletada = (ImageView) itemView.findViewById(R.id.imageViewCompletarActividad);
 
-        //itemView.setOnClickListener(this);
 
 
-        itemView.findViewById(R.id.imageViewCompletarActividad).setOnClickListener(this);
+        imageViewCompletada.setOnClickListener(this);
+        textViewNombre.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        /*
-        Log.d("ActividadViewHolder", "Se hizo click en item: " + position);
-        activ.onActividadClic(position);
-        */
-        this.actividad.alternarEstadoCompleta();
-        this.adapter.notifyDataSetChanged();
+        if (view == this.imageViewCompletada) {
+            this.actividad.alternarEstadoCompleta();
+            this.adapter.notifyDataSetChanged();
+            this.mostrarImagenCompletada();
+        }
+        else if (view == this.textViewNombre) {
+            this.mainActivity.setActividad_detalle(this.actividad);
+            this.mainActivity.setFragment(new DetalleActividadFragment());
+        }
 
-        this.mostrarImagenCompletada();
     }
 
     public void asociarActividad(Actividad actividad) {
