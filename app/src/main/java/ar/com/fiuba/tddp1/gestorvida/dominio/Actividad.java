@@ -180,4 +180,12 @@ public class Actividad {
     public String getPrioridad() {
         return prioridad;
     }
+
+    public boolean tieneBeneficio() {
+        return !beneficios.isEmpty();
+    }
+
+    public List<Beneficio> getBeneficios() {
+        return beneficios;
+    }
 }

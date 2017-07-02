@@ -56,4 +56,32 @@
         android:visibility="gone">
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/beneficio_detalle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Beneficio para usuarios PREMIUM!"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/precio_detalle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Precio normal: "
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/descuento_detalle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Descuento Premium: "
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/precio_premium_detalle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Precio final Premium: "
+        android:visibility="gone" />
+
 </LinearLayout>

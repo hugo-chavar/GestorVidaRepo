@@ -13,6 +13,7 @@ import android.widget.TextView;
 import ar.com.fiuba.tddp1.gestorvida.MainActivity;
 import ar.com.fiuba.tddp1.gestorvida.R;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
+import ar.com.fiuba.tddp1.gestorvida.dominio.Beneficio;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Etiqueta;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Fecha;
 
@@ -26,6 +27,10 @@ public class DetalleActividadFragment extends Fragment {
     TextView mFechaFin;
     TextView mPrioridad;
     TextView mEtiquetas;
+    TextView mBeneficio;
+    TextView mPrecio;
+    TextView mDescuento;
+    TextView mPrecioPremium;
     LinearLayout mListaEtiquetas;
     Button mBotonSeeMore;
 
@@ -47,6 +52,10 @@ public class DetalleActividadFragment extends Fragment {
         mFechaFin = (TextView) rootView.findViewById(R.id.fecha_fin_detalle);
         mPrioridad = (TextView) rootView.findViewById(R.id.prioridad_detalle);
         mEtiquetas = (TextView) rootView.findViewById(R.id.etiquetas_detalle);
+        mBeneficio = (TextView) rootView.findViewById(R.id.beneficio_detalle);
+        mPrecio = (TextView) rootView.findViewById(R.id.precio_detalle);
+        mDescuento = (TextView) rootView.findViewById(R.id.descuento_detalle);
+        mPrecioPremium = (TextView) rootView.findViewById(R.id.precio_premium_detalle);
         mListaEtiquetas = (LinearLayout) rootView.findViewById(R.id.lista_etiquetas_detalle);
         mBotonSeeMore = (Button) rootView.findViewById(R.id.boton_seemore_detalle);
 
@@ -65,6 +74,12 @@ public class DetalleActividadFragment extends Fragment {
                 mPrioridad.setVisibility(View.VISIBLE);
                 mEtiquetas.setVisibility(View.VISIBLE);
                 mListaEtiquetas.setVisibility(View.VISIBLE);
+                if (actividad.tieneBeneficio()) {
+                    mBeneficio.setVisibility(View.VISIBLE);
+                    mPrecio.setVisibility(View.VISIBLE);
+                    mDescuento.setVisibility(View.VISIBLE);
+                    mPrecioPremium.setVisibility(View.VISIBLE);
+                }
                 mBotonSeeMore.setVisibility(View.GONE);
             }
         });
@@ -90,6 +105,16 @@ public class DetalleActividadFragment extends Fragment {
             fondoEtiqueta.setColor(etiqueta.color);
             textViewEtiqueta.setBackground(fondoEtiqueta);
             mListaEtiquetas.addView(textViewEtiqueta);
+        }
+        if (actividad.tieneBeneficio()) {
+            Beneficio beneficio = actividad.getBeneficios().get(0);
+            mBeneficio.setTextSize(18);
+            mPrecio.setTextSize(16);
+            mPrecio.setText("Precio normal: $" + beneficio.getPrecio());
+            mDescuento.setTextSize(16);
+            mDescuento.setText("Descuento Premium: " + beneficio.getDescuento() + "%");
+            mPrecioPremium.setTextSize(24);
+            mPrecioPremium.setText("Precio Premium: $" + beneficio.getPrecio() * (1 - (beneficio.getDescuento() / 100)));
         }
     }
 
