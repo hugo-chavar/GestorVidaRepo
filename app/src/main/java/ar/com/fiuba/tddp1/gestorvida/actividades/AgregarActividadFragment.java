@@ -166,27 +166,12 @@ public class AgregarActividadFragment extends Fragment{
 
     private Map<ImageView, Integer> mapaBotonColor;
     private Integer colorEtiquetaElegido = Color.rgb(250,250,250);
-
-
+    private ImageView imageViewColorElegido = null;
 
     private void agregarEtiqueta(View view) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this.getActivity());
         builder.setTitle("Agregar etiqueta");
-
-        /*
-        final EditText editTextEtiquetaIngresada = new EditText(this.getActivity());
-        editTextEtiquetaIngresada.setMaxLines(1);
-        editTextEtiquetaIngresada.setInputType(InputType.TYPE_CLASS_TEXT);
-        builder.setView(editTextEtiquetaIngresada);
-
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                agregarEtiqueta(editTextEtiquetaIngresada.getText().toString());
-            }
-        });
-        */
 
 
         final LinearLayout parametrosEtiqueta = new LinearLayout(this.getActivity());
@@ -221,9 +206,12 @@ public class AgregarActividadFragment extends Fragment{
 
 
             circuloColorImage.setBackground(circuloColor);
+            //Seteo el default
+            if (i == 0) {
+                circuloColorImage.setImageResource(R.drawable.check);
+                this.imageViewColorElegido = circuloColorImage;
+            }
 
-
-            //TODO: ver si se maneja con dp o con sp
             int radio = getContext().getResources().getDimensionPixelSize(R.dimen.circulo_size);
             circuloColorImage.setLayoutParams( new LinearLayout.LayoutParams( radio, radio));
             //circuloColorImage.setLayoutParams( new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)  );
@@ -238,7 +226,11 @@ public class AgregarActividadFragment extends Fragment{
             circuloColorImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View imageColorClickeada) {
+                    //La anterior elegida se pone sin el check
+                    imageViewColorElegido.setImageResource(android.R.color.transparent);
                     colorEtiquetaElegido = mapaBotonColor.get(imageColorClickeada);
+                    ((ImageView)imageColorClickeada).setImageResource(R.drawable.check);
+                    imageViewColorElegido = (ImageView) imageColorClickeada;
                 }
             });
 
