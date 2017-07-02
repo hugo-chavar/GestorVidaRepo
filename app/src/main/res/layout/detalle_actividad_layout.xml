@@ -1,56 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <TextView
-        android:id="@+id/nombre_detalle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <TextView
-        android:id="@+id/descripcion_detalle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <Button
-        android:id="@+id/boton_seemore_detalle"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:text="..." />
-
-    <TextView
-        android:id="@+id/fecha_inicio_detalle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/fecha_fin_detalle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/prioridad_detalle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/etiquetas_detalle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Etiquetas:"
-        android:visibility="gone" />
+    android:layout_height="match_parent"
+    android:layout_alignParentBottom="true">
 
     <LinearLayout
-        android:id="@+id/lista_etiquetas_detalle"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:visibility="gone">
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/nombre_detalle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/descripcion_detalle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/boton_seemore_detalle"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="..." />
+
+        <TextView
+            android:id="@+id/fecha_inicio_detalle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/fecha_fin_detalle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/prioridad_detalle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/etiquetas_detalle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Etiquetas:"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:id="@+id/lista_etiquetas_detalle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone">
+        </LinearLayout>
+
     </LinearLayout>
 
-</LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabAgregarParticipante"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_add_black_24dp" />
+
+
+</FrameLayout>
+
