@@ -73,11 +73,19 @@ public class DetalleActividadFragment extends Fragment {
         mBotonSeeMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mFechaInicio.setVisibility(View.VISIBLE);
-                mFechaFin.setVisibility(View.VISIBLE);
-                mPrioridad.setVisibility(View.VISIBLE);
-                mEtiquetas.setVisibility(View.VISIBLE);
-                mListaEtiquetas.setVisibility(View.VISIBLE);
+                if (actividad.getFechaInicio() != null) {
+                    mFechaInicio.setVisibility(View.VISIBLE);
+                }
+                if (actividad.getFechaFin() != null) {
+                    mFechaFin.setVisibility(View.VISIBLE);
+                }
+                if (actividad.getPrioridad() != null) {
+                    mPrioridad.setVisibility(View.VISIBLE);
+                }
+                if (actividad.tieneEtiquetas()) {
+                    mEtiquetas.setVisibility(View.VISIBLE);
+                    mListaEtiquetas.setVisibility(View.VISIBLE);
+                }
                 if (actividad.tieneBeneficio()) {
                     mBeneficio.setVisibility(View.VISIBLE);
                     mPrecio.setVisibility(View.VISIBLE);

@@ -188,4 +188,8 @@ public class Actividad {
     public List<Beneficio> getBeneficios() {
         return beneficios;
     }
+
+    public boolean tieneEtiquetas() {
+        return !etiquetas.isEmpty();
+    }
 }

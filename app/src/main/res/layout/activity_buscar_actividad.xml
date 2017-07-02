@@ -12,12 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="146dp"
         android:fitsSystemWindows="true"
+        app:contentScrim="?attr/colorPrimaryDark"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
-            android:layout_height="130dp"
+            android:layout_height="127dp"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimaryDark"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
