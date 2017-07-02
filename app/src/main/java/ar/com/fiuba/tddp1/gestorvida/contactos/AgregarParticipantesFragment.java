@@ -12,6 +12,7 @@ import android.widget.Button;
 import java.util.HashSet;
 import java.util.Set;
 
+import ar.com.fiuba.tddp1.gestorvida.MainActivity;
 import ar.com.fiuba.tddp1.gestorvida.R;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Contacto;
@@ -25,13 +26,6 @@ public class AgregarParticipantesFragment extends Fragment {
 
     private RecyclerView recyclerContactos;
     private Set<Contacto> participantesAgregados = new HashSet<>();
-
-    private Actividad actividad;
-
-
-    public void setActividad(Actividad actividad) {
-        this.actividad = actividad;
-    }
 
 
     @Override
@@ -57,7 +51,7 @@ public class AgregarParticipantesFragment extends Fragment {
         buttonInvitar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                actividad.agregarParticipantes(participantesAgregados);
+                ((MainActivity) getActivity()).getActividad_detalle().agregarParticipantes(participantesAgregados);
             }
         });
 
