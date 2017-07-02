@@ -2,13 +2,12 @@ package ar.com.fiuba.tddp1.gestorvida.calendario;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import ar.com.fiuba.tddp1.gestorvida.MainActivity;
 import ar.com.fiuba.tddp1.gestorvida.R;
-import ar.com.fiuba.tddp1.gestorvida.actividades.ActividadAdapter;
+import ar.com.fiuba.tddp1.gestorvida.actividades.DetalleActividadFragment;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 
 /**
@@ -24,11 +23,11 @@ class ActividadCalendarioViewHolder extends RecyclerView.ViewHolder implements V
     public Actividad actividad;
     public ActividadCalendarioAdapter adapter;
 
-    private MainActivity activ;
+    private MainActivity mainActivity;
 
-    public ActividadCalendarioViewHolder(View itemView, MainActivity activ) {
+    public ActividadCalendarioViewHolder(View itemView, MainActivity mainActivity) {
         super(itemView);
-        this.activ = activ;
+        this.mainActivity = mainActivity;
 
         // hago los find y cargo los atributos
         textViewNombre = (TextView) itemView.findViewById(R.id.textActividadCalendario);
@@ -38,9 +37,8 @@ class ActividadCalendarioViewHolder extends RecyclerView.ViewHolder implements V
 
     @Override
     public void onClick(View view) {
-        /*
-        Si se quiere hacer algo
-        */
+        this.mainActivity.setActividad_detalle(this.actividad);
+        this.mainActivity.setFragment(new DetalleActividadFragment());
     }
 
     public void asociarActividad(Actividad actividad) {

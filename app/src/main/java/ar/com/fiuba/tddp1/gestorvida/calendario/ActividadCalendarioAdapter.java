@@ -35,9 +35,11 @@ public class ActividadCalendarioAdapter extends RecyclerView.Adapter<ActividadCa
     @Override
     public ActividadCalendarioViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.actividad_calendario_layout, parent, false);
+        View actividadCalendarioView = LayoutInflater.from(parent.getContext()).inflate(R.layout.actividad_calendario_layout, parent, false);
 
-        ActividadCalendarioViewHolder vh = new ActividadCalendarioViewHolder(v,activ);
+        ActividadCalendarioViewHolder vh = new ActividadCalendarioViewHolder(actividadCalendarioView,activ);
+
+        actividadCalendarioView.setOnClickListener(vh);
 
         return vh;
     }

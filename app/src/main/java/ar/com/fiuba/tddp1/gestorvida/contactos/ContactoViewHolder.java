@@ -36,7 +36,6 @@ class ContactoViewHolder extends RecyclerView.ViewHolder implements View.OnClick
         this.nombreContacto = (TextView) contactoView.findViewById(R.id.textViewNombreContacto);
 
 
-
         this.participantesAgregados = participantesAgregados;
 
 
