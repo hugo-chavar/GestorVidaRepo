@@ -33,6 +33,7 @@ import java.util.Set;
 import ar.com.fiuba.tddp1.gestorvida.actividades.DetalleBuscarActividadFragment;
 import ar.com.fiuba.tddp1.gestorvida.comunes.FragmentLoader;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
+import ar.com.fiuba.tddp1.gestorvida.dominio.Beneficio;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Etiqueta;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Fecha;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
@@ -172,52 +173,56 @@ public class BuscarActividadActivity extends Fragment {
 
         //TODO: Esta debe ser la lista de todas las actividades en el server
         for (final Actividad actividad : this.mockedActivities) {
-            LinearLayout elementoActividad = new LinearLayout(this.getActivity());
-            elementoActividad.setOrientation(LinearLayout.VERTICAL);
+            agregarActividadEnLista(lista, actividad);
+        }
+    }
 
-            TextView nombre = new TextView(this.getActivity());
-            nombre.setTextSize(24);
-            String nombre_actividad = actividad.getNombre();
-            nombre.setText(nombre_actividad);
-            elementoActividad.addView(nombre);
+    private void agregarActividadEnLista(LinearLayout lista, final Actividad actividad) {
+        LinearLayout elementoActividad = new LinearLayout(this.getActivity());
+        elementoActividad.setOrientation(LinearLayout.VERTICAL);
 
-            TextView inicio = new TextView(this.getActivity());
-            inicio.setTextSize(16);
-            Fecha fechaInicio = actividad.getFechaInicio();
-            inicio.setText("Inicio: " + fechaInicio.dia + "/" + fechaInicio.mes + "/" + fechaInicio.anio);
-            elementoActividad.addView(inicio);
+        TextView nombre = new TextView(this.getActivity());
+        nombre.setTextSize(24);
+        String nombre_actividad = actividad.getNombre();
+        nombre.setText(nombre_actividad);
+        elementoActividad.addView(nombre);
 
-            TextView fin = new TextView(this.getActivity());
-            fin.setTextSize(16);
-            Fecha fechaFin = actividad.getFechaFin();
-            fin.setText("Fin: " + fechaFin.dia + "/" + fechaFin.mes + "/" + fechaFin.anio);
-            elementoActividad.addView(fin);
+        TextView inicio = new TextView(this.getActivity());
+        inicio.setTextSize(16);
+        Fecha fechaInicio = actividad.getFechaInicio();
+        inicio.setText("Inicio: " + fechaInicio.dia + "/" + fechaInicio.mes + "/" + fechaInicio.anio);
+        elementoActividad.addView(inicio);
 
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            Date finicio = null;
-            try {
-                finicio = formatter.parse(fechaFin.dia + "/" + fechaFin.mes + "/" + fechaFin.anio);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+        TextView fin = new TextView(this.getActivity());
+        fin.setTextSize(16);
+        Fecha fechaFin = actividad.getFechaFin();
+        fin.setText("Fin: " + fechaFin.dia + "/" + fechaFin.mes + "/" + fechaFin.anio);
+        elementoActividad.addView(fin);
 
-            String textoEnFiltroEtiquetas = mFiltroEtiqueta.getText().toString();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Date finicio = null;
+        try {
+            finicio = formatter.parse(fechaFin.dia + "/" + fechaFin.mes + "/" + fechaFin.anio);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
-            Set<String> etiquetas = actividad.getNombresDeEtiquetas();
+        String textoEnFiltroEtiquetas = mFiltroEtiqueta.getText().toString();
 
-            Date f_desde = ((MainActivity) getActivity()).getFiltro_desde();
-            Date f_hasta = ((MainActivity) getActivity()).getFiltro_hasta();
+        Set<String> etiquetas = actividad.getNombresDeEtiquetas();
 
-            if (textoEnFiltroEtiquetas.equals("") || (etiquetas != null && matcheaEtiquetas(textoEnFiltroEtiquetas, etiquetas.toArray(new String[etiquetas.size()])))) {
-                if ((f_desde.before(finicio) || f_desde.equals(finicio)) && (f_hasta.after(finicio) || f_hasta.equals(finicio))) {
-                    elementoActividad.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            actividadOnClick(v, actividad);
-                        }
-                    });
-                    lista.addView(elementoActividad);
-                }
+        Date f_desde = ((MainActivity) getActivity()).getFiltro_desde();
+        Date f_hasta = ((MainActivity) getActivity()).getFiltro_hasta();
+
+        if (textoEnFiltroEtiquetas.equals("") || (etiquetas != null && matcheaEtiquetas(textoEnFiltroEtiquetas, etiquetas.toArray(new String[etiquetas.size()])))) {
+            if ((f_desde.before(finicio) || f_desde.equals(finicio)) && (f_hasta.after(finicio) || f_hasta.equals(finicio))) {
+                elementoActividad.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        actividadOnClick(v, actividad);
+                    }
+                });
+                lista.addView(elementoActividad);
             }
         }
     }
@@ -239,6 +244,11 @@ public class BuscarActividadActivity extends Fragment {
         actividad.setFechaInicio(new Fecha("8", "9", "2017"));
         actividad.setFechaFin(new Fecha("8", "9", "2017"));
         actividad.setPrioridad("ALTA");
+        Beneficio beneficio = new Beneficio();
+        beneficio.setPrecio(100);
+        beneficio.setDescuento(20);
+        beneficio.setDescripcion("TETSTSTSTSTST");
+        actividad.addBeneficio(beneficio);
         this.mockedActivities.add(actividad);
 
         Actividad actividad2 = new Actividad("Ir al cine");

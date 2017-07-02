@@ -21,7 +21,8 @@ public class FirstActivity extends AppCompatActivity {
 
     public void goToLogin(View view) {
         //Mostrar pantalla principal
-        Intent intent = new Intent(this, LoginActivity.class);
+        //Intent intent = new Intent(this, LoginActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 }
