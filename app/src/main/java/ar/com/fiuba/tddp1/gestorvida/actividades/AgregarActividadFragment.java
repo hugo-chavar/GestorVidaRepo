@@ -10,12 +10,15 @@ import android.support.annotation.IdRes;
 import android.support.v4.widget.Space;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,6 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,8 +37,10 @@ import java.util.Map;
 import java.util.Set;
 
 import ar.com.fiuba.tddp1.gestorvida.DatePickerFragment;
+import ar.com.fiuba.tddp1.gestorvida.MainActivity;
 import ar.com.fiuba.tddp1.gestorvida.R;
 import ar.com.fiuba.tddp1.gestorvida.TimePickerFragment;
+import ar.com.fiuba.tddp1.gestorvida.comunes.FragmentLoader;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Etiqueta;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Fecha;
@@ -51,11 +57,13 @@ public class AgregarActividadFragment extends Fragment {
     private Set<Etiqueta> listaDeEtiquetas = new HashSet<>();
     private LayoutInflater inflater;
 
+    private View view;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         this.inflater = inflater;
-        View view = this.inflater.inflate(R.layout.activity_agregar_actividad, container,false);
+        view = this.inflater.inflate(R.layout.activity_agregar_actividad, container,false);
 
         //A cada boton de fecha le asocio un textView en donde se va a escribir la fecha seleccionada
         this.textosFechas.put(R.id.imageViewInicioActividad, (TextView) view.findViewById(R.id.textViewInicioActividad) );
@@ -113,13 +121,13 @@ public class AgregarActividadFragment extends Fragment {
         });
 
 
-        Button buttonAgregarActividad = (Button) view.findViewById(R.id.buttonAgregarActividad);
+        /*Button buttonAgregarActividad = (Button) view.findViewById(R.id.buttonAgregarActividad);
         buttonAgregarActividad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 agregarActividad(v);
             }
-        });
+        });*/
 
 
         ImageView buttonRecordatorio = (ImageView) view.findViewById(R.id.imageViewRecordatorio);
@@ -141,7 +149,12 @@ public class AgregarActividadFragment extends Fragment {
             }
         });
 
+        //deshabilito el navigationDrawer
+        FragmentLoader.setDrawerEnabled((MainActivity)getActivity(), false);
 
+        //Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        //getActivity().setSupportActionBar(toolbar);
+        setHasOptionsMenu(true);
 
 
         //TODO: ESTO SOLO ESTA ACA PARA TESTEAR
@@ -155,6 +168,13 @@ public class AgregarActividadFragment extends Fragment {
 
 
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.menu_buscar_actividad, menu);
+        //super.onCreateOptionsMenu(menu, menuInflater);
     }
 
 
@@ -257,7 +277,6 @@ public class AgregarActividadFragment extends Fragment {
         builder.show();
     }
 
-
     public void agregarEtiqueta(String nombreEtiqueta) {
 
         LinearLayout grupoEtiquetasView = ( (LinearLayout) this.getView().findViewById(R.id.linearLayoutEtiquetas));
@@ -272,7 +291,6 @@ public class AgregarActividadFragment extends Fragment {
 
         this.listaDeEtiquetas.add(new Etiqueta(nombreEtiqueta, colorEtiquetaElegido));
     }
-
 
     public void mostrarDatePicker(View view) {
         TextView textoFecha = this.textosFechas.get(view.getId());
@@ -290,10 +308,11 @@ public class AgregarActividadFragment extends Fragment {
         tiempoEstimado.setEnabled(estaCheckeado);
     }
 
-    public void agregarActividad(View view) {
+    public void agregarActividad(/*View view*/) {
 
         //Lo mismo que en el caso del tiempo estimado
-        View rootView = view.getRootView();
+        //View rootView = view.getRootView();
+        View rootView = view;
         //Se crea la actividad con el nombre
         Actividad nuevaActividad = new Actividad(  ((EditText) rootView.findViewById(R.id.edittextNombre)).getText().toString()   );
 
@@ -377,4 +396,28 @@ public class AgregarActividadFragment extends Fragment {
         requestSender.doPost(listener, url, new JSONObject(_params));
         */
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        Log.d("AgregarActividad", "Se hizo clic en la opcion " + id);
+
+        switch (id) {
+            case R.id.action_save_activity:
+                Log.d("AgregarActividad", "Grabando..");
+                Toast.makeText(getActivity(), "Grabando actividad ... ", Toast.LENGTH_SHORT).show();
+                agregarActividad();
+                break;
+            default:
+                super.onOptionsItemSelected(item);
+        }
+
+
+        return true;
+    }
+
 }
