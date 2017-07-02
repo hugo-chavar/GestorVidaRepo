@@ -15,6 +15,7 @@ import ar.com.fiuba.tddp1.gestorvida.R;
 import ar.com.fiuba.tddp1.gestorvida.comunes.FragmentLoader;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Beneficio;
+import ar.com.fiuba.tddp1.gestorvida.dominio.Contacto;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Etiqueta;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Fecha;
 
@@ -36,6 +37,9 @@ public class DetalleActividadFragment extends Fragment {
     Button mBotonSeeMore;
 
     Actividad actividad;
+
+    TextView mTextViewParticipantes;
+    LinearLayout mLinearLayoutParticipantes;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,16 +64,19 @@ public class DetalleActividadFragment extends Fragment {
         mListaEtiquetas = (LinearLayout) rootView.findViewById(R.id.lista_etiquetas_detalle);
         mBotonSeeMore = (Button) rootView.findViewById(R.id.boton_seemore_detalle);
 
+        mTextViewParticipantes = (TextView) rootView.findViewById(R.id.textViewPaticipantes);
+        mLinearLayoutParticipantes = (LinearLayout) rootView.findViewById(R.id.linearLayoutParticipantes);
+
         actividad = ((MainActivity) getActivity()).getActividad_detalle();
 
         inicializarTexto();
-        inicializarBotones();
+        inicializarBotonVerMasDetalles();
 
         //deshabilito el navigationDrawer
         FragmentLoader.setDrawerEnabled((MainActivity)getActivity(), false);
     }
 
-    private void inicializarBotones() {
+    protected void inicializarBotonVerMasDetalles() {
         mBotonSeeMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,6 +98,15 @@ public class DetalleActividadFragment extends Fragment {
                     mPrecio.setVisibility(View.VISIBLE);
                     mDescuento.setVisibility(View.VISIBLE);
                     mPrecioPremium.setVisibility(View.VISIBLE);
+                }
+                if (actividad.tieneParticipantes()) {
+                    mTextViewParticipantes.setVisibility(View.VISIBLE);
+                    mLinearLayoutParticipantes.setVisibility(View.VISIBLE);
+                    for (Contacto contacto : actividad.getParticipantes()) {
+                        TextView participante = new TextView(getActivity());
+                        participante.setText(contacto.getNombre());
+                        mLinearLayoutParticipantes.addView(participante);
+                    }
                 }
                 mBotonSeeMore.setVisibility(View.GONE);
             }

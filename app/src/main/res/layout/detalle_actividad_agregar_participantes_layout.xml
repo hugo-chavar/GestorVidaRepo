@@ -4,6 +4,7 @@
 
     <include layout="@layout/detalle_actividad_layout" />
 
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabAgregarParticipante"
         android:layout_width="wrap_content"

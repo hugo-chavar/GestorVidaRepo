@@ -84,4 +84,20 @@
         android:text="Precio final Premium: "
         android:visibility="gone" />
 
+
+    <TextView
+        android:id="@+id/textViewPaticipantes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Participantes"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/linearLayoutParticipantes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone" >
+    </LinearLayout>
+
 </LinearLayout>
