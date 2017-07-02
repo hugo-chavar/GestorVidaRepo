@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity
                 FragmentLoader.load(this, new ActividadesFragment());
                 fragmentActual = R.id.nav_actividades;
             } else {
-                super.onBackPressed();
+                finishAffinity();
             }
 
         }
@@ -170,10 +170,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_estadisticas) {
             //Mostrar pantalla de estadisticas
-            //setFragment( new EstadisticasFragment() );
             FragmentLoader.load(this, new EstadisticasActividadesCompletadasFragment());
-            //setFragment( new EstadisticasActividadesCompletadasFragment() );
-            //setFragment( new EstadisticasEtiquetasPieChartFragment() );
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -185,18 +182,6 @@ public class MainActivity extends AppCompatActivity
     public void onActividadClic(int position) {
         Log.d("MainActivity","Se hizo click en: " + position);
     }
-
-    /*public void setFragment(Fragment fragment) {
-
-        Bundle bundle = new Bundle();
-
-        fragment.setArguments(bundle);
-
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction()
-                        .replace(R.id.contenedor, fragment)
-                        .commit();
-    }*/
 
     public Actividad getActividad_detalle() {
         return actividad_detalle;
