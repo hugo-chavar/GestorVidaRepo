@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import ar.com.fiuba.tddp1.gestorvida.BuscarActividadActivity;
 import ar.com.fiuba.tddp1.gestorvida.DrawerLocker;
+import ar.com.fiuba.tddp1.gestorvida.MainActivity;
 import ar.com.fiuba.tddp1.gestorvida.R;
 import ar.com.fiuba.tddp1.gestorvida.actividades.ActividadesFragment;
 import ar.com.fiuba.tddp1.gestorvida.calendario.CalendarioFragment;
@@ -16,6 +17,7 @@ import ar.com.fiuba.tddp1.gestorvida.objetivos.ObjetivosFragment;
 
 public class FragmentLoader {
 
+    public static final int DEFAULT_FRAGMENT = R.id.nav_actividades;
     private static int current = R.id.nav_actividades;
 
     public static void load(Activity activity, Fragment fragment) {
@@ -28,6 +30,7 @@ public class FragmentLoader {
                 .replace(R.id.contenedor, fragment)
                 .commit();
         current = -1;
+        setDrawerEnabled((MainActivity)activity, true);
 
     }
 
@@ -67,6 +70,7 @@ public class FragmentLoader {
         }
 
         load(activity, fragment);
+        setDrawerEnabled((MainActivity)activity, true);
 
         current = id;
 
@@ -80,6 +84,11 @@ public class FragmentLoader {
 
     public static boolean shouldExit() {
         return current == R.id.nav_actividades;
+
+    }
+
+    public static void loadDefault(Activity activity) {
+        load(activity, DEFAULT_FRAGMENT);
 
     }
 }

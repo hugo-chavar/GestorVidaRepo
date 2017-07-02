@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import ar.com.fiuba.tddp1.gestorvida.BuscarActividadActivity;
 import ar.com.fiuba.tddp1.gestorvida.R;
 import ar.com.fiuba.tddp1.gestorvida.comunes.FragmentLoader;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
@@ -27,6 +26,7 @@ public class DetalleBuscarActividadFragment extends DetalleActividadFragment {
 
         inicializarBotones();
 
+
         return view;
     }
 
@@ -34,7 +34,7 @@ public class DetalleBuscarActividadFragment extends DetalleActividadFragment {
         mBotonCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentLoader.load(getActivity(), new BuscarActividadActivity());
+                FragmentLoader.load(getActivity(), R.id.nav_buscar);
             }
         });
 
@@ -42,7 +42,7 @@ public class DetalleBuscarActividadFragment extends DetalleActividadFragment {
             @Override
             public void onClick(View v) {
                 Perfil.agregarActividad(actividad);
-                FragmentLoader.load(getActivity(), new BuscarActividadActivity());
+                FragmentLoader.load(getActivity(), R.id.nav_buscar);
             }
         });
     }

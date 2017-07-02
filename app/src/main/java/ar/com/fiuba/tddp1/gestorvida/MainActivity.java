@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity
             if (FragmentLoader.shouldExit()) {
                 finishAffinity();
             } else {
-                FragmentLoader.load(this, R.id.nav_actividades);
+                FragmentLoader.loadDefault(this);
             }
 
         }

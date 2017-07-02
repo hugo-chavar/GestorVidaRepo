@@ -143,6 +143,7 @@ public class AgregarActividadFragment extends Fragment {
             }
         });
 
+        //deshabilito el navigationDrawer
         FragmentLoader.setDrawerEnabled((MainActivity)getActivity(), false);
 
 
