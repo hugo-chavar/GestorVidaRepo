@@ -15,27 +15,18 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import ar.com.fiuba.tddp1.gestorvida.actividades.ActividadesFragment;
-import ar.com.fiuba.tddp1.gestorvida.calendario.CalendarioFragment;
 import ar.com.fiuba.tddp1.gestorvida.comunes.FragmentLoader;
-import ar.com.fiuba.tddp1.gestorvida.contactos.AgregarParticipantesFragment;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Contacto;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Objetivo;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
-import ar.com.fiuba.tddp1.gestorvida.estadisticas.EstadisticasActividadesCompletadasFragment;
-import ar.com.fiuba.tddp1.gestorvida.objetivos.ObjetivosFragment;
 
-//import android.support.v4.view.GravityCompat;
-//import android.support.v4.widget.DrawerLayout;
-
-//import android.support.v4.app.Fragment;
-//import android.support.v4.app.FragmentManager;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, DrawerLocker {
 
-    private int fragmentActual = R.id.nav_actividades;
+    private DrawerLayout drawer;
+    private ActionBarDrawerToggle toggle;
 
     private Actividad actividad_detalle;
 
@@ -51,10 +42,10 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         //para que aparezca el boton
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
 
@@ -96,11 +87,10 @@ public class MainActivity extends AppCompatActivity
 
         } else {
 
-            if (fragmentActual != R.id.nav_actividades) {
-                FragmentLoader.load(this, new ActividadesFragment());
-                fragmentActual = R.id.nav_actividades;
-            } else {
+            if (FragmentLoader.shouldExit()) {
                 finishAffinity();
+            } else {
+                FragmentLoader.load(this, R.id.nav_actividades);
             }
 
         }
@@ -127,8 +117,6 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
 
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -139,43 +127,9 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        FragmentLoader.load(this, id);
 
-        if (id == R.id.nav_perfil) {
-            //Mostrar pantalla perfil
-            AgregarParticipantesFragment fragment = new AgregarParticipantesFragment();
-            fragment.setActividad(actividadGlobalMain);
-            FragmentLoader.load(this, fragment);
-
-        } else if (id == R.id.nav_actividades) {
-            //Mostrar pantalla actividades
-
-            FragmentLoader.load(this, new ActividadesFragment());
-
-        } else if (id == R.id.nav_calendario) {
-
-            //Mostrar pantalla calendario
-
-            //setFragment(new EjemploFragment());
-            FragmentLoader.load(this, new CalendarioFragment());
-
-
-        } else if (id == R.id.nav_objetivos) {
-            //Mostrar pantalla Objetivos
-
-            FragmentLoader.load(this, new ObjetivosFragment());
-
-        } else if (id == R.id.nav_buscar) {
-            //Mostrar pantalla busqueda de actividades
-            FragmentLoader.load(this, new BuscarActividadActivity());
-
-        } else if (id == R.id.nav_estadisticas) {
-            //Mostrar pantalla de estadisticas
-            FragmentLoader.load(this, new EstadisticasActividadesCompletadasFragment());
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
-        fragmentActual = id;
         return true;
     }
 
@@ -215,5 +169,13 @@ public class MainActivity extends AppCompatActivity
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void setDrawerEnabled(boolean enabled) {
+        int lockMode = enabled ? DrawerLayout.LOCK_MODE_UNLOCKED : DrawerLayout.LOCK_MODE_LOCKED_CLOSED;
+
+        drawer.setDrawerLockMode(lockMode);
+        toggle.setDrawerIndicatorEnabled(enabled);
     }
 }
