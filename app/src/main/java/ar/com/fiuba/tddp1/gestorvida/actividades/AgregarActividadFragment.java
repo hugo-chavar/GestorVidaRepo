@@ -1,14 +1,15 @@
 package ar.com.fiuba.tddp1.gestorvida.actividades;
 
 
+import android.app.Fragment;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.Space;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,7 @@ import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
  * Created by User on 24/06/2017.
  */
 
-public class AgregarActividadFragment extends Fragment{
+public class AgregarActividadFragment extends Fragment {
 
     private Map<Integer, TextView> textosFechas = new HashMap<>();
     private Set<Etiqueta> listaDeEtiquetas = new HashSet<>();
@@ -277,7 +278,8 @@ public class AgregarActividadFragment extends Fragment{
         TextView textoFecha = this.textosFechas.get(view.getId());
         DatePickerFragment datePickerFragment = new DatePickerFragment();
         datePickerFragment.setTextView(textoFecha);
-        datePickerFragment.show(this.getFragmentManager(), "Ingrese una fecha");
+        datePickerFragment.show(((AppCompatActivity)getActivity()).getSupportFragmentManager(),"Ingrese una fecha");
+        //datePickerFragment.show(this.getFragmentManager(), "Ingrese una fecha");
     }
 
     public void clickTiempoEstimado(View view) {

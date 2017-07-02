@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import ar.com.fiuba.tddp1.gestorvida.MainActivity;
 import ar.com.fiuba.tddp1.gestorvida.R;
+import ar.com.fiuba.tddp1.gestorvida.comunes.FragmentLoader;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 
 
@@ -47,7 +48,7 @@ public class ActividadViewHolder extends RecyclerView.ViewHolder
         }
         else if (view == this.textViewNombre) {
             this.mainActivity.setActividad_detalle(this.actividad);
-            this.mainActivity.setFragment(new DetalleActividadFragment());
+            FragmentLoader.load(mainActivity, new DetalleActividadFragment());
         }
 
     }

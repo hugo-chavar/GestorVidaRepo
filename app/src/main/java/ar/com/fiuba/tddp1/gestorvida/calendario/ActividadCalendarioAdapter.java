@@ -1,8 +1,7 @@
 package ar.com.fiuba.tddp1.gestorvida.calendario;
 
-import android.graphics.drawable.Drawable;
+import android.app.Activity;
 import android.graphics.drawable.GradientDrawable;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,6 @@ import java.util.List;
 
 import ar.com.fiuba.tddp1.gestorvida.MainActivity;
 import ar.com.fiuba.tddp1.gestorvida.R;
-import ar.com.fiuba.tddp1.gestorvida.actividades.ActividadViewHolder;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Etiqueta;
 
@@ -26,7 +24,7 @@ public class ActividadCalendarioAdapter extends RecyclerView.Adapter<ActividadCa
     private List<Actividad> lista;
     private MainActivity activ;
 
-    public ActividadCalendarioAdapter(List<Actividad> lista, FragmentActivity activity) {
+    public ActividadCalendarioAdapter(List<Actividad> lista, Activity activity) {
         this.lista = lista;
         this.activ = (MainActivity)activity;
     }

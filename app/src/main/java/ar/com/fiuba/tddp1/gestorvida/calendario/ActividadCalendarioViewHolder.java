@@ -8,6 +8,7 @@ import android.widget.TextView;
 import ar.com.fiuba.tddp1.gestorvida.MainActivity;
 import ar.com.fiuba.tddp1.gestorvida.R;
 import ar.com.fiuba.tddp1.gestorvida.actividades.DetalleActividadFragment;
+import ar.com.fiuba.tddp1.gestorvida.comunes.FragmentLoader;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 
 /**
@@ -38,7 +39,7 @@ class ActividadCalendarioViewHolder extends RecyclerView.ViewHolder implements V
     @Override
     public void onClick(View view) {
         this.mainActivity.setActividad_detalle(this.actividad);
-        this.mainActivity.setFragment(new DetalleActividadFragment());
+        FragmentLoader.load(mainActivity, new DetalleActividadFragment());
     }
 
     public void asociarActividad(Actividad actividad) {

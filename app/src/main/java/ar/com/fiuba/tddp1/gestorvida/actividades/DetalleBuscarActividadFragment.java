@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import ar.com.fiuba.tddp1.gestorvida.BuscarActividadActivity;
-import ar.com.fiuba.tddp1.gestorvida.MainActivity;
 import ar.com.fiuba.tddp1.gestorvida.R;
+import ar.com.fiuba.tddp1.gestorvida.comunes.FragmentLoader;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 
 public class DetalleBuscarActividadFragment extends DetalleActividadFragment {
@@ -34,7 +34,7 @@ public class DetalleBuscarActividadFragment extends DetalleActividadFragment {
         mBotonCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).setFragment(new BuscarActividadActivity());
+                FragmentLoader.load(getActivity(), new BuscarActividadActivity());
             }
         });
 
@@ -42,7 +42,7 @@ public class DetalleBuscarActividadFragment extends DetalleActividadFragment {
             @Override
             public void onClick(View v) {
                 Perfil.agregarActividad(actividad);
-                ((MainActivity) getActivity()).setFragment(new BuscarActividadActivity());
+                FragmentLoader.load(getActivity(), new BuscarActividadActivity());
             }
         });
     }

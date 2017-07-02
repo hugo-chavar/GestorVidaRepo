@@ -1,8 +1,8 @@
 package ar.com.fiuba.tddp1.gestorvida.calendario;
 
+import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,7 +16,6 @@ import android.widget.TextView;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,16 +26,9 @@ import java.util.Locale;
 import java.util.Map;
 
 import ar.com.fiuba.tddp1.gestorvida.R;
-import ar.com.fiuba.tddp1.gestorvida.actividades.ActividadAdapter;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
-import ar.com.fiuba.tddp1.gestorvida.objetivos.ObjetivoAdapter;
 
-import static ar.com.fiuba.tddp1.gestorvida.R.id.toolbar;
-
-/**
- * Created by User on 27/06/2017.
- */
 
 public class CalendarioFragment extends Fragment {
 
