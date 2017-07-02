@@ -1,8 +1,8 @@
 package ar.com.fiuba.tddp1.gestorvida.actividades;
 
+import android.app.Fragment;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +15,8 @@ import ar.com.fiuba.tddp1.gestorvida.R;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Etiqueta;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Fecha;
+
+//import android.support.v4.app.Fragment;
 
 public class DetalleActividadFragment extends Fragment {
 

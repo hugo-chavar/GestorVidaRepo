@@ -2,8 +2,6 @@ package ar.com.fiuba.tddp1.gestorvida;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -19,6 +17,7 @@ import java.util.Date;
 
 import ar.com.fiuba.tddp1.gestorvida.actividades.ActividadesFragment;
 import ar.com.fiuba.tddp1.gestorvida.calendario.CalendarioFragment;
+import ar.com.fiuba.tddp1.gestorvida.comunes.FragmentLoader;
 import ar.com.fiuba.tddp1.gestorvida.contactos.AgregarParticipantesFragment;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Contacto;
@@ -26,6 +25,12 @@ import ar.com.fiuba.tddp1.gestorvida.dominio.Objetivo;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 import ar.com.fiuba.tddp1.gestorvida.estadisticas.EstadisticasActividadesCompletadasFragment;
 import ar.com.fiuba.tddp1.gestorvida.objetivos.ObjetivosFragment;
+
+//import android.support.v4.view.GravityCompat;
+//import android.support.v4.widget.DrawerLayout;
+
+//import android.support.v4.app.Fragment;
+//import android.support.v4.app.FragmentManager;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -92,10 +97,10 @@ public class MainActivity extends AppCompatActivity
         } else {
 
             if (fragmentActual != R.id.nav_actividades) {
-                setFragment(new ActividadesFragment());
+                FragmentLoader.load(this, new ActividadesFragment());
                 fragmentActual = R.id.nav_actividades;
             } else {
-                super.onBackPressed();
+                finishAffinity();
             }
 
         }
@@ -139,35 +144,33 @@ public class MainActivity extends AppCompatActivity
             //Mostrar pantalla perfil
             AgregarParticipantesFragment fragment = new AgregarParticipantesFragment();
             fragment.setActividad(actividadGlobalMain);
-            setFragment(fragment);
+            FragmentLoader.load(this, fragment);
 
         } else if (id == R.id.nav_actividades) {
             //Mostrar pantalla actividades
 
-            setFragment(new ActividadesFragment());
+            FragmentLoader.load(this, new ActividadesFragment());
 
         } else if (id == R.id.nav_calendario) {
 
             //Mostrar pantalla calendario
 
             //setFragment(new EjemploFragment());
-            setFragment(new CalendarioFragment());
+            FragmentLoader.load(this, new CalendarioFragment());
 
 
         } else if (id == R.id.nav_objetivos) {
             //Mostrar pantalla Objetivos
 
-            setFragment(new ObjetivosFragment());
+            FragmentLoader.load(this, new ObjetivosFragment());
 
         } else if (id == R.id.nav_buscar) {
             //Mostrar pantalla busqueda de actividades
-            setFragment(new BuscarActividadActivity());
+            FragmentLoader.load(this, new BuscarActividadActivity());
 
         } else if (id == R.id.nav_estadisticas) {
             //Mostrar pantalla de estadisticas
-            //setFragment( new EstadisticasFragment() );
-            setFragment( new EstadisticasActividadesCompletadasFragment() );
-            //setFragment( new EstadisticasEtiquetasPieChartFragment() );
+            FragmentLoader.load(this, new EstadisticasActividadesCompletadasFragment());
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -178,18 +181,6 @@ public class MainActivity extends AppCompatActivity
 
     public void onActividadClic(int position) {
         Log.d("MainActivity","Se hizo click en: " + position);
-    }
-
-    public void setFragment(Fragment fragment) {
-
-        Bundle bundle = new Bundle();
-
-        fragment.setArguments(bundle);
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                        .replace(R.id.contenedor, fragment)
-                        .commit();
     }
 
     public Actividad getActividad_detalle() {

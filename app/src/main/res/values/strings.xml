@@ -16,7 +16,8 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Configuración</string>
+    <string name="action_save">Guardar</string>
 
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
 
@@ -36,8 +37,7 @@
     <string name="error_username_invalid">Nombre de usuario no existe</string>
     <string name="error_network_timeout">El servidor tardó demasiado en responder</string>
     <string name="error_field_required">Este campo es requerido</string>
-    <string name="permission_rationale">"Debe permitir a la app acceder a su lista de contactos"
-    </string>
+    <string name="permission_rationale">"Debe permitir a la app acceder a su lista de contactos"</string>
     <string name="first_welcome">Bienvenido al Gestor de Vida!</string>
     <string name="first_button_login">Login</string>
     <string name="first_button_register">Registrarse</string>

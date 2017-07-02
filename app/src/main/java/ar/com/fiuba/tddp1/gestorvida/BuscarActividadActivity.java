@@ -1,11 +1,11 @@
 package ar.com.fiuba.tddp1.gestorvida;
 
 import android.app.DatePickerDialog;
+import android.app.Fragment;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.format.Time;
 import android.view.KeyEvent;
@@ -31,10 +31,13 @@ import java.util.List;
 import java.util.Set;
 
 import ar.com.fiuba.tddp1.gestorvida.actividades.DetalleBuscarActividadFragment;
+import ar.com.fiuba.tddp1.gestorvida.comunes.FragmentLoader;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Etiqueta;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Fecha;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
+
+//import android.support.v4.app.Fragment;
 
 public class BuscarActividadActivity extends Fragment {
 
@@ -354,7 +357,7 @@ public class BuscarActividadActivity extends Fragment {
 
     public void actividadOnClick(final View v, final Actividad actividad) {
         ((MainActivity) getActivity()).setActividad_detalle(actividad);
-        ((MainActivity) getActivity()).setFragment(new DetalleBuscarActividadFragment());
+        FragmentLoader.load(getActivity(), new DetalleBuscarActividadFragment());
     }
 
 }

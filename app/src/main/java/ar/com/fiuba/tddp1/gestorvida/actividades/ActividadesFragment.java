@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import ar.com.fiuba.tddp1.gestorvida.comunes.FragmentLoader;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 
@@ -58,7 +59,7 @@ public class ActividadesFragment extends RecyclerFragment {
     @Override
     protected void goToAgregarElemento() {
         //Lo que quiero es setear un fragmento de agregar actividades
-        this.setFragment( new AgregarActividadFragment() );
+        FragmentLoader.load(getActivity(), new AgregarActividadFragment() );
     }
 
 

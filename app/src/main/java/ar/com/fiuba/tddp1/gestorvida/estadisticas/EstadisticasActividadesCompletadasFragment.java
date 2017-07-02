@@ -1,10 +1,10 @@
 package ar.com.fiuba.tddp1.gestorvida.estadisticas;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.graphics.Color;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
