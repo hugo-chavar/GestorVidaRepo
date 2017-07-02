@@ -34,6 +34,7 @@ class ActividadCalendarioViewHolder extends RecyclerView.ViewHolder implements V
         textViewNombre = (TextView) itemView.findViewById(R.id.textActividadCalendario);
         layoutEtiquetas = (LinearLayout) itemView.findViewById(R.id.layoutEtiquetasActividadCalendario);
 
+        itemView.setOnClickListener(this);
     }
 
     @Override

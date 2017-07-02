@@ -31,7 +31,7 @@ class ContactosAdapter extends RecyclerView.Adapter<ContactoViewHolder> {
 
         View contactoView = LayoutInflater.from(parent.getContext()).inflate(R.layout.contacto_layout, parent, false);
         ContactoViewHolder contactoViewHolder = new ContactoViewHolder(contactoView, this.participantesAgregados);
-        contactoView.setOnClickListener(contactoViewHolder);
+
 
         return contactoViewHolder;
     }
