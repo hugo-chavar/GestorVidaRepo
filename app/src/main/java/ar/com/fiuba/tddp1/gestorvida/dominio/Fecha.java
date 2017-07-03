@@ -5,9 +5,9 @@ package ar.com.fiuba.tddp1.gestorvida.dominio;
  */
 
 public class Fecha {
-    public String dia;
-    public String mes;
-    public String anio;
+    public String dia = "01";
+    public String mes = "01";
+    public String anio = "1900";
 
     public Fecha(String dia, String mes, String anio) {
         this.dia = dia;
@@ -18,9 +18,11 @@ public class Fecha {
     public Fecha(String fecha) {
         String [] datos = fecha.split("/");
 
-        this.dia = datos[0];
-        this.mes = datos[1];
-        this.anio = datos[2];
+        if (datos.length == 3) {
+            dia = datos[0];
+            mes = datos[1];
+            anio = datos[2];
+        }
         //Log.d("Fecha", toString() );
     }
 
