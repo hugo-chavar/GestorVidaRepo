@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:focusable="true"
-        android:layout_marginLeft="@dimen/agregar_actividad_vertical_margin"
+        android:layout_marginLeft="20dp"
         android:focusableInTouchMode="true">
 
         <TextView
@@ -30,11 +30,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nombre"
+            android:textSize="@dimen/text_size"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="8dp" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
             android:id="@+id/edittextNombreContainer"
@@ -42,7 +42,6 @@
             android:layout_height="wrap_content"
             android:gravity="left"
             android:orientation="horizontal"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
             app:layout_constraintLeft_toLeftOf="@+id/textNombre"
             app:layout_constraintTop_toBottomOf="@+id/textNombre"
             android:weightSum="1" >
@@ -50,12 +49,11 @@
             <EditText
                 android:id="@+id/edittextNombre"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.7"
+                android:layout_height="@dimen/text_height"
+                android:layout_weight="0.9"
                 android:textSize="@dimen/text_size"
                 android:background="@drawable/inputtext_box"
-                android:inputType="text"
-                android:text="Texto para testear" />
+                android:inputType="text" />
         </LinearLayout>
 
         <!-- DESCRIPCION -->
@@ -73,159 +71,131 @@
         <LinearLayout
             android:id="@+id/edittextDescripcionContainer"
             android:weightSum="1"
-            android:gravity="left"
+            android:gravity="start"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
             app:layout_constraintTop_toBottomOf="@+id/textDescripcion"
             app:layout_constraintLeft_toLeftOf="@+id/textDescripcion">
             <EditText
                 android:id="@+id/edittextDescripcion"
                 android:layout_width="0dp"
-                android:layout_weight="0.7"
-                android:layout_height="60dp"
+                android:layout_weight="0.9"
+                android:layout_height="80dp"
                 android:inputType="text"
                 android:background="@drawable/inputtext_box"/>
         </LinearLayout>
 
-        <!-- FECHAS INICIO Y FIN -->
-
-        <TextView
-            android:id="@+id/textInicioActividad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Inicio"
-            android:layout_marginTop="@dimen/agregar_actividad_vertical_margin"
-            app:layout_constraintTop_toBottomOf="@+id/edittextDescripcionContainer"
-            app:layout_constraintLeft_toLeftOf="@+id/edittextDescripcionContainer"/>
+        <!-- FECHA INICIO -->
 
         <LinearLayout
             android:id="@+id/textViewInicioActividadContainer"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
+            android:weightSum="1"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:gravity="left"
-            android:layout_marginTop="7dp"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            app:layout_constraintTop_toBottomOf="@+id/textInicioActividad"
-            app:layout_constraintLeft_toLeftOf="@+id/textInicioActividad"
-            android:weightSum="1">
+            android:layout_marginTop="@dimen/agregar_actividad_vertical_margin"
+            app:layout_constraintTop_toBottomOf="@+id/edittextDescripcionContainer"
+            app:layout_constraintLeft_toLeftOf="@+id/edittextDescripcionContainer" >
+
+            <TextView
+                android:id="@+id/textInicioActividad"
+                android:layout_width="0dp"
+                android:layout_weight="0.40"
+                android:layout_height="wrap_content"
+                android:text="Inicio"
+                android:textSize="@dimen/text_size"
+                android:layout_marginRight="@dimen/agregar_actividad_vertical_margin" />
 
             <ImageView
                 android:id="@+id/imageViewInicioActividad"
                 android:layout_width="0dp"
-                android:layout_weight="0.1"
+                android:layout_weight="0.15"
                 android:layout_height="match_parent"
-                app:srcCompat="@drawable/calendar_light_blue" />
+                app:srcCompat="@drawable/calendar_light_blue"
+                app:layout_constraintLeft_toLeftOf="@+id/textViewRecordatorio"
+                app:layout_constraintTop_toBottomOf="@+id/textViewRecordatorio" />
 
             <TextView
                 android:id="@+id/textViewInicioActividad"
                 android:layout_width="0dp"
-                android:layout_weight="0.4"
+                android:layout_weight="0.3"
                 android:layout_height="wrap_content"
-                android:text="dd/mm/aaaa" android:inputType="date"
+                android:hint="dd/mm/aaaa"
+                android:inputType="date"
                 android:background="@drawable/inputtext_box"/>
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/textFinActividad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Fin"
-            android:layout_marginTop="@dimen/agregar_actividad_vertical_margin"
-            app:layout_constraintTop_toBottomOf="@+id/textViewInicioActividadContainer"
-            app:layout_constraintLeft_toLeftOf="@+id/textViewInicioActividadContainer"/>
+        <!-- FECHA FIN -->
 
         <LinearLayout
             android:id="@+id/textViewFinActividadContainer"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
+            android:weightSum="1"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginTop="7dp"
-            app:layout_constraintTop_toBottomOf="@+id/textFinActividad"
-            app:layout_constraintLeft_toLeftOf="@+id/textFinActividad"
-            android:gravity="left"
-            android:weightSum="1">
+            android:layout_marginTop="25dp"
+            app:layout_constraintTop_toBottomOf="@+id/textViewInicioActividadContainer"
+            app:layout_constraintLeft_toLeftOf="@+id/textViewInicioActividadContainer" >
+
+            <TextView
+                android:id="@+id/textFinActividad"
+                android:layout_width="0dp"
+                android:layout_weight="0.40"
+                android:layout_height="wrap_content"
+                android:text="Fin"
+                android:textSize="@dimen/text_size"
+                android:layout_marginRight="@dimen/agregar_actividad_vertical_margin" />
 
             <ImageView
                 android:id="@+id/imageViewFinActividad"
                 android:layout_width="0dp"
-                android:layout_weight="0.1"
+                android:layout_weight="0.15"
                 android:layout_height="match_parent"
-                app:srcCompat="@drawable/calendar_light_blue" />
+                app:srcCompat="@drawable/calendar_light_blue"
+                app:layout_constraintLeft_toLeftOf="@+id/textViewRecordatorio"
+                app:layout_constraintTop_toBottomOf="@+id/textViewRecordatorio" />
 
             <TextView
                 android:id="@+id/textViewFinActividad"
                 android:layout_width="0dp"
-                android:layout_weight="0.4"
+                android:layout_weight="0.3"
                 android:layout_height="wrap_content"
-                android:text="dd/mm/aaaa" android:inputType="date"
+                android:hint="dd/mm/aaaa"
+                android:inputType="date"
                 android:background="@drawable/inputtext_box"/>
         </LinearLayout>
 
-        <!--ETIQUETAS-->
-
-        <TextView
-            android:id="@+id/textViewEtiquetas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Etiquetas"
-            android:layout_marginTop="@dimen/agregar_actividad_vertical_margin"
-            app:layout_constraintTop_toBottomOf="@+id/textViewFinActividadContainer"
-            app:layout_constraintLeft_toLeftOf="@+id/textViewFinActividadContainer"
-            tools:layout_editor_absoluteY="259dp"
-            tools:layout_editor_absoluteX="16dp" />
-
-        <LinearLayout
-            android:id="@+id/linearLayoutEtiquetas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@+id/textViewEtiquetas"
-            app:layout_constraintLeft_toLeftOf="@+id/textViewEtiquetas"
-            tools:layout_editor_absoluteY="275dp"
-            tools:layout_editor_absoluteX="16dp">
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/buttonAgregarEtiqueta"
-            android:layout_width="33dp"
-            android:layout_height="27dp"
-            app:srcCompat="@android:drawable/ic_input_add"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayoutEtiquetas"
-            app:layout_constraintLeft_toLeftOf="@+id/linearLayoutEtiquetas"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="-1dp" />
-
         <!-- RECORDATORIO -->
 
-        <TextView
-            android:id="@+id/textViewRecordatorio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Recordatorio"
-            android:layout_marginTop="@dimen/agregar_actividad_vertical_margin"
-            app:layout_constraintTop_toBottomOf="@+id/buttonAgregarEtiqueta"
-            app:layout_constraintLeft_toLeftOf="@+id/buttonAgregarEtiqueta" />
-
         <LinearLayout
-            android:id="@+id/textViewFechaRecordatorioContainer"
+            android:id="@+id/recordatorioContainer"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
+            android:weightSum="1"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:layout_marginTop="7dp"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            app:layout_constraintTop_toBottomOf="@+id/textViewRecordatorio"
-            app:layout_constraintLeft_toLeftOf="@+id/textViewRecordatorio"
-            android:gravity="left"
-            android:weightSum="1">
+            android:layout_marginTop="25dp"
+            app:layout_constraintTop_toBottomOf="@+id/textViewFinActividadContainer"
+            app:layout_constraintLeft_toLeftOf="@+id/textViewFinActividadContainer" >
+
+            <TextView
+                android:id="@+id/textViewRecordatorio"
+                android:layout_width="0dp"
+                android:layout_weight="0.40"
+                android:layout_height="wrap_content"
+                android:text="Recordatorio"
+                android:textSize="@dimen/text_size"
+                app:layout_constraintTop_toBottomOf="@+id/buttonAgregarEtiqueta"
+                app:layout_constraintLeft_toLeftOf="@+id/buttonAgregarEtiqueta"
+                android:layout_marginRight="@dimen/agregar_actividad_vertical_margin"/>
 
             <ImageView
                 android:id="@+id/imageViewRecordatorio"
                 android:layout_width="0dp"
-                android:layout_weight="0.1"
+                android:layout_weight="0.15"
                 android:layout_height="match_parent"
                 app:srcCompat="@drawable/calendar_light_blue"
                 app:layout_constraintLeft_toLeftOf="@+id/textViewRecordatorio"
@@ -234,30 +204,49 @@
             <TextView
                 android:id="@+id/textViewFechaRecordatorio"
                 android:layout_width="0dp"
-                android:layout_weight="0.4"
+                android:layout_weight="0.3"
                 android:layout_height="wrap_content"
-                android:text="dd/mm/aaaa" android:inputType="date"
+                android:hint="dd/mm/aaaa" android:inputType="date"
                 android:background="@drawable/inputtext_box"/>
-
         </LinearLayout>
 
-        <!--PRIORIDADES-->
+        <!-- TIPO DE ACTIVIDAD -->
 
         <TextView
-            android:id="@+id/textViewPrioridad"
+            android:id="@+id/textViewTipoActividad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Prioridad"
+            android:text="Tipo de actividad"
+            android:textSize="@dimen/text_size"
             android:layout_marginTop="@dimen/agregar_actividad_vertical_margin"
-            app:layout_constraintTop_toBottomOf="@+id/textViewFechaRecordatorioContainer"
-            app:layout_constraintLeft_toLeftOf="@+id/textViewFechaRecordatorioContainer" />
+            app:layout_constraintTop_toBottomOf="@+id/recordatorioContainer"
+            app:layout_constraintLeft_toLeftOf="@+id/recordatorioContainer" />
 
-        <Spinner
-            android:id="@+id/spinnerPrioridades"
+        <RadioGroup
+            android:id="@+id/radioGroupTipoActividad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/textViewPrioridad"
-            app:layout_constraintLeft_toLeftOf="@+id/textViewPrioridad" />
+            android:orientation="horizontal"
+            android:checkedButton="@+id/radioButtonActividadPrivada"
+            android:layout_marginTop="@dimen/icon_text_separation_margin"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTipoActividad"
+            app:layout_constraintLeft_toLeftOf="@+id/textViewTipoActividad">
+
+            <RadioButton
+                android:id="@+id/radioButtonActividadPublica"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Publica"/>
+
+            <RadioButton
+                android:id="@+id/radioButtonActividadPrivada"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="90dp"
+                android:text="Privada"/>
+
+        </RadioGroup>
+
 
         <!-- PERIODICIDAD -->
 
@@ -266,15 +255,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Periodicidad"
+            android:textSize="@dimen/text_size"
             android:layout_marginTop="@dimen/agregar_actividad_vertical_margin"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerPrioridades"
-            app:layout_constraintLeft_toLeftOf="@+id/spinnerPrioridades" />
+            app:layout_constraintTop_toBottomOf="@+id/radioGroupTipoActividad"
+            app:layout_constraintLeft_toLeftOf="@+id/radioGroupTipoActividad" />
 
         <RadioGroup
             android:id="@+id/radioGroupPerioridicidad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_marginTop="@dimen/icon_text_separation_margin"
             app:layout_constraintTop_toBottomOf="@+id/textViewPeriodicidad"
             app:layout_constraintLeft_toLeftOf="@+id/textViewPeriodicidad">
 
@@ -336,6 +327,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Estimacion"
+            android:textSize="@dimen/text_size"
             android:layout_marginTop="@dimen/agregar_actividad_vertical_margin"
             app:layout_constraintTop_toBottomOf="@+id/radioGroupPerioridicidad"
             app:layout_constraintLeft_toLeftOf="@+id/radioGroupPerioridicidad" />
@@ -353,83 +345,116 @@
             android:background="@drawable/inputtext_box"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp"
             android:textSize="14dp"/>
 
-        <!-- ASOCIAR UN OBJETIVO -->
-
-        <TextView
-            android:id="@+id/textViewObjetivo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Asociar a objetivo"
-            android:layout_marginTop="@dimen/agregar_actividad_vertical_margin"
-            app:layout_constraintTop_toBottomOf="@+id/checkBoxTiempoEstimado"
-            app:layout_constraintLeft_toLeftOf="@+id/checkBoxTiempoEstimado" />
-
-        <Spinner
-            android:id="@+id/spinnerObjetivos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/textViewObjetivo"
-            app:layout_constraintLeft_toLeftOf="@+id/textViewObjetivo" />
-
-        <!-- ESTIMACION -->
-
-        <TextView
-            android:id="@+id/textViewTipoActividad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tipo de actividad"
-            android:layout_marginTop="@dimen/agregar_actividad_vertical_margin"
-            app:layout_constraintTop_toBottomOf="@+id/spinnerObjetivos"
-            app:layout_constraintLeft_toLeftOf="@+id/spinnerObjetivos" />
-
-        <RadioGroup
-            android:id="@+id/radioGroupTipoActividad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/textViewTipoActividad"
-            app:layout_constraintLeft_toLeftOf="@+id/textViewTipoActividad"
-            android:orientation="horizontal"
-            android:checkedButton="@+id/radioButtonActividadPrivada">
-
-            <RadioButton
-                android:id="@+id/radioButtonActividadPublica"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Publica"/>
-
-            <RadioButton
-                android:id="@+id/radioButtonActividadPrivada"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:text="Privada"/>
-
-        </RadioGroup>
-
-        <!-- BOTON
+        <!-- OBJETIVOS Y LOS DEMAS -->
 
         <LinearLayout
-            android:id="@+id/buttonAgregarActividadContainer"
+            android:id="@+id/etiquetaPrioridadObjetivoContainer"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:weightSum="1"
-            android:gravity="right"
             android:orientation="horizontal"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            app:layout_constraintTop_toBottomOf="@+id/radioGroupTipoActividad"
-            app:layout_constraintLeft_toLeftOf="@+id/radioGroupTipoActividad" >
+            android:layout_marginBottom="@dimen/agregar_actividad_vertical_margin"
+            app:layout_constraintTop_toBottomOf="@+id/editTextTiempoEstimado"
+            app:layout_constraintLeft_toLeftOf="@+id/editTextTiempoEstimado" >
 
-            <Button
-                android:id="@+id/buttonAgregarActividad"
-                android:layout_width="wrap_content"
+            <!--ETIQUETAS-->
+            <LinearLayout
+                android:id="@+id/etiquetaContainer"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Agregar actividad"
-                android:layout_marginEnd="@dimen/icon_text_separation_margin"
-                android:layout_marginBottom="@dimen/icon_text_separation_margin"
-                android:background="@drawable/add_activity_button" />
-        </LinearLayout>-->
+                android:layout_weight="0.30"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewEtiquetas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Etiquetas"
+                    android:textSize="@dimen/text_size"
+                    android:layout_marginTop="@dimen/agregar_actividad_vertical_margin"
+                    app:layout_constraintTop_toBottomOf="@+id/radioGroupTipoActividad"
+                    app:layout_constraintLeft_toLeftOf="@+id/radioGroupTipoActividad"
+                    tools:layout_editor_absoluteY="259dp"
+                    tools:layout_editor_absoluteX="16dp" />
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutEtiquetas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewEtiquetas"
+                    app:layout_constraintLeft_toLeftOf="@+id/textViewEtiquetas"
+                    tools:layout_editor_absoluteY="275dp"
+                    tools:layout_editor_absoluteX="16dp">
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/buttonAgregarEtiqueta"
+                    android:layout_width="33dp"
+                    android:layout_height="27dp"
+                    app:srcCompat="@android:drawable/ic_input_add"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayoutEtiquetas"
+                    app:layout_constraintLeft_toLeftOf="@+id/linearLayoutEtiquetas"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="-1dp" />
+
+            </LinearLayout>
+
+            <!--PRIORIDADES-->
+            <LinearLayout
+                android:id="@+id/prioridadContainer"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.30"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewPrioridad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Prioridad"
+                    android:textSize="@dimen/text_size"
+                    android:layout_marginTop="@dimen/agregar_actividad_vertical_margin" />
+
+                <Spinner
+                    android:id="@+id/spinnerPrioridades"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewPrioridad"
+                    app:layout_constraintLeft_toLeftOf="@+id/textViewPrioridad" />
+            </LinearLayout>
+
+            <!--OBJETIVOS-->
+            <LinearLayout
+                android:id="@+id/objetivosContainer"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.40"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewObjetivo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Objetivo"
+                    android:textSize="@dimen/text_size"
+                    android:layout_marginTop="@dimen/agregar_actividad_vertical_margin" />
+
+                <Spinner
+                    android:id="@+id/spinnerObjetivos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/textViewObjetivo"
+                    app:layout_constraintLeft_toLeftOf="@+id/textViewObjetivo" />
+            </LinearLayout>
+
+        </LinearLayout>
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>
