@@ -1,7 +1,6 @@
 package ar.com.fiuba.tddp1.gestorvida.estadisticas;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -21,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.fiuba.tddp1.gestorvida.R;
+import ar.com.fiuba.tddp1.gestorvida.comunes.FragmentLoader;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 
 /**
@@ -73,26 +73,12 @@ public class EstadisticasActividadesCompletadasFragment extends Fragment impleme
 
         grafico.invalidate(); //refresh
 
-
-
-
-
-
-
-
         return view;
     }
 
     @Override
     public void onClick(View v) {
-        Fragment siguienteGrafico = new EstadisticasEtiquetasPieChartFragment();
-        Bundle bundle = new Bundle();
+        FragmentLoader.load(getActivity(), new EstadisticasEtiquetasPieChartFragment(), FragmentLoader.EstadisticasEtiquetasPieChart);
 
-        siguienteGrafico .setArguments(bundle);
-
-        FragmentManager fragmentManager = this.getFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.contenedor, siguienteGrafico )
-                .commit();
     }
 }

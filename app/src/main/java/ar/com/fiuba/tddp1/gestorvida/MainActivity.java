@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity
         Perfil.agregarContacto(new Contacto("Mordekaiser", R.drawable.mercurio));
         Perfil.agregarContacto(new Contacto("Cosme Fulanito", R.drawable.circulo_color));
 
+        FragmentLoader.load(this, R.id.nav_actividades);
         inicializarFiltroFechas(); //Esto es para BuscarActividades
 
     }
@@ -89,10 +90,8 @@ public class MainActivity extends AppCompatActivity
 
         } else {
 
-            if (FragmentLoader.shouldExit()) {
+            if (!FragmentLoader.backFragment(this)) {
                 showExitDialog();
-            } else {
-                FragmentLoader.loadDefault(this);
             }
 
         }

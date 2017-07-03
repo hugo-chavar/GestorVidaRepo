@@ -59,7 +59,7 @@ public class ActividadesFragment extends RecyclerFragment {
     @Override
     protected void goToAgregarElemento() {
         //Lo que quiero es setear un fragmento de agregar actividades
-        FragmentLoader.load(getActivity(), new AgregarActividadFragment() );
+        FragmentLoader.load(getActivity(), new AgregarActividadFragment(), FragmentLoader.AgregarActividad);
     }
 
 

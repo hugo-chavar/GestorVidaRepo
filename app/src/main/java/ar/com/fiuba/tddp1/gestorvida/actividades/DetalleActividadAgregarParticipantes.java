@@ -5,15 +5,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import ar.com.fiuba.tddp1.gestorvida.MainActivity;
 import ar.com.fiuba.tddp1.gestorvida.R;
 import ar.com.fiuba.tddp1.gestorvida.comunes.FragmentLoader;
 import ar.com.fiuba.tddp1.gestorvida.contactos.AgregarParticipantesFragment;
-import ar.com.fiuba.tddp1.gestorvida.dominio.Contacto;
 
 /**
  * Created by User on 02/07/2017.
@@ -34,7 +29,7 @@ public class DetalleActividadAgregarParticipantes extends DetalleActividadFragme
 
             @Override
             public void onClick(View v) {
-                FragmentLoader.load(getActivity(), new AgregarParticipantesFragment());
+                FragmentLoader.load(getActivity(), new AgregarParticipantesFragment(), FragmentLoader.AgregarParticipantes);
             }
 
         });

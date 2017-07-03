@@ -374,7 +374,7 @@ public class BuscarActividadActivity extends Fragment {
 
     public void actividadOnClick(final View v, final Actividad actividad) {
         ((MainActivity) getActivity()).setActividad_detalle(actividad);
-        FragmentLoader.load(getActivity(), new DetalleBuscarActividadFragment());
+        FragmentLoader.load(getActivity(), new DetalleBuscarActividadFragment(), FragmentLoader.DetalleBuscarActividad);
     }
 
 }

@@ -37,10 +37,8 @@ import java.util.Map;
 import java.util.Set;
 
 import ar.com.fiuba.tddp1.gestorvida.DatePickerFragment;
-import ar.com.fiuba.tddp1.gestorvida.MainActivity;
 import ar.com.fiuba.tddp1.gestorvida.R;
 import ar.com.fiuba.tddp1.gestorvida.TimePickerFragment;
-import ar.com.fiuba.tddp1.gestorvida.comunes.FragmentLoader;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Etiqueta;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Fecha;
@@ -133,9 +131,6 @@ public class AgregarActividadFragment extends Fragment {
                 getView().findViewById(R.id.editTextXDias).setEnabled( checkedId == R.id.radioButtonPeriodicidadCadaXDias );
             }
         });
-
-        //deshabilito el navigationDrawer
-        FragmentLoader.setDrawerEnabled((MainActivity)getActivity(), false);
 
         setHasOptionsMenu(true);
 
