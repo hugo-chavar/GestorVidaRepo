@@ -63,6 +63,11 @@ public class FragmentLoader {
         fragment.setArguments(bundle);
 
         FragmentManager fragmentManager = activity.getFragmentManager();
+        int stackCount = fragmentManager.getBackStackEntryCount();
+        String previous = getFragmentName(fragmentManager, stackCount - 1);
+
+        if (previous.equals(name)) { return;}
+
         fragmentManager.beginTransaction()
                 .replace(R.id.contenedor, fragment)
                 .addToBackStack(name)
@@ -76,12 +81,17 @@ public class FragmentLoader {
 
         int stackCount = fragmentManager.getBackStackEntryCount();
         if ( stackCount > 1) {
+            //String current = getFragmentName(fragmentManager, stackCount - 1);
+            //Boolean visible = drawerVisibilityMap.get(current);
             fragmentManager.popBackStack();
-            setDrawerEnabled((MainActivity)activity, drawerVisibilityMap.get(getVisibleFragmentName(activity)));
-
+            String next = getFragmentName(fragmentManager, stackCount - 2);
+            Boolean visible = drawerVisibilityMap.get(next);
+            setDrawerEnabled((MainActivity)activity, visible);
 
             return true;
-        } return false;
+
+        }
+        return false;
     }
 
     public static void load(Activity activity, int id) {
@@ -111,13 +121,7 @@ public class FragmentLoader {
             name = Actividades;
         }
 
-
-        String previous = getVisibleFragmentName(activity);
-        //Log.d("Loader", "Nuevo: " + name + " visible: " + previous);
-
-        if (!previous.equals(name)) {
-            load(activity, fragment, name);
-        }
+        load(activity, fragment, name);
 
         current = id;
 
@@ -128,12 +132,11 @@ public class FragmentLoader {
         locker.setDrawerEnabled(enabled);
     }
 
-    public static String getVisibleFragmentName(Activity activity){
-        FragmentManager fragmentManager = activity.getFragmentManager();
+    private static String getFragmentName(FragmentManager fragmentManager, int pos){
 
-        int count = fragmentManager.getBackStackEntryCount();
-        if (count > 0) {
-            return fragmentManager.getBackStackEntryAt(count - 1).getName();
+
+        if (pos >= 0) {
+            return fragmentManager.getBackStackEntryAt(pos).getName();
         }
 
         return "";
