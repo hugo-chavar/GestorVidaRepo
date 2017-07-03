@@ -1,11 +1,9 @@
 package ar.com.fiuba.tddp1.gestorvida.comunes;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -158,6 +156,7 @@ public class FragmentLoader {
 
     }
 
+    /*
     public static void setBackOptionEnabled(Activity activity, boolean enabled) {
         ActionBar actionBar = activity.getActionBar();
         if (actionBar != null) {
@@ -166,9 +165,10 @@ public class FragmentLoader {
             android.support.v7.app.ActionBar supportAcionBar = ((AppCompatActivity)activity).getSupportActionBar();
             if (supportAcionBar != null) {
                 supportAcionBar.setDisplayHomeAsUpEnabled(enabled);
+                supportAcionBar.setDisplayShowHomeEnabled(enabled);
             }
         }
-    }
+    }*/
 
 
 }

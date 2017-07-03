@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -77,7 +79,7 @@ public class MainActivity extends AppCompatActivity
         Perfil.agregarContacto(new Contacto("Mordekaiser", R.drawable.mercurio));
         Perfil.agregarContacto(new Contacto("Cosme Fulanito", R.drawable.circulo_color));
 
-        FragmentLoader.setBackOptionEnabled(this, false);
+        //FragmentLoader.setBackOptionEnabled(this, false);
         FragmentLoader.load(this, R.id.nav_actividades);
         inicializarFiltroFechas(); //Esto es para BuscarActividades
 
@@ -180,20 +182,34 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void setDrawerEnabled(boolean enabled) {
+    public void setDrawerEnabled(final boolean enabled) {
 
-        if (!enabled) {
-            toggle.setDrawerIndicatorEnabled(false);
-            android.support.v7.app.ActionBar supportActionBar = this.getSupportActionBar();
-            if (supportActionBar != null) {
-                supportActionBar.setDisplayHomeAsUpEnabled(true);
-            }
-            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-        } else {
-            toggle.setDrawerIndicatorEnabled(true);
-            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        int lockMode = enabled ? DrawerLayout.LOCK_MODE_UNLOCKED :
+                DrawerLayout.LOCK_MODE_LOCKED_CLOSED;
+
+        drawer.setDrawerLockMode(lockMode);
+        toggle.setDrawerIndicatorEnabled(enabled);
+
+        ActionBar actionBar = getSupportActionBar();
+
+
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(!enabled);
+            actionBar.setDisplayShowHomeEnabled(enabled);
+            actionBar.setHomeButtonEnabled(enabled);
         }
 
+        toggle.syncState();
+
+        toggle.setToolbarNavigationClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (!toggle.isDrawerIndicatorEnabled())
+                    onBackPressed();
+
+            }
+        });
     }
 
     private void showExitDialog() {

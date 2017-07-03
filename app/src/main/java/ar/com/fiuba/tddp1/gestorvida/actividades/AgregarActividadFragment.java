@@ -40,7 +40,6 @@ import ar.com.fiuba.tddp1.gestorvida.DatePickerFragment;
 import ar.com.fiuba.tddp1.gestorvida.MainActivity;
 import ar.com.fiuba.tddp1.gestorvida.R;
 import ar.com.fiuba.tddp1.gestorvida.TimePickerFragment;
-import ar.com.fiuba.tddp1.gestorvida.comunes.FragmentLoader;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Etiqueta;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Fecha;
@@ -139,7 +138,7 @@ public class AgregarActividadFragment extends Fragment {
         });
 
         setHasOptionsMenu(true);
-        FragmentLoader.setBackOptionEnabled(activity, true);
+        //FragmentLoader.setBackOptionEnabled(activity, true);
 
         //TODO: ESTO SOLO ESTA ACA PARA TESTEAR
         final TextView tiempo  = (TextView) view.findViewById(R.id.textViewParaTestearElTimePicker);
