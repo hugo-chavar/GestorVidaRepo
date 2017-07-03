@@ -70,6 +70,11 @@ public class AgregarActividadFragment extends Fragment {
         this.textosFechas.put(R.id.imageViewFinActividad, (TextView) view.findViewById(R.id.textViewFinActividad) );
         this.textosFechas.put(R.id.imageViewRecordatorio, (TextView) view.findViewById(R.id.textViewFechaRecordatorio) );
 
+        //Ademas a cada TextView del dia le agrego la misma funcionalidad que el boton de fecha. Cuando se clickea un TextView de fecha, tambien salta el datePicker
+        this.textosFechas.put(R.id.textViewInicioActividad, (TextView) view.findViewById(R.id.textViewInicioActividad) );
+        this.textosFechas.put(R.id.textViewFinActividad, (TextView) view.findViewById(R.id.textViewFinActividad) );
+        this.textosFechas.put(R.id.textViewFechaRecordatorio, (TextView) view.findViewById(R.id.textViewFechaRecordatorio) );
+
         String[] prioridades = new String[] {"ALTA", "MEDIA", "BAJA"};
         Spinner spinnerPrioridades = (Spinner) view.findViewById(R.id.spinnerPrioridades);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, R.layout.support_simple_spinner_dropdown_item, prioridades);
@@ -100,7 +105,6 @@ public class AgregarActividadFragment extends Fragment {
             }
         });
 
-
         ImageView buttonAgregarEtiqueta = (ImageView) view.findViewById(R.id.buttonAgregarEtiqueta);
         buttonAgregarEtiqueta.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,6 +112,17 @@ public class AgregarActividadFragment extends Fragment {
                 agregarEtiqueta(v);
             }
         });
+
+        //Ademas seteo el clickListener a los TextViews de las fechas
+        TextView textViewFechaInicioActividad = (TextView) view.findViewById(R.id.textViewInicioActividad);
+        this.setearOnClickListenerATextViewFecha(textViewFechaInicioActividad);
+
+        TextView textViewFechaFinActividad = (TextView) view.findViewById(R.id.textViewFinActividad);
+        this.setearOnClickListenerATextViewFecha(textViewFechaFinActividad);
+
+
+        TextView textViewRecordatorio = (TextView) view.findViewById(R.id.textViewFechaRecordatorio);
+        this.setearOnClickListenerATextViewFecha(textViewRecordatorio);
 
 
         CheckBox checkBoxTiempoEstimado = (CheckBox) view.findViewById(R.id.checkBoxTiempoEstimado);
@@ -151,6 +166,15 @@ public class AgregarActividadFragment extends Fragment {
 
 
         return view;
+    }
+
+    private void setearOnClickListenerATextViewFecha(TextView textViewFecha) {
+        textViewFecha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mostrarDatePicker(v);
+            }
+        });
     }
 
     @Override
