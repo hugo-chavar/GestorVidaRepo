@@ -27,14 +27,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".VerActividadesActivity" />
-        <activity android:name=".VerObjetivosActivity" />
+        <!--<activity android:name=".VerActividadesActivity" />
+        <activity android:name=".VerObjetivosActivity" /> -->
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
-        <activity
-            android:name=".BuscarActividadActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+
     </application>
 
 </manifest>

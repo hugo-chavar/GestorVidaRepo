@@ -77,6 +77,7 @@ public class MainActivity extends AppCompatActivity
         Perfil.agregarContacto(new Contacto("Mordekaiser", R.drawable.mercurio));
         Perfil.agregarContacto(new Contacto("Cosme Fulanito", R.drawable.circulo_color));
 
+        FragmentLoader.setBackOptionEnabled(this, false);
         FragmentLoader.load(this, R.id.nav_actividades);
         inicializarFiltroFechas(); //Esto es para BuscarActividades
 
@@ -180,10 +181,19 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void setDrawerEnabled(boolean enabled) {
-        int lockMode = enabled ? DrawerLayout.LOCK_MODE_UNLOCKED : DrawerLayout.LOCK_MODE_LOCKED_CLOSED;
 
-        drawer.setDrawerLockMode(lockMode);
-        toggle.setDrawerIndicatorEnabled(enabled);
+        if (!enabled) {
+            toggle.setDrawerIndicatorEnabled(false);
+            android.support.v7.app.ActionBar supportActionBar = this.getSupportActionBar();
+            if (supportActionBar != null) {
+                supportActionBar.setDisplayHomeAsUpEnabled(true);
+            }
+            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        } else {
+            toggle.setDrawerIndicatorEnabled(true);
+            drawer.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        }
+
     }
 
     private void showExitDialog() {

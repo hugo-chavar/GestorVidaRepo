@@ -1,15 +1,16 @@
 package ar.com.fiuba.tddp1.gestorvida.comunes;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import ar.com.fiuba.tddp1.gestorvida.BuscarActividadActivity;
-import ar.com.fiuba.tddp1.gestorvida.DrawerLocker;
 import ar.com.fiuba.tddp1.gestorvida.MainActivity;
 import ar.com.fiuba.tddp1.gestorvida.R;
 import ar.com.fiuba.tddp1.gestorvida.actividades.ActividadesFragment;
@@ -72,7 +73,15 @@ public class FragmentLoader {
                 .replace(R.id.contenedor, fragment)
                 .addToBackStack(name)
                 .commit();
-        setDrawerEnabled((MainActivity)activity, drawerVisibilityMap.get(name));
+
+        boolean drawerVisible = drawerVisibilityMap.get(name);
+        //setDrawerEnabled((MainActivity)activity, drawerVisible);
+        ((MainActivity) activity).setDrawerEnabled(drawerVisible);
+
+        //if (!drawerVisible) {
+            //setBackOptionEnabled(activity, !drawerVisible);
+        //}
+
 
     }
 
@@ -85,8 +94,14 @@ public class FragmentLoader {
             //Boolean visible = drawerVisibilityMap.get(current);
             fragmentManager.popBackStack();
             String next = getFragmentName(fragmentManager, stackCount - 2);
-            Boolean visible = drawerVisibilityMap.get(next);
-            setDrawerEnabled((MainActivity)activity, visible);
+            boolean visible = drawerVisibilityMap.get(next);
+            //setDrawerEnabled((MainActivity)activity, visible);
+            ((MainActivity) activity).setDrawerEnabled(visible);
+
+                //setBackOptionEnabled(activity, !visible.booleanValue());
+            //setDrawerEnabled((MainActivity)activity, visible);
+
+
 
             return true;
 
@@ -127,10 +142,10 @@ public class FragmentLoader {
 
     }
 
-    private static void setDrawerEnabled(DrawerLocker locker, boolean enabled) {
+    /*private static void setDrawerEnabled(DrawerLocker locker, boolean enabled) {
 
         locker.setDrawerEnabled(enabled);
-    }
+    }*/
 
     private static String getFragmentName(FragmentManager fragmentManager, int pos){
 
@@ -141,6 +156,18 @@ public class FragmentLoader {
 
         return "";
 
+    }
+
+    public static void setBackOptionEnabled(Activity activity, boolean enabled) {
+        ActionBar actionBar = activity.getActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(enabled);
+        } else {
+            android.support.v7.app.ActionBar supportAcionBar = ((AppCompatActivity)activity).getSupportActionBar();
+            if (supportAcionBar != null) {
+                supportAcionBar.setDisplayHomeAsUpEnabled(enabled);
+            }
+        }
     }
 
 

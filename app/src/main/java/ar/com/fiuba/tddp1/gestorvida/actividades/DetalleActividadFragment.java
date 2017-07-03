@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import ar.com.fiuba.tddp1.gestorvida.MainActivity;
 import ar.com.fiuba.tddp1.gestorvida.R;
+import ar.com.fiuba.tddp1.gestorvida.comunes.FragmentLoader;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Beneficio;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Contacto;
@@ -70,6 +71,7 @@ public class DetalleActividadFragment extends Fragment {
 
         inicializarTexto();
         inicializarBotonVerMasDetalles();
+        FragmentLoader.setBackOptionEnabled(getActivity(), true);
 
     }
 

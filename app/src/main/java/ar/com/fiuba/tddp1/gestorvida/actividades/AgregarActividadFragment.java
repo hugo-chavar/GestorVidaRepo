@@ -37,13 +37,17 @@ import java.util.Map;
 import java.util.Set;
 
 import ar.com.fiuba.tddp1.gestorvida.DatePickerFragment;
+import ar.com.fiuba.tddp1.gestorvida.MainActivity;
 import ar.com.fiuba.tddp1.gestorvida.R;
 import ar.com.fiuba.tddp1.gestorvida.TimePickerFragment;
+import ar.com.fiuba.tddp1.gestorvida.comunes.FragmentLoader;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Etiqueta;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Fecha;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Objetivo;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
+
+//import android.support.v7.app.ActionBar;
 
 
 public class AgregarActividadFragment extends Fragment {
@@ -53,10 +57,12 @@ public class AgregarActividadFragment extends Fragment {
     private LayoutInflater inflater;
 
     private View view;
+    private MainActivity activity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        activity = (MainActivity)getActivity();
         this.inflater = inflater;
         view = this.inflater.inflate(R.layout.activity_agregar_actividad, container,false);
 
@@ -67,7 +73,7 @@ public class AgregarActividadFragment extends Fragment {
 
         String[] prioridades = new String[] {"ALTA", "MEDIA", "BAJA"};
         Spinner spinnerPrioridades = (Spinner) view.findViewById(R.id.spinnerPrioridades);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), R.layout.support_simple_spinner_dropdown_item, prioridades);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, R.layout.support_simple_spinner_dropdown_item, prioridades);
         spinnerPrioridades.setAdapter(adapter);
 
         //No termino de entender para que sirve
@@ -133,7 +139,7 @@ public class AgregarActividadFragment extends Fragment {
         });
 
         setHasOptionsMenu(true);
-
+        FragmentLoader.setBackOptionEnabled(activity, true);
 
         //TODO: ESTO SOLO ESTA ACA PARA TESTEAR
         final TextView tiempo  = (TextView) view.findViewById(R.id.textViewParaTestearElTimePicker);
@@ -259,7 +265,7 @@ public class AgregarActividadFragment extends Fragment {
 
         LinearLayout grupoEtiquetasView = ( (LinearLayout) this.getView().findViewById(R.id.linearLayoutEtiquetas));
 
-        View etiquetaIndividualView = inflater.inflate(R.layout.layout_etiqueta, null);
+        View etiquetaIndividualView = inflater.inflate(R.layout.layout_etiqueta, null );
 
         TextView textViewEtiquetaIngresada = (TextView) etiquetaIndividualView.findViewById(R.id.nombreEtiqueta);
         textViewEtiquetaIngresada.setText(nombreEtiqueta);
