@@ -53,6 +53,7 @@ public class ObjetivoAdapter extends RecyclerView.Adapter<ObjetivoViewHolder> {
         if ( objetivo.tieneActividades() ) {
             holder.barraDeProgreso.setMax(objetivo.getCantidadActividades());
             holder.barraDeProgreso.setProgress(objetivo.getCantidadActividadesCompletadas());
+            holder.layoutProgreso.setVisibility(View.VISIBLE);
         }
         else {
             holder.layoutProgreso.setVisibility(View.GONE);
@@ -64,10 +65,6 @@ public class ObjetivoAdapter extends RecyclerView.Adapter<ObjetivoViewHolder> {
         return this.listaObjetivos.size();
     }
 }
-
-
-
-
 
 
 
