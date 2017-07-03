@@ -79,10 +79,10 @@ public class DetalleActividadFragment extends Fragment {
         mBotonSeeMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (actividad.getFechaInicio() != null) {
+                if (!Fecha.esFechaNula(actividad.getFechaInicio())) {
                     mFechaInicio.setVisibility(View.VISIBLE);
                 }
-                if (actividad.getFechaFin() != null) {
+                if (!Fecha.esFechaNula(actividad.getFechaFin()) ) {
                     mFechaFin.setVisibility(View.VISIBLE);
                 }
                 if (actividad.getPrioridad() != null) {
@@ -109,6 +109,7 @@ public class DetalleActividadFragment extends Fragment {
                 }
                 mBotonSeeMore.setVisibility(View.GONE);
             }
+
         });
     }
 

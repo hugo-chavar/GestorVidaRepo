@@ -5,9 +5,11 @@ package ar.com.fiuba.tddp1.gestorvida.dominio;
  */
 
 public class Fecha {
+    public static String ANIO_NULO = "1900";
+
     public String dia = "01";
     public String mes = "01";
-    public String anio = "1900";
+    public String anio = Fecha.ANIO_NULO;
 
     public Fecha(String dia, String mes, String anio) {
         this.dia = dia;
@@ -29,5 +31,9 @@ public class Fecha {
     @Override
     public String toString() {
         return "dia: " + dia +", mes: " + mes +", anio: " + anio;
+    }
+
+    public static boolean esFechaNula(Fecha fecha) {
+        return fecha.anio.equals(Fecha.ANIO_NULO);
     }
 }
