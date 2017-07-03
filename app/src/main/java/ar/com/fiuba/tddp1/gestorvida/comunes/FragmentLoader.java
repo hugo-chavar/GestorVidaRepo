@@ -39,8 +39,6 @@ public class FragmentLoader {
 
         if (id == R.id.nav_perfil) {
             //Mostrar pantalla perfil
-            //AgregarParticipantesFragment fragment1 = new AgregarParticipantesFragment();
-            //fragment1.setActividad(actividadGlobalMain);
             fragment = new AgregarParticipantesFragment();
 
         } else if (id == R.id.nav_calendario) {

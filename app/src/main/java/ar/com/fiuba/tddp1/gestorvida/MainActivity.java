@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity
 
     private Actividad actividad_detalle;
 
-    private Actividad actividadGlobalMain = new Actividad("Actividad hardcodeada desde MainActivity.java");
     private Date filtro_desde = null;
     private Date filtro_hasta = null;
 
@@ -75,7 +74,6 @@ public class MainActivity extends AppCompatActivity
         Perfil.agregarContacto(new Contacto("Definitely not Juanma", R.drawable.ic_filter));
         Perfil.agregarContacto(new Contacto("Mordekaiser", R.drawable.mercurio));
         Perfil.agregarContacto(new Contacto("Cosme Fulanito", R.drawable.circulo_color));
-        Perfil.agregarActividad(actividadGlobalMain);
 
         inicializarFiltroFechas(); //Esto es para BuscarActividades
 

@@ -48,7 +48,7 @@ public class ActividadViewHolder extends RecyclerView.ViewHolder
         }
         else if (view == this.textViewNombre) {
             this.mainActivity.setActividad_detalle(this.actividad);
-            FragmentLoader.load(mainActivity, new DetalleActividadFragment());
+            FragmentLoader.load(mainActivity, new DetalleActividadAgregarParticipantes());
         }
 
     }

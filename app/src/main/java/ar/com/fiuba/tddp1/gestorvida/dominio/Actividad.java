@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+import ar.com.fiuba.tddp1.gestorvida.R;
+
 /**
  * Created by User on 11/06/2017.
  */
@@ -26,8 +28,6 @@ public class Actividad {
 
     private Set<Etiqueta> etiquetas = new HashSet<>();
 
-    //TODO: hay que ver si conviene manejarlo como contacto o como string
-    private Set<String> participantes;
     private Set<Contacto> participantesAgregados = new HashSet<>();
 
     private List<Beneficio> beneficios = new ArrayList<Beneficio>();
@@ -103,7 +103,10 @@ public class Actividad {
     }
 
     public void setParticipantes(Set<String> participantes) {
-        this.participantes = participantes;
+        for (String nombre : participantes) {
+            //TODO setearle aca la foto de perfil de alguna manera
+            this.participantesAgregados.add(new Contacto(nombre, R.drawable.avatar));
+        }
     }
 
     public void setPeriodicidad(int periodicidad) {
@@ -187,5 +190,17 @@ public class Actividad {
 
     public List<Beneficio> getBeneficios() {
         return beneficios;
+    }
+
+    public boolean tieneEtiquetas() {
+        return !etiquetas.isEmpty();
+    }
+
+    public Set<Contacto> getParticipantes() {
+        return this.participantesAgregados;
+    }
+
+    public boolean tieneParticipantes() {
+        return this.participantesAgregados.size() != 0;
     }
 }

@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -190,14 +191,19 @@ public class BuscarActividadActivity extends Fragment {
         TextView inicio = new TextView(this.getActivity());
         inicio.setTextSize(16);
         Fecha fechaInicio = actividad.getFechaInicio();
-        inicio.setText("Inicio: " + fechaInicio.dia + "/" + fechaInicio.mes + "/" + fechaInicio.anio);
+        inicio.setText("Fecha de inicio: " + fechaInicio.dia + "/" + fechaInicio.mes + "/" + fechaInicio.anio);
         elementoActividad.addView(inicio);
 
         TextView fin = new TextView(this.getActivity());
         fin.setTextSize(16);
         Fecha fechaFin = actividad.getFechaFin();
         fin.setText("Fin: " + fechaFin.dia + "/" + fechaFin.mes + "/" + fechaFin.anio);
-        elementoActividad.addView(fin);
+        //elementoActividad.addView(fin);
+
+        elementoActividad.setBackground(getActivity().getDrawable(R.drawable.actividad_background));
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams( LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(10, 20, 10, 0);
+        elementoActividad.setLayoutParams(layoutParams);
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         Date finicio = null;
