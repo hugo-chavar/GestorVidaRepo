@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -25,6 +24,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -72,7 +72,8 @@ public class BuscarActividadActivity extends Fragment {
 
     private void inicializarFiltroEtiquetas(View view) {
         mFiltroEtiqueta = (AutoCompleteTextView) view.findViewById(R.id.filtro_etiquetas);
-        List<String> etiquetas = new ArrayList<>(Perfil.getNombresEtiquetas());
+        List etiquetas = new ArrayList<>(Perfil.getNombresEtiquetas());
+        Collections.addAll(etiquetas, new String[]{"Deportes","Musica","Peliculas","Fiestas","Guitarra","Facultad","Estudio","Compras","Entretenimiento","Futbol","Trabajo","Autos","Carreras","Boliche","Recital"});
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this.getActivity(), android.R.layout.simple_dropdown_item_1line, etiquetas);
         mFiltroEtiqueta.setAdapter(adapter);
 

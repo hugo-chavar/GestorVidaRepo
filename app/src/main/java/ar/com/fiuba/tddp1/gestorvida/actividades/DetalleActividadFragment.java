@@ -138,11 +138,11 @@ public class DetalleActividadFragment extends Fragment {
             Beneficio beneficio = actividad.getBeneficios().get(0);
             mBeneficio.setTextSize(18);
             mPrecio.setTextSize(16);
-            mPrecio.setText("Precio normal: $" + beneficio.getPrecio());
+            mPrecio.setText("Precio normal: $" + Math.round(beneficio.getPrecio()));
             mDescuento.setTextSize(16);
-            mDescuento.setText("Descuento Premium: " + beneficio.getDescuento() + "%");
+            mDescuento.setText("Descuento Premium: " + Math.round(beneficio.getDescuento()) + "%");
             mPrecioPremium.setTextSize(24);
-            mPrecioPremium.setText("Precio Premium: $" + beneficio.getPrecio() * (1 - (beneficio.getDescuento() / 100)));
+            mPrecioPremium.setText("Precio Premium: $" + Math.round(beneficio.getPrecio() * (1 - (beneficio.getDescuento() / 100))));
         }
     }
 
