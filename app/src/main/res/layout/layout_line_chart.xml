@@ -5,9 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
-
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/ejemploGrafico"
             android:layout_width="0dp"
@@ -22,10 +19,6 @@
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp" />
-
-
-
-
 
     <!--
     <android.support.design.widget.FloatingActionButton

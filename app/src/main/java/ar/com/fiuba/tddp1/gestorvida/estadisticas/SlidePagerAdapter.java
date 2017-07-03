@@ -2,13 +2,12 @@ package ar.com.fiuba.tddp1.gestorvida.estadisticas;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v13.app.FragmentStatePagerAdapter;
 
 
-public class SlidePagerAdapter extends FragmentPagerAdapter
+public class SlidePagerAdapter extends FragmentStatePagerAdapter
 {
     private static final int NUM_PAGES = 2;
-    private Fragment f = null;
 
     public SlidePagerAdapter(FragmentManager fm)
     {
@@ -21,15 +20,8 @@ public class SlidePagerAdapter extends FragmentPagerAdapter
         // Segun la posicion, creo el fragment correspondiente y lo devuelvo
         switch(position)
         {
-            case 0 :
-                if(f==null) {
-                    f = new EstadisticasActividadesCompletadasFragment();
-                    return f;
-                }
-                else
-                    return f;
-
-                case 1 : return new EstadisticasEtiquetasPieChartFragment();
+            case 0 : return new EstadisticasActividadesCompletadasFragment();
+            case 1 : return new EstadisticasEtiquetasPieChartFragment();
         }
         return null;
     }
