@@ -1,5 +1,7 @@
 package ar.com.fiuba.tddp1.gestorvida;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -88,7 +90,7 @@ public class MainActivity extends AppCompatActivity
         } else {
 
             if (FragmentLoader.shouldExit()) {
-                finishAffinity();
+                showExitDialog();
             } else {
                 FragmentLoader.loadDefault(this);
             }
@@ -99,7 +101,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -183,5 +185,22 @@ public class MainActivity extends AppCompatActivity
 
         drawer.setDrawerLockMode(lockMode);
         toggle.setDrawerIndicatorEnabled(enabled);
+    }
+
+    private void showExitDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Desea salir de la app?");
+        builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                finishAffinity();
+            }
+        });
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

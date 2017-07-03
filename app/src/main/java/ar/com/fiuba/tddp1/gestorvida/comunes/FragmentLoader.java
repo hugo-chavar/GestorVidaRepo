@@ -20,6 +20,7 @@ public class FragmentLoader {
     public static final int DEFAULT_FRAGMENT = R.id.nav_actividades;
     private static int current = R.id.nav_actividades;
 
+
     public static void load(Activity activity, Fragment fragment) {
         Bundle bundle = new Bundle();
 
@@ -29,8 +30,8 @@ public class FragmentLoader {
         fragmentManager.beginTransaction()
                 .replace(R.id.contenedor, fragment)
                 .commit();
-        current = -1;
-        setDrawerEnabled((MainActivity)activity, true);
+
+        //setDrawerEnabled((MainActivity)activity, true);
 
     }
 
@@ -68,9 +69,9 @@ public class FragmentLoader {
         }
 
         load(activity, fragment);
-        setDrawerEnabled((MainActivity)activity, true);
-
         current = id;
+
+        setDrawerEnabled((MainActivity)activity, true);
 
 
     }
@@ -89,4 +90,5 @@ public class FragmentLoader {
         load(activity, DEFAULT_FRAGMENT);
 
     }
+
 }
