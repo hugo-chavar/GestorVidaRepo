@@ -14,7 +14,7 @@ import ar.com.fiuba.tddp1.gestorvida.R;
 import ar.com.fiuba.tddp1.gestorvida.actividades.ActividadesFragment;
 import ar.com.fiuba.tddp1.gestorvida.calendario.CalendarioFragment;
 import ar.com.fiuba.tddp1.gestorvida.contactos.AgregarParticipantesFragment;
-import ar.com.fiuba.tddp1.gestorvida.estadisticas.EstadisticasActividadesCompletadasFragment;
+import ar.com.fiuba.tddp1.gestorvida.estadisticas.EstadisticasPagerFragment;
 import ar.com.fiuba.tddp1.gestorvida.objetivos.ObjetivosFragment;
 
 public class FragmentLoader {
@@ -33,6 +33,7 @@ public class FragmentLoader {
     public static final String DetalleActividadAgregarParticipantes = "DetalleActividadAgregarParticipantes";
     public static final String DetalleBuscarActividad = "DetalleBuscarActividad";
     public static final String DetalleActividad = "DetalleActividad";
+    public static final String EstadisticasPager = "EstadisticasPager";
 
     private static final Map<String, Boolean> drawerVisibilityMap;
     static
@@ -49,11 +50,9 @@ public class FragmentLoader {
         drawerVisibilityMap.put(DetalleActividadAgregarParticipantes, true);
         drawerVisibilityMap.put(DetalleBuscarActividad, true);
         drawerVisibilityMap.put(DetalleActividad, false);
-
+        drawerVisibilityMap.put(EstadisticasPager, false);
 
     }
-
-
 
 
     public static void load(Activity activity, Fragment fragment, String name) {
@@ -73,12 +72,7 @@ public class FragmentLoader {
                 .commit();
 
         boolean drawerVisible = drawerVisibilityMap.get(name);
-        //setDrawerEnabled((MainActivity)activity, drawerVisible);
         ((MainActivity) activity).setDrawerEnabled(drawerVisible);
-
-        //if (!drawerVisible) {
-            //setBackOptionEnabled(activity, !drawerVisible);
-        //}
 
 
     }
@@ -88,18 +82,10 @@ public class FragmentLoader {
 
         int stackCount = fragmentManager.getBackStackEntryCount();
         if ( stackCount > 1) {
-            //String current = getFragmentName(fragmentManager, stackCount - 1);
-            //Boolean visible = drawerVisibilityMap.get(current);
             fragmentManager.popBackStack();
             String next = getFragmentName(fragmentManager, stackCount - 2);
             boolean visible = drawerVisibilityMap.get(next);
-            //setDrawerEnabled((MainActivity)activity, visible);
             ((MainActivity) activity).setDrawerEnabled(visible);
-
-                //setBackOptionEnabled(activity, !visible.booleanValue());
-            //setDrawerEnabled((MainActivity)activity, visible);
-
-
 
             return true;
 
@@ -126,8 +112,12 @@ public class FragmentLoader {
             fragment = new BuscarActividadActivity();
             name = BuscarActividad;
         } else if (id == R.id.nav_estadisticas) {
-            fragment = new EstadisticasActividadesCompletadasFragment();
+            //fragment = new EstadisticasActividadesCompletadasFragment();
+            fragment = new EstadisticasPagerFragment();
+
+
             name = EstadisticasActividadesCompletadas;
+            name = EstadisticasPager;
         } else {
 
             fragment = new ActividadesFragment();
@@ -140,11 +130,6 @@ public class FragmentLoader {
 
     }
 
-    /*private static void setDrawerEnabled(DrawerLocker locker, boolean enabled) {
-
-        locker.setDrawerEnabled(enabled);
-    }*/
-
     private static String getFragmentName(FragmentManager fragmentManager, int pos){
 
 
@@ -155,20 +140,5 @@ public class FragmentLoader {
         return "";
 
     }
-
-    /*
-    public static void setBackOptionEnabled(Activity activity, boolean enabled) {
-        ActionBar actionBar = activity.getActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(enabled);
-        } else {
-            android.support.v7.app.ActionBar supportAcionBar = ((AppCompatActivity)activity).getSupportActionBar();
-            if (supportAcionBar != null) {
-                supportAcionBar.setDisplayHomeAsUpEnabled(enabled);
-                supportAcionBar.setDisplayShowHomeEnabled(enabled);
-            }
-        }
-    }*/
-
 
 }

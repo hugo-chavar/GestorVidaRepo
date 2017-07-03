@@ -1,14 +1,13 @@
 package ar.com.fiuba.tddp1.gestorvida.estadisticas;
 
 
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -17,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.fiuba.tddp1.gestorvida.R;
+
+//import android.support.v4.app.Fragment;
 
 /**
  * Created by User on 24/06/2017.
