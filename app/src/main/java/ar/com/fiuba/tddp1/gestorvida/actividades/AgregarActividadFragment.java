@@ -177,7 +177,7 @@ public class AgregarActividadFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
 
-        menuInflater.inflate(R.menu.menu_buscar_actividad, menu);
+        menuInflater.inflate(R.menu.menu_new_actividad, menu);
 
     }
 

@@ -18,6 +18,7 @@
 
     <string name="action_settings">Configuración</string>
     <string name="action_save">Guardar</string>
+    <string name="action_delete">Borrar</string>
 
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
 

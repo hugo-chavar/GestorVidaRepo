@@ -47,7 +47,7 @@ public class FragmentLoader {
         drawerVisibilityMap.put(EstadisticasActividadesCompletadas, true);
         drawerVisibilityMap.put(EstadisticasEtiquetasPieChart, false);
         drawerVisibilityMap.put(AgregarActividad, false);
-        drawerVisibilityMap.put(DetalleActividadAgregarParticipantes, true);
+        drawerVisibilityMap.put(DetalleActividadAgregarParticipantes, false);
         drawerVisibilityMap.put(DetalleBuscarActividad, true);
         drawerVisibilityMap.put(DetalleActividad, false);
         drawerVisibilityMap.put(EstadisticasPager, false);
