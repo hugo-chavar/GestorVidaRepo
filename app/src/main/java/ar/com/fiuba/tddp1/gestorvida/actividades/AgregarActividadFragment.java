@@ -41,10 +41,12 @@ import ar.com.fiuba.tddp1.gestorvida.MainActivity;
 import ar.com.fiuba.tddp1.gestorvida.R;
 import ar.com.fiuba.tddp1.gestorvida.TimePickerFragment;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
+import ar.com.fiuba.tddp1.gestorvida.dominio.ActividadFactory;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Etiqueta;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Fecha;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Objetivo;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
+import ar.com.fiuba.tddp1.gestorvida.web.RequestSender;
 
 //import android.support.v7.app.ActionBar;
 
@@ -153,7 +155,6 @@ public class AgregarActividadFragment extends Fragment {
         });
 
         setHasOptionsMenu(true);
-        //FragmentLoader.setBackOptionEnabled(activity, true);
 
         //TODO: ESTO SOLO ESTA ACA PARA TESTEAR
         final TextView tiempo  = (TextView) view.findViewById(R.id.textViewParaTestearElTimePicker);
@@ -386,22 +387,14 @@ public class AgregarActividadFragment extends Fragment {
 
         Perfil.agregarActividad(actividad);
 
-        /*
         AgregarActividadListener listener = new AgregarActividadListener(getActivity(), actividad);;
 
         RequestSender requestSender = new RequestSender(getActivity());
-        Map<String,String> _params;
-        _params = new HashMap<String,String>();
-        _params.put("username", name);
-        _params.put("password", password);
 
-        JSONObject obj = new JSONObject(_params);
+        String url = getString(R.string.url) + "activities";
 
-        String url = getString(R.string.url) + "users/authenticate";
+        requestSender.doPost(listener, url, ActividadFactory.toJSONObject(actividad));
 
-
-        requestSender.doPost(listener, url, new JSONObject(_params));
-        */
     }
 
     @Override

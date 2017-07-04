@@ -18,6 +18,7 @@ public class Actividad {
     private String descripcion;
     private boolean estaCompletada;
     private String foto;
+    private String tipo;
     private String _id;
     private String __v; //version en el servidor
 
@@ -60,6 +61,8 @@ public class Actividad {
         this._id = id;
     }
 
+    public String getId() { return _id; }
+
     public void setFechaInicio(Fecha fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
@@ -93,7 +96,6 @@ public class Actividad {
         this.diaEnQueSeCompleto = null;
     }
 
-    //public void setEtiquetas(Set<String> etiquetas) {
     public void setEtiquetas(Set<Etiqueta> etiquetas) {
         this.etiquetas.addAll(etiquetas);
     }
@@ -143,8 +145,6 @@ public class Actividad {
         return this.diaEnQueSeCompleto;
     }
 
-
-    //public Set<String> getEtiquetas() {
     public Set<Etiqueta> getEtiquetas() {
         return this.etiquetas;
     }
@@ -202,5 +202,21 @@ public class Actividad {
 
     public boolean tieneParticipantes() {
         return this.participantesAgregados.size() != 0;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public String getHorasEstimadas() {
+        return horasEstimadas;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 }

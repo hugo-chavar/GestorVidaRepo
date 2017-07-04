@@ -1,7 +1,5 @@
 package ar.com.fiuba.tddp1.gestorvida.dominio;
 
-import android.graphics.Color;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,6 +16,8 @@ public  class ActividadFactory {
         Actividad actividad = new Actividad(jsonObject.getString("nombre"));
         actividad.setDescripcion(jsonObject.getString("descripcion"));
         actividad.setFoto(jsonObject.getString("foto"));
+        actividad.setPrioridad(jsonObject.getString("prioridad"));
+        actividad.setTipo(jsonObject.getString("tipo"));
         actividad.setId(jsonObject.getString("_id"));
         actividad.setFechaInicio(new Fecha(jsonObject.getString("fechaInicio")));
         actividad.setFechaFin(new Fecha(jsonObject.getString("fechaFin")));
@@ -27,10 +27,9 @@ public  class ActividadFactory {
 
         JSONArray st = jsonObject.getJSONArray("categorias");
 
-        //TODO: aca ademas deberia parsearse el color
         Set<Etiqueta> etiquetas = new HashSet<Etiqueta>();
         for (int i = 0; i < st.length(); i++) {
-            etiquetas.add(new Etiqueta(st.getString(i), Color.BLACK));// TODO: sacar el color BLACK hardcodeado y poner el del server
+            etiquetas.add(new Etiqueta(st.getString(i)));
         }
         actividad.setEtiquetas(etiquetas);
 
@@ -67,23 +66,49 @@ public  class ActividadFactory {
         try {
             jsonObject.put("nombre", actividad.getNombre());
             jsonObject.put("descripcion", actividad.getDescripcion());
+            jsonObject.put("_id", actividad.getId());
+            jsonObject.put("foto", actividad.getFoto());
+            jsonObject.put("prioridad", actividad.getPrioridad());
+            jsonObject.put("tipo", actividad.getTipo());
+            jsonObject.put("fechaInicio", actividad.getFechaInicio());
+            jsonObject.put("fechaFin", actividad.getFechaFin());
+            jsonObject.put("recordatorio", actividad.getFechaRecordatorio());
+            jsonObject.put("periodicidad", actividad.getPeriodicidad());
+            jsonObject.put("estimacion", actividad.getHorasEstimadas());
+            jsonObject.put("completada", actividad.estaCompleta());
 
+            JSONArray participantes = new JSONArray();
+
+            for (Contacto contacto: actividad.getParticipantes()) {
+                participantes.put(contacto.getNombre());
+            }
+
+            jsonObject.put("participantes", participantes);
+
+            JSONArray categorias = new JSONArray();
+            for (Etiqueta etiqueta: actividad.getEtiquetas()) {
+                categorias.put(etiqueta.serializar());
+            }
+
+            jsonObject.put("categorias", categorias);
+
+            JSONArray beneficios = new JSONArray();
+
+            for (Beneficio beneficio: actividad.getBeneficios()) {
+                JSONObject jsonObject1 = new JSONObject();
+                jsonObject1.put("precio", beneficio.getPrecio());
+                jsonObject1.put("descuento", beneficio.getDescuento());
+                jsonObject1.put("descripcion", beneficio.getDescripcion());
+                beneficios.put(jsonObject1);
+            }
+
+            jsonObject.put("beneficios", beneficios);
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         return jsonObject;
-
-
-        /*actividad.setDescripcion(jsonObject.getString("descripcion"));
-        actividad.setFoto(jsonObject.getString("foto"));
-        actividad.setId(jsonObject.getString("_id"));
-        actividad.setFechaInicio(new Fecha(jsonObject.getString("fechaInicio")));
-        actividad.setFechaFin(new Fecha(jsonObject.getString("fechaFin")));
-        actividad.setFechaRecordatorio(new Fecha(jsonObject.getString("recordatorio")));
-        actividad.setPeriodicidad(Integer.parseInt(jsonObject.getString("periodicidad")));
-        actividad.setTiempoEstimado(String.valueOf(jsonObject.getInt("estimacion")), "0");*/
 
     }
 }

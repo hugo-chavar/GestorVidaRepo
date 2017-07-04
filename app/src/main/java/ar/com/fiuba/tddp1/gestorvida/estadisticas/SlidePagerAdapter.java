@@ -8,6 +8,8 @@ import android.support.v13.app.FragmentStatePagerAdapter;
 public class SlidePagerAdapter extends FragmentStatePagerAdapter
 {
     private static final int NUM_PAGES = 2;
+    private Fragment f1 = new EstadisticasActividadesCompletadasFragment();
+    private Fragment f2 = new EstadisticasEtiquetasPieChartFragment();
 
     public SlidePagerAdapter(FragmentManager fm)
     {
@@ -20,8 +22,8 @@ public class SlidePagerAdapter extends FragmentStatePagerAdapter
         // Segun la posicion, creo el fragment correspondiente y lo devuelvo
         switch(position)
         {
-            case 0 : return new EstadisticasActividadesCompletadasFragment();
-            case 1 : return new EstadisticasEtiquetasPieChartFragment();
+            case 0 : return f1;
+            case 1 : return f2;
         }
         return null;
     }
