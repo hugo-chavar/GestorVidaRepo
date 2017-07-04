@@ -6,6 +6,7 @@ package ar.com.fiuba.tddp1.gestorvida.dominio;
 
 public class Fecha {
     public static String ANIO_NULO = "1900";
+    private static final String sep  = "/";
 
     public String dia = "01";
     public String mes = "01";
@@ -18,7 +19,7 @@ public class Fecha {
     }
 
     public Fecha(String fecha) {
-        String [] datos = fecha.split("/");
+        String [] datos = fecha.split(sep);
 
         if (datos.length == 3) {
             dia = datos[0];
@@ -30,7 +31,7 @@ public class Fecha {
 
     @Override
     public String toString() {
-        return "dia: " + dia +", mes: " + mes +", anio: " + anio;
+        return dia + sep + mes + sep + anio;
     }
 
     public static boolean esFechaNula(Fecha fecha) {

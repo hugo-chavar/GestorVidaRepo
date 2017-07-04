@@ -28,6 +28,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -392,6 +394,10 @@ public class AgregarActividadFragment extends Fragment {
         RequestSender requestSender = new RequestSender(getActivity());
 
         String url = getString(R.string.url) + "activities";
+
+        JSONObject jsonObject = ActividadFactory.toJSONObject(actividad);
+
+        Log.d("Guardando", jsonObject.toString());
 
         requestSender.doPost(listener, url, ActividadFactory.toJSONObject(actividad));
 

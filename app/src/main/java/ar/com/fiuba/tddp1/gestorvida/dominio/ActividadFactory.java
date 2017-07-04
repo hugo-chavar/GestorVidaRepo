@@ -26,6 +26,8 @@ public  class ActividadFactory {
         actividad.setId(jsonObject.getString("_id"));
         actividad.setFechaInicio(new Fecha(jsonObject.getString("fechaInicio")));
         actividad.setFechaFin(new Fecha(jsonObject.getString("fechaFin")));
+        actividad.setHoraInicio(jsonObject.getString("horaInicio"));
+        actividad.setHoraFin(jsonObject.getString("horaFin"));
         actividad.setFechaRecordatorio(new Fecha(jsonObject.getString("recordatorio")));
         actividad.setPeriodicidad(Integer.parseInt(jsonObject.getString("periodicidad")));
         actividad.setTiempoEstimado(String.valueOf(jsonObject.getInt("estimacion")), "0");
@@ -77,6 +79,8 @@ public  class ActividadFactory {
             jsonObject.put("tipo", actividad.getTipo());
             jsonObject.put("fechaInicio", actividad.getFechaInicio());
             jsonObject.put("fechaFin", actividad.getFechaFin());
+            jsonObject.put("horaInicio", actividad.getHoraInicio());
+            jsonObject.put("horaFin", actividad.getHoraFin());
             jsonObject.put("recordatorio", actividad.getFechaRecordatorio());
             jsonObject.put("periodicidad", actividad.getPeriodicidad());
             jsonObject.put("estimacion", actividad.getHorasEstimadas());

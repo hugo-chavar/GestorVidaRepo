@@ -17,13 +17,16 @@ public class Actividad {
     private String nombre;
     private String descripcion;
     private boolean estaCompletada;
-    private String foto;
-    private String tipo;
+    private String foto = "32";
+    private String tipo = "tipoXdefecto";
     private String _id;
     private String __v; //version en el servidor
 
     private Fecha fechaInicio = null;
     private Fecha fechaFin = null;
+
+    private String horaInicio = "00:00";
+    private String horaFin = "23:59";
 
     String prioridad = null;
 
@@ -35,7 +38,7 @@ public class Actividad {
 
     private Fecha fechaRecordatorio;
     private int periodicidad;
-    private String horasEstimadas;
+    private int horasEstimadas = 0;
     private String minutosEstimados;
     private boolean esPrivada;
     private Integer diaEnQueSeCompleto;
@@ -116,7 +119,7 @@ public class Actividad {
     }
 
     public void setTiempoEstimado(String horas, String minutos) {
-        this.horasEstimadas = horas;
+        this.horasEstimadas = Integer.parseInt(horas);
         this.minutosEstimados = minutos;
     }
 
@@ -208,7 +211,7 @@ public class Actividad {
         return foto;
     }
 
-    public String getHorasEstimadas() {
+    public int getHorasEstimadas() {
         return horasEstimadas;
     }
 
@@ -223,5 +226,21 @@ public class Actividad {
     @Override
     public String toString() {
         return getNombre() + " " + getDescripcion() + " " + getPrioridad();
+    }
+
+    public String getHoraInicio() {
+        return horaInicio;
+    }
+
+    public String getHoraFin() {
+        return horaFin;
+    }
+
+    public void setHoraInicio(String horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+    public void setHoraFin(String horaFin) {
+        this.horaFin = horaFin;
     }
 }
