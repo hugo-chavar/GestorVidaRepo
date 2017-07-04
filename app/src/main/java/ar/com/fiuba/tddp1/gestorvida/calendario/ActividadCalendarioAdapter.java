@@ -6,7 +6,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Space;
 import android.widget.TextView;
+
+import com.github.mikephil.charting.utils.Utils;
 
 import java.util.List;
 
@@ -62,6 +65,9 @@ public class ActividadCalendarioAdapter extends RecyclerView.Adapter<ActividadCa
     }
 
     private void cargarEtiquetasAlHolder(ActividadCalendarioViewHolder holder, Actividad actividad) {
+
+        holder.layoutEtiquetas.setPadding(this.activ.getResources().getDimensionPixelSize(R.dimen.layout_etiquetas_calendario_padding_left),0,0,0);
+
         for (Etiqueta etiqueta : actividad.getEtiquetas()) {
             TextView textViewEtiqueta = new TextView(this.activ);
             textViewEtiqueta.setText(etiqueta.nombre);
@@ -69,6 +75,10 @@ public class ActividadCalendarioAdapter extends RecyclerView.Adapter<ActividadCa
             fondoEtiqueta.setColor(etiqueta.color);
             textViewEtiqueta.setBackground(fondoEtiqueta);
             holder.layoutEtiquetas.addView(textViewEtiqueta);
+            //Para separar entre entiquetas
+            Space espacioEntreEtiquetas = new Space(this.activ);
+            espacioEntreEtiquetas.setMinimumWidth(5);
+            holder.layoutEtiquetas.addView(espacioEntreEtiquetas);
         }
     }
 
