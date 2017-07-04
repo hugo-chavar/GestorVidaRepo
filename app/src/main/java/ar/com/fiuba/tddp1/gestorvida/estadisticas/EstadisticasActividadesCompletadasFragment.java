@@ -3,6 +3,7 @@ package ar.com.fiuba.tddp1.gestorvida.estadisticas;
 import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +12,11 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +28,8 @@ import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
  * Created by User on 26/06/2017.
  */
 
-public class EstadisticasActividadesCompletadasFragment extends Fragment /*implements View.OnClickListener*/ {
+public class EstadisticasActividadesCompletadasFragment extends Fragment {
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -33,14 +37,9 @@ public class EstadisticasActividadesCompletadasFragment extends Fragment /*imple
 
         LineChart grafico = (LineChart) view.findViewById(R.id.ejemploGrafico);
 
-        /*
-        FloatingActionButton fabSiguienteGrafico = (FloatingActionButton) view.findViewById(R.id.fabLineChartSiguienteGrafico);
-        fabSiguienteGrafico.setOnClickListener(this);
-        */
 
         //Primero se crea una lista de Entry (un punto X,Y) con los valores que pongamos
         Integer[] valoresXDias = new Integer[]{1,2,3,4,5,6,7}; //Para la demo solo vamos a usar 1 semana, 7 dias
-        //Integer[] valoresYCantidadActividadesCompletadas = new Integer[]{1,2,8,4,2,6,8};
         Integer[] valoresYCantidadActividadesCompletadas = Perfil.getCantidadActividadesCompletadasEnSemana();
         List<Entry> puntos = new ArrayList<Entry>();
         for (int i = 0; i < valoresXDias.length; i++ ) {
@@ -53,15 +52,36 @@ public class EstadisticasActividadesCompletadasFragment extends Fragment /*imple
 
         datos.setValueTextColor(...);
         */
-        datosSet.setColor(Color.RED);
-        datosSet.setValueTextSize(15);
+        //TODO: ver que quede bien en los celulares
+        datosSet.setLineWidth(Utils.convertDpToPixel(5));
+        datosSet.setValueTextSize(Utils.convertDpToPixel(15));
+        datosSet.setColor(ContextCompat.getColor(this.getContext(), R.color.colorPrimaryDark));
+        datosSet.setCircleColor(Color.GRAY);
+
+
 
         //Por ultimo se crea una LineData a partir del LineDataSet y se agrega al grafico
         LineData lineaData = new LineData(datosSet);
+        lineaData.setValueFormatter(new IntegerValueFormatter());
+        lineaData.setValueTextSize(Utils.convertDpToPixel(20));
         grafico.setData(lineaData);
 
+
+        float EJE_TEXT_SIZE = 20;
+        XAxis ejeX = grafico.getXAxis();
         //Para que los dias aparezcan abajo
-        grafico.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        ejeX.setPosition(XAxis.XAxisPosition.BOTTOM);
+        ejeX.setTextSize(Utils.convertDpToPixel(EJE_TEXT_SIZE));
+
+        YAxis ejeYIzq = grafico.getAxisLeft();
+        ejeYIzq.setGranularity(1);
+        ejeYIzq.setAxisMinimum(0);
+        ejeYIzq.setTextSize(Utils.convertDpToPixel(EJE_TEXT_SIZE));
+
+        YAxis ejeYDer = grafico.getAxisRight();
+        ejeYDer.setGranularity(1);
+        ejeYDer.setAxisMinimum(0);
+        ejeYDer.setTextSize(Utils.convertDpToPixel(EJE_TEXT_SIZE));
 
         Description descripcionVacia = new Description();
         descripcionVacia.setText("");
@@ -76,11 +96,4 @@ public class EstadisticasActividadesCompletadasFragment extends Fragment /*imple
         return view;
     }
 
-    /*
-    @Override
-    public void onClick(View v) {
-        FragmentLoader.load(getActivity(), new EstadisticasEtiquetasPieChartFragment(), FragmentLoader.EstadisticasEtiquetasPieChart);
-
-    }
-    */
 }

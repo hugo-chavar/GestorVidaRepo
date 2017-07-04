@@ -94,21 +94,30 @@ public class AgregarActividadFragment extends Fragment {
 
         //Seteo el clickListener de los botones de fechas
         ImageView buttonInicioActividad = (ImageView) view.findViewById(R.id.imageViewInicioActividad);
-        buttonInicioActividad.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mostrarDatePicker(v);
-            }
-        });
+        this.setearOnClickListenerAViewFecha(buttonInicioActividad);
 
         ImageView buttonFinActividad = (ImageView) view.findViewById(R.id.imageViewFinActividad);
-        buttonFinActividad.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mostrarDatePicker(v);
-            }
-        });
+        this.setearOnClickListenerAViewFecha(buttonFinActividad );
 
+        ImageView buttonRecordatorio = (ImageView) view.findViewById(R.id.imageViewRecordatorio);
+        this.setearOnClickListenerAViewFecha(buttonRecordatorio);
+
+
+        //Ademas seteo el clickListener a los TextViews de las fechas
+        TextView textViewFechaInicioActividad = (TextView) view.findViewById(R.id.textViewInicioActividad);
+        this.setearOnClickListenerAViewFecha(textViewFechaInicioActividad);
+
+        TextView textViewFechaFinActividad = (TextView) view.findViewById(R.id.textViewFinActividad);
+        this.setearOnClickListenerAViewFecha(textViewFechaFinActividad);
+
+
+        TextView textViewRecordatorio = (TextView) view.findViewById(R.id.textViewFechaRecordatorio);
+        this.setearOnClickListenerAViewFecha(textViewRecordatorio);
+
+
+        view.findViewById(R.id.textViewFinActividadContainer).setVisibility(View.GONE);
+
+        //Etiquetas
         ImageView buttonAgregarEtiqueta = (ImageView) view.findViewById(R.id.buttonAgregarEtiqueta);
         buttonAgregarEtiqueta.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,31 +126,12 @@ public class AgregarActividadFragment extends Fragment {
             }
         });
 
-        //Ademas seteo el clickListener a los TextViews de las fechas
-        TextView textViewFechaInicioActividad = (TextView) view.findViewById(R.id.textViewInicioActividad);
-        this.setearOnClickListenerATextViewFecha(textViewFechaInicioActividad);
-
-        TextView textViewFechaFinActividad = (TextView) view.findViewById(R.id.textViewFinActividad);
-        this.setearOnClickListenerATextViewFecha(textViewFechaFinActividad);
-
-
-        TextView textViewRecordatorio = (TextView) view.findViewById(R.id.textViewFechaRecordatorio);
-        this.setearOnClickListenerATextViewFecha(textViewRecordatorio);
-
 
         CheckBox checkBoxTiempoEstimado = (CheckBox) view.findViewById(R.id.checkBoxTiempoEstimado);
         checkBoxTiempoEstimado.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clickTiempoEstimado(v);
-            }
-        });
-
-        ImageView buttonRecordatorio = (ImageView) view.findViewById(R.id.imageViewRecordatorio);
-        buttonRecordatorio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mostrarDatePicker(v);
             }
         });
 
@@ -171,11 +161,15 @@ public class AgregarActividadFragment extends Fragment {
         return view;
     }
 
-    private void setearOnClickListenerATextViewFecha(TextView textViewFecha) {
+    private void setearOnClickListenerAViewFecha(View textViewFecha) {
         textViewFecha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mostrarDatePicker(v);
+
+                if ( (v.getId() == R.id.textViewInicioActividad) || (v.getId() == R.id.imageViewInicioActividad) ) {
+                    getActivity().findViewById(R.id.textViewFinActividadContainer).setVisibility(View.VISIBLE);
+                }
             }
         });
     }
