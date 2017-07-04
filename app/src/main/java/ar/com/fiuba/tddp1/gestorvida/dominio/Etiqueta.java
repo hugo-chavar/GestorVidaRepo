@@ -1,7 +1,8 @@
 package ar.com.fiuba.tddp1.gestorvida.dominio;
 
 import android.graphics.Color;
-import android.support.annotation.NonNull;
+
+import java.util.Random;
 
 /**
  * Created by User on 30/06/2017.
@@ -25,8 +26,22 @@ public class Etiqueta {
 
     public Etiqueta(String etiquetaSerializada) {
         String[] etiquetaParseada = etiquetaSerializada.split(SEPARADOR_COLOR_NOMBRE);
-        this.color = Integer.parseInt(etiquetaParseada[0]);
-        this.nombre = etiquetaParseada[1];
+        if (etiquetaParseada.length > 1) {
+            try {
+                color = Integer.parseInt(etiquetaParseada[0]);
+            } catch (NumberFormatException e) {
+                Random random = new Random();
+                color = random.nextInt(9) + 1;
+            }
+
+            nombre = etiquetaParseada[1];
+        } else {
+            Random random = new Random();
+
+            color = random.nextInt(9) + 1;
+            nombre = etiquetaParseada[0];
+        }
+
     }
 
     public String serializar() {

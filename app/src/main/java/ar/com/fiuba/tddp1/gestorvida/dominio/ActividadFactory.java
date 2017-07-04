@@ -1,5 +1,7 @@
 package ar.com.fiuba.tddp1.gestorvida.dominio;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,8 +17,11 @@ public  class ActividadFactory {
 
         Actividad actividad = new Actividad(jsonObject.getString("nombre"));
         actividad.setDescripcion(jsonObject.getString("descripcion"));
-        actividad.setFoto(jsonObject.getString("foto"));
         actividad.setPrioridad(jsonObject.getString("prioridad"));
+
+        Log.d("P", actividad.toString());
+
+        actividad.setFoto(jsonObject.getString("foto"));
         actividad.setTipo(jsonObject.getString("tipo"));
         actividad.setId(jsonObject.getString("_id"));
         actividad.setFechaInicio(new Fecha(jsonObject.getString("fechaInicio")));

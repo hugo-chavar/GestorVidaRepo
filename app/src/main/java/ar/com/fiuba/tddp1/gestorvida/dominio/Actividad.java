@@ -219,4 +219,9 @@ public class Actividad {
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
+
+    @Override
+    public String toString() {
+        return getNombre() + " " + getDescripcion() + " " + getPrioridad();
+    }
 }
