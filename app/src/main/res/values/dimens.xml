@@ -16,4 +16,5 @@
     <dimen name="text_separator">30dp</dimen>
     <dimen name="text_height">35dp</dimen>
     <dimen name="layout_etiquetas_calendario_padding_left">20dp</dimen>
+    <dimen name="etiqueta_padding_interno">4dp</dimen>
 </resources>

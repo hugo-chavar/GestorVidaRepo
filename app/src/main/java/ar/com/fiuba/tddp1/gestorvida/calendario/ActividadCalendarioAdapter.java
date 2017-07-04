@@ -74,6 +74,9 @@ public class ActividadCalendarioAdapter extends RecyclerView.Adapter<ActividadCa
             GradientDrawable fondoEtiqueta = (GradientDrawable) this.activ.getDrawable(R.drawable.etiqueta_background);
             fondoEtiqueta.setColor(etiqueta.color);
             textViewEtiqueta.setBackground(fondoEtiqueta);
+            int paddingInternoEtiqueta = this.activ.getResources().getDimensionPixelSize(R.dimen.etiqueta_padding_interno);
+            textViewEtiqueta.setPadding(paddingInternoEtiqueta,paddingInternoEtiqueta,paddingInternoEtiqueta,paddingInternoEtiqueta);
+
             holder.layoutEtiquetas.addView(textViewEtiqueta);
             //Para separar entre entiquetas
             Space espacioEntreEtiquetas = new Space(this.activ);
