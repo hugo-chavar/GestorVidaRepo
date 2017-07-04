@@ -3,6 +3,7 @@ package ar.com.fiuba.tddp1.gestorvida.estadisticas;
 import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,8 +54,9 @@ public class EstadisticasActividadesCompletadasFragment extends Fragment {
         */
         //TODO: ver que quede bien en los celulares
         datosSet.setLineWidth(Utils.convertDpToPixel(5));
-        datosSet.setColor(Color.RED);
         datosSet.setValueTextSize(Utils.convertDpToPixel(15));
+        datosSet.setColor(ContextCompat.getColor(this.getContext(), R.color.colorPrimaryDark));
+        datosSet.setCircleColor(Color.GRAY);
 
 
 
