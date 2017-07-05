@@ -44,7 +44,10 @@ public class Actividad {
     private Integer diaEnQueSeCompleto;
 
 
-    public Actividad(String nombre) {
+    public Actividad(String nombre) throws ActividadException {
+        if (nombre.trim().length() < 3) {
+            throw new ActividadException();
+        }
         this.nombre = nombre;
         this.estaCompletada = false;
         this.diaEnQueSeCompleto = null;

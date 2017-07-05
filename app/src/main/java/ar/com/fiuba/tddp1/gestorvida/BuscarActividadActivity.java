@@ -34,6 +34,7 @@ import java.util.Set;
 import ar.com.fiuba.tddp1.gestorvida.actividades.DetalleBuscarActividadFragment;
 import ar.com.fiuba.tddp1.gestorvida.comunes.FragmentLoader;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
+import ar.com.fiuba.tddp1.gestorvida.dominio.ActividadException;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Beneficio;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Etiqueta;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Fecha;
@@ -244,88 +245,92 @@ public class BuscarActividadActivity extends Fragment {
     }
 
     private void mockearActividades() {
-        this.mockedActivities = new LinkedList<>();
+        try {
+            this.mockedActivities = new LinkedList<>();
 
-        Actividad actividad = new Actividad("Correr 4km");
-        actividad.setDescripcion("Quiero correr para prepararme fisicamente");
-        actividad.setFechaInicio(new Fecha("8", "9", "2017"));
-        actividad.setFechaFin(new Fecha("8", "9", "2017"));
-        actividad.setPrioridad("ALTA");
-        Beneficio beneficio = new Beneficio();
-        beneficio.setPrecio(100);
-        beneficio.setDescuento(20);
-        beneficio.setDescripcion("TETSTSTSTSTST");
-        actividad.addBeneficio(beneficio);
-        this.mockedActivities.add(actividad);
+            Actividad actividad = new Actividad("Correr 4km");
+            actividad.setDescripcion("Quiero correr para prepararme fisicamente");
+            actividad.setFechaInicio(new Fecha("8", "9", "2017"));
+            actividad.setFechaFin(new Fecha("8", "9", "2017"));
+            actividad.setPrioridad("ALTA");
+            Beneficio beneficio = new Beneficio();
+            beneficio.setPrecio(100);
+            beneficio.setDescuento(20);
+            beneficio.setDescripcion("TETSTSTSTSTST");
+            actividad.addBeneficio(beneficio);
+            this.mockedActivities.add(actividad);
 
-        Actividad actividad2 = new Actividad("Ir al cine");
-        actividad2.setDescripcion("Quiero ir a ver Star Wars VIII");
-        actividad2.setFechaInicio(new Fecha("15", "12", "2017"));
-        actividad2.setFechaFin(new Fecha("15", "12", "2017"));
-        Set<Etiqueta> etiquetas2 = new HashSet<>();
-        etiquetas2.add(new Etiqueta("Cine", Color.GREEN));
-        etiquetas2.add(new Etiqueta("Peliculas", Color.RED));
-        actividad2.setEtiquetas(etiquetas2);
-        actividad2.setPrioridad("BAJA");
-        this.mockedActivities.add(actividad2);
+            Actividad actividad2 = new Actividad("Ir al cine");
+            actividad2.setDescripcion("Quiero ir a ver Star Wars VIII");
+            actividad2.setFechaInicio(new Fecha("15", "12", "2017"));
+            actividad2.setFechaFin(new Fecha("15", "12", "2017"));
+            Set<Etiqueta> etiquetas2 = new HashSet<>();
+            etiquetas2.add(new Etiqueta("Cine", Color.GREEN));
+            etiquetas2.add(new Etiqueta("Peliculas", Color.RED));
+            actividad2.setEtiquetas(etiquetas2);
+            actividad2.setPrioridad("BAJA");
+            this.mockedActivities.add(actividad2);
 
-        Actividad actividad3 = new Actividad("Aprobar álgrebra");
-        actividad3.setDescripcion("Quiero aprobarlaaa");
-        actividad3.setFechaInicio(new Fecha("1", "7", "2017"));
-        actividad3.setFechaFin(new Fecha("3", "7", "2017"));
-        Set<Etiqueta> etiquetas3 = new HashSet<>();
-        etiquetas3.add(new Etiqueta("Facultad", Color.GREEN));
-        etiquetas3.add(new Etiqueta("Aburrido", Color.YELLOW));
-        etiquetas3.add(new Etiqueta("Noooo", Color.RED));
-        actividad3.setEtiquetas(etiquetas3);
-        actividad3.setPrioridad("ALTA");
-        this.mockedActivities.add(actividad3);
+            Actividad actividad3 = new Actividad("Aprobar álgrebra");
+            actividad3.setDescripcion("Quiero aprobarlaaa");
+            actividad3.setFechaInicio(new Fecha("1", "7", "2017"));
+            actividad3.setFechaFin(new Fecha("3", "7", "2017"));
+            Set<Etiqueta> etiquetas3 = new HashSet<>();
+            etiquetas3.add(new Etiqueta("Facultad", Color.GREEN));
+            etiquetas3.add(new Etiqueta("Aburrido", Color.YELLOW));
+            etiquetas3.add(new Etiqueta("Noooo", Color.RED));
+            actividad3.setEtiquetas(etiquetas3);
+            actividad3.setPrioridad("ALTA");
+            this.mockedActivities.add(actividad3);
 
-        Actividad actividad4 = new Actividad("Jugar al fútbol");
-        actividad4.setDescripcion("Futbol con los pibes");
-        actividad4.setFechaInicio(new Fecha("5", "8", "2017"));
-        actividad4.setFechaFin(new Fecha("5", "8", "2017"));
-        Set<Etiqueta> etiquetas4 = new HashSet<>();
-        etiquetas4.add(new Etiqueta("Deportes", Color.GREEN));
-        actividad4.setEtiquetas(etiquetas4);
-        this.mockedActivities.add(actividad4);
+            Actividad actividad4 = new Actividad("Jugar al fútbol");
+            actividad4.setDescripcion("Futbol con los pibes");
+            actividad4.setFechaInicio(new Fecha("5", "8", "2017"));
+            actividad4.setFechaFin(new Fecha("5", "8", "2017"));
+            Set<Etiqueta> etiquetas4 = new HashSet<>();
+            etiquetas4.add(new Etiqueta("Deportes", Color.GREEN));
+            actividad4.setEtiquetas(etiquetas4);
+            this.mockedActivities.add(actividad4);
 
-        Actividad actividad5 = new Actividad("Clases de guitarra");
-        actividad5.setDescripcion("Clases para aprender a tocar");
-        actividad5.setFechaInicio(new Fecha("5", "10", "2017"));
-        actividad5.setFechaFin(new Fecha("10", "11", "2017"));
-        Set<Etiqueta> etiquetas5 = new HashSet<>();
-        etiquetas5.add(new Etiqueta("Musica", Color.GREEN));
-        etiquetas5.add(new Etiqueta("Guitarra", Color.BLUE));
-        actividad5.setEtiquetas(etiquetas5);
-        this.mockedActivities.add(actividad5);
+            Actividad actividad5 = new Actividad("Clases de guitarra");
+            actividad5.setDescripcion("Clases para aprender a tocar");
+            actividad5.setFechaInicio(new Fecha("5", "10", "2017"));
+            actividad5.setFechaFin(new Fecha("10", "11", "2017"));
+            Set<Etiqueta> etiquetas5 = new HashSet<>();
+            etiquetas5.add(new Etiqueta("Musica", Color.GREEN));
+            etiquetas5.add(new Etiqueta("Guitarra", Color.BLUE));
+            actividad5.setEtiquetas(etiquetas5);
+            this.mockedActivities.add(actividad5);
 
-        Actividad actividad6 = new Actividad("Fiesta en mi casa");
-        actividad6.setDescripcion("Bebidas y asado van por mi cuenta");
-        actividad6.setFechaInicio(new Fecha("1", "10", "2017"));
-        actividad6.setFechaFin(new Fecha("1", "10", "2017"));
-        Set<Etiqueta> etiquetas6 = new HashSet<>();
-        etiquetas6.add(new Etiqueta("Fiestas", Color.GREEN));
-        actividad6.setEtiquetas(etiquetas6);
-        this.mockedActivities.add(actividad6);
+            Actividad actividad6 = new Actividad("Fiesta en mi casa");
+            actividad6.setDescripcion("Bebidas y asado van por mi cuenta");
+            actividad6.setFechaInicio(new Fecha("1", "10", "2017"));
+            actividad6.setFechaFin(new Fecha("1", "10", "2017"));
+            Set<Etiqueta> etiquetas6 = new HashSet<>();
+            etiquetas6.add(new Etiqueta("Fiestas", Color.GREEN));
+            actividad6.setEtiquetas(etiquetas6);
+            this.mockedActivities.add(actividad6);
 
-        Actividad actividad7 = new Actividad("Fiesta en Avellaneda");
-        actividad7.setDescripcion("Festejo por la clasificación de Racing a la Libertadores");
-        actividad7.setFechaInicio(new Fecha("6", "7", "2017"));
-        actividad7.setFechaFin(new Fecha("6", "7", "2017"));
-        Set<Etiqueta> etiquetas7 = new HashSet<>();
-        etiquetas7.add(new Etiqueta("Fiestas", Color.GREEN));
-        actividad7.setEtiquetas(etiquetas7);
-        this.mockedActivities.add(actividad7);
+            Actividad actividad7 = new Actividad("Fiesta en Avellaneda");
+            actividad7.setDescripcion("Festejo por la clasificación de Racing a la Libertadores");
+            actividad7.setFechaInicio(new Fecha("6", "7", "2017"));
+            actividad7.setFechaFin(new Fecha("6", "7", "2017"));
+            Set<Etiqueta> etiquetas7 = new HashSet<>();
+            etiquetas7.add(new Etiqueta("Fiestas", Color.GREEN));
+            actividad7.setEtiquetas(etiquetas7);
+            this.mockedActivities.add(actividad7);
 
-        Actividad actividad8 = new Actividad("Cine gratis!");
-        actividad8.setDescripcion("Pochoclos no");
-        actividad8.setFechaInicio(new Fecha("6", "7", "2017"));
-        actividad8.setFechaFin(new Fecha("20", "7", "2017"));
-        Set<Etiqueta> etiquetas8 = new HashSet<>();
-        etiquetas8.add(new Etiqueta("Cine", Color.GREEN));
-        actividad8.setEtiquetas(etiquetas8);
-        this.mockedActivities.add(actividad8);
+            Actividad actividad8 = new Actividad("Cine gratis!");
+            actividad8.setDescripcion("Pochoclos no");
+            actividad8.setFechaInicio(new Fecha("6", "7", "2017"));
+            actividad8.setFechaFin(new Fecha("20", "7", "2017"));
+            Set<Etiqueta> etiquetas8 = new HashSet<>();
+            etiquetas8.add(new Etiqueta("Cine", Color.GREEN));
+            actividad8.setEtiquetas(etiquetas8);
+            this.mockedActivities.add(actividad8);
+        } catch (ActividadException e) {
+            // nada
+        }
     }
 
     public void desdeOnClick(final View v) {

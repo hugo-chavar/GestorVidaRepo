@@ -43,6 +43,7 @@ import ar.com.fiuba.tddp1.gestorvida.MainActivity;
 import ar.com.fiuba.tddp1.gestorvida.R;
 import ar.com.fiuba.tddp1.gestorvida.TimePickerFragment;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
+import ar.com.fiuba.tddp1.gestorvida.dominio.ActividadException;
 import ar.com.fiuba.tddp1.gestorvida.dominio.ActividadFactory;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Etiqueta;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Fecha;
@@ -62,12 +63,16 @@ public class AgregarActividadFragment extends Fragment {
     private View view;
     private MainActivity activity;
 
+    private EditText mNameView;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         activity = (MainActivity)getActivity();
         this.inflater = inflater;
         view = this.inflater.inflate(R.layout.activity_agregar_actividad, container,false);
+
+        mNameView = (EditText) view.findViewById(R.id.edittextNombre);
 
         //A cada boton de fecha le asocio un textView en donde se va a escribir la fecha seleccionada
         this.textosFechas.put(R.id.imageViewInicioActividad, (TextView) view.findViewById(R.id.textViewInicioActividad) );
@@ -312,65 +317,62 @@ public class AgregarActividadFragment extends Fragment {
         tiempoEstimado.setEnabled(estaCheckeado);
     }
 
-    public void agregarActividad(/*View view*/) {
+    public void agregarActividad() throws ActividadException {
 
         //Lo mismo que en el caso del tiempo estimado
-        //View rootView = view.getRootView();
-        View rootView = view;
-        //Se crea la actividad con el nombre
-        Actividad nuevaActividad = new Actividad(  ((EditText) rootView.findViewById(R.id.edittextNombre)).getText().toString()   );
+        mNameView.setError(null);
+        Actividad nuevaActividad = new Actividad(mNameView.getText().toString());
 
         //Se le setea la descripcion
-        nuevaActividad.setDescripcion( ((EditText) rootView.findViewById(R.id.edittextDescripcion)).getText().toString() );
+        nuevaActividad.setDescripcion(((EditText) view.findViewById(R.id.edittextDescripcion)).getText().toString());
 
 
         //Parseo la fecha
-        Fecha fechaInicio = this.parsearFecha( (TextView) rootView.findViewById(R.id.textViewInicioActividad));
-        Fecha fechaFin = this.parsearFecha( (TextView) rootView.findViewById(R.id.textViewFinActividad));
+        Fecha fechaInicio = this.parsearFecha((TextView) view.findViewById(R.id.textViewInicioActividad));
+        Fecha fechaFin = this.parsearFecha((TextView) view.findViewById(R.id.textViewFinActividad));
         nuevaActividad.setFechaInicio(fechaInicio);
         nuevaActividad.setFechaFin(fechaFin);
 
         //Agrego la prioridad, por ahora es solamente un string con 3 opciones ALTA, MEDIA, BAJA
-        Spinner spinnerPrioridades = (Spinner) rootView.findViewById(R.id.spinnerPrioridades);
+        Spinner spinnerPrioridades = (Spinner) view.findViewById(R.id.spinnerPrioridades);
         String prioridadSeleccionada = (String) spinnerPrioridades.getSelectedItem();
-        nuevaActividad.setPrioridad( prioridadSeleccionada );
+        nuevaActividad.setPrioridad(prioridadSeleccionada);
 
         nuevaActividad.setEtiquetas(this.listaDeEtiquetas);
 
-        Fecha fechaRecordatorio = this.parsearFecha( (TextView) rootView.findViewById(R.id.textViewFechaRecordatorio));
+        Fecha fechaRecordatorio = this.parsearFecha((TextView) view.findViewById(R.id.textViewFechaRecordatorio));
         nuevaActividad.setFechaRecordatorio(fechaRecordatorio);
 
-        RadioGroup groupPeriodicidad = (RadioGroup) rootView.findViewById(R.id.radioGroupPerioridicidad);
+        RadioGroup groupPeriodicidad = (RadioGroup) view.findViewById(R.id.radioGroupPerioridicidad);
         int periodicidad = 0;
         int periodicidadSeleccionada = groupPeriodicidad.getCheckedRadioButtonId();
         if (periodicidadSeleccionada == R.id.radioButtonPeriodicidadDiario) {
             periodicidad = 1;
-        }
-        else if (periodicidadSeleccionada == R.id.radioButtonPeriodicidadSemanal) {
+        } else if (periodicidadSeleccionada == R.id.radioButtonPeriodicidadSemanal) {
             periodicidad = 7;
-        }
-        else if (periodicidadSeleccionada == R.id.radioButtonPeriodicidadCadaXDias) {
-            periodicidad = Integer.parseInt( ( (EditText) rootView.findViewById(R.id.editTextXDias)).getText().toString() );
+        } else if (periodicidadSeleccionada == R.id.radioButtonPeriodicidadCadaXDias) {
+            periodicidad = Integer.parseInt(((EditText) view.findViewById(R.id.editTextXDias)).getText().toString());
         }
         nuevaActividad.setPeriodicidad(periodicidad);
 
 
-        CheckBox checkBoxTiempoEstimado = (CheckBox) rootView.findViewById(R.id.checkBoxTiempoEstimado);
+        CheckBox checkBoxTiempoEstimado = (CheckBox) view.findViewById(R.id.checkBoxTiempoEstimado);
         if (checkBoxTiempoEstimado.isChecked()) {
-            EditText editTextTiempoEstimado = (EditText) rootView.findViewById(R.id.editTextTiempoEstimado);
+            EditText editTextTiempoEstimado = (EditText) view.findViewById(R.id.editTextTiempoEstimado);
             String[] tiempoEstimado = editTextTiempoEstimado.getText().toString().split(":");
             nuevaActividad.setTiempoEstimado(tiempoEstimado[0], tiempoEstimado[1]);
         }
 
 
-        RadioGroup groupTipoActividad = (RadioGroup) rootView.findViewById(R.id.radioGroupTipoActividad);
+        RadioGroup groupTipoActividad = (RadioGroup) view.findViewById(R.id.radioGroupTipoActividad);
         nuevaActividad.esActividadPrivada(groupTipoActividad.getCheckedRadioButtonId() == R.id.radioButtonActividadPrivada);
 
         //esto deberia ser solo si se eligio agregarlo a un objetivo
-        Objetivo objetivoSeleccionado =  (Objetivo)((Spinner)rootView.findViewById(R.id.spinnerObjetivos)).getSelectedItem();
+        Objetivo objetivoSeleccionado = (Objetivo) ((Spinner) view.findViewById(R.id.spinnerObjetivos)).getSelectedItem();
         objetivoSeleccionado.agregarActividad(nuevaActividad);
 
         addActividad(nuevaActividad);
+
 
     }
 
@@ -393,25 +395,29 @@ public class AgregarActividadFragment extends Fragment {
 
         Log.d("Guardando", jsonObject.toString());
 
+        Toast.makeText(getActivity(), "Grabando actividad ", Toast.LENGTH_SHORT).show();
+
         requestSender.doPost(listener, url, ActividadFactory.toJSONObject(actividad));
 
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         Log.d("AgregarActividad", "Se hizo clic en la opcion " + id);
 
         switch (id) {
             case R.id.action_save_activity:
-                Log.d("AgregarActividad", "Grabando..");
-                Toast.makeText(getActivity(), "Grabando actividad ... ", Toast.LENGTH_SHORT).show();
-                agregarActividad();
-                getActivity().onBackPressed();
+
+                try {
+                    agregarActividad();
+                    getActivity().onBackPressed();
+                } catch (ActividadException e) {
+                    mNameView.setError(getString(R.string.error_activity_name));
+                    mNameView.requestFocus();
+                }
                 break;
             default:
                 super.onOptionsItemSelected(item);
