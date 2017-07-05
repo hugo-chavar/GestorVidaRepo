@@ -79,7 +79,7 @@ public class AgregarActividadFragment extends Fragment {
         this.textosFechas.put(R.id.textViewFinActividad, (TextView) view.findViewById(R.id.textViewFinActividad) );
         this.textosFechas.put(R.id.textViewFechaRecordatorio, (TextView) view.findViewById(R.id.textViewFechaRecordatorio) );
 
-        String[] prioridades = new String[] {"ALTA", "MEDIA", "BAJA"};
+        String[] prioridades = new String[] {"Sin prioridad", "ALTA", "MEDIA", "BAJA"};
         Spinner spinnerPrioridades = (Spinner) view.findViewById(R.id.spinnerPrioridades);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(activity, R.layout.support_simple_spinner_dropdown_item, prioridades);
         spinnerPrioridades.setAdapter(adapter);
