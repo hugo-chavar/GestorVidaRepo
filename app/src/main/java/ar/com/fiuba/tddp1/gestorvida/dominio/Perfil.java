@@ -1,7 +1,5 @@
 package ar.com.fiuba.tddp1.gestorvida.dominio;
 
-import android.graphics.Color;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,6 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +52,16 @@ public class Perfil {
         Perfil.cargarFecha(nuevaActividad, nuevaActividad.getFechaFin(), Perfil.fechasDeFinDeActividades);
         Perfil.cargarFecha(nuevaActividad, nuevaActividad.getFechaRecordatorio(), Perfil.fechasDeRecordatoriosDeActividades);
 
+    }
+
+    public static void eliminarActividad(Actividad actividad) {
+        //TODO falta borrar las etiquetas si ya no tienen actividades
+        for(Iterator<Actividad> it = actividades.iterator(); it.hasNext(); ) {
+            if(it.next().getId()== actividad.getId()) {
+                it.remove();
+                break;
+            }
+        }
     }
 
     private static void cargarFecha(Actividad nuevaActividad, Fecha fecha, Map<Date, List<Actividad>> fechaDeActividad) {

@@ -1,5 +1,7 @@
 package ar.com.fiuba.tddp1.gestorvida.actividades;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 import ar.com.fiuba.tddp1.gestorvida.R;
 import ar.com.fiuba.tddp1.gestorvida.comunes.FragmentLoader;
 import ar.com.fiuba.tddp1.gestorvida.contactos.AgregarParticipantesFragment;
+import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 
 /**
  * Created by User on 02/07/2017.
@@ -54,25 +57,42 @@ public class DetalleActividadAgregarParticipantes extends DetalleActividadFragme
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        Log.d("AddPeople", "Se hizo clic en la opcion " + id);
+        int id = item.getItemId();
 
         switch (id) {
             case R.id.action_delete_activity:
-                Log.d("AddPeople", "Borrando..");
-                Toast.makeText(getActivity(), "Borrando actividad ... ", Toast.LENGTH_SHORT).show();
-                //agregarActividad();
-                getActivity().onBackPressed();
+                showConfirmDeleteDialog();
                 break;
             default:
                 super.onOptionsItemSelected(item);
         }
 
-
         return true;
+    }
+
+    private void showConfirmDeleteDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+        String title = getString(R.string.message_confirm_delete, actividad.getNombre());
+        builder.setTitle(title);
+
+        builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                Log.d("AddPeople", "Borrando..");
+                Toast.makeText(getActivity(), "Borrando actividad ... ", Toast.LENGTH_SHORT).show();
+                Perfil.eliminarActividad(actividad);
+                getActivity().onBackPressed();
+            }
+        });
+
+        builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

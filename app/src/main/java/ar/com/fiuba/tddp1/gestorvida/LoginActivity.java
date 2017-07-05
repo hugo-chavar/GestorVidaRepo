@@ -139,7 +139,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         RequestSender requestSender = new RequestSender(this);
         Map<String,String> _params;
         _params = new HashMap<String,String>();
-        _params.put("username", name);
+        _params.put("username", name.trim());
         _params.put("password", password);
 
         JSONObject obj = new JSONObject(_params);
@@ -152,7 +152,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     }
 
     private boolean isNameValid(String name) {
-        return name.length() > 2;
+        return name.trim().length() > 2;
     }
 
     private boolean isPasswordValid(String password) {

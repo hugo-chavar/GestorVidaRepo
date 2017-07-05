@@ -215,7 +215,10 @@ public class MainActivity extends AppCompatActivity
 
     private void showExitDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Desea salir de la app?");
+
+        String title = getString(R.string.message_confirm_exit);
+        builder.setTitle(title);
+
         builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 finishAffinity();
