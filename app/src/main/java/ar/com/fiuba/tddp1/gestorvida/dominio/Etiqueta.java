@@ -31,14 +31,14 @@ public class Etiqueta {
                 color = Integer.parseInt(etiquetaParseada[0]);
             } catch (NumberFormatException e) {
                 Random random = new Random();
-                color = random.nextInt(9) + 1;
+                color = COLORES_ETIQUETAS[random.nextInt(COLORES_ETIQUETAS.length)];
             }
 
             nombre = etiquetaParseada[1];
         } else {
             Random random = new Random();
 
-            color = random.nextInt(9) + 1;
+            color = COLORES_ETIQUETAS[random.nextInt(COLORES_ETIQUETAS.length)];
             nombre = etiquetaParseada[0];
         }
 
