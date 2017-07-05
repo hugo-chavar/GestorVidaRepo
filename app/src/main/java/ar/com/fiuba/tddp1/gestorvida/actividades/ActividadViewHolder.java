@@ -15,7 +15,7 @@ public class ActividadViewHolder extends RecyclerView.ViewHolder
         implements View.OnClickListener {
 
     public TextView textViewNombre;
-    public TextView textViewCompletada;
+    public TextView textViewDesc;
     public ImageView imageViewCompletada;
     public int position;
 
@@ -30,7 +30,7 @@ public class ActividadViewHolder extends RecyclerView.ViewHolder
 
         // hago los find y cargo los atributos
         textViewNombre = (TextView) itemView.findViewById(R.id.txtNombre);
-        textViewCompletada = (TextView) itemView.findViewById(R.id.txtCompletada);
+        textViewDesc = (TextView) itemView.findViewById(R.id.txtCompletada);
         imageViewCompletada = (ImageView) itemView.findViewById(R.id.imageViewCompletarActividad);
 
 

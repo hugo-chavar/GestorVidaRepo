@@ -38,13 +38,19 @@ public class ActividadAdapter extends RecyclerView.Adapter<ActividadViewHolder>{
 
         Actividad actividad = this.lista.get(position);
         String nombre = actividad.getNombre();
-        String completada = "Completa: " + (actividad.estaCompleta() ? "SI" : "NO");
+
 
         TextView txtNombre = holder.textViewNombre;
         txtNombre.setText(nombre);
 
-        TextView txtCompletada = holder.textViewCompletada;
-        txtCompletada.setText(completada);
+        TextView txtDescripcion = holder.textViewDesc;
+        if (actividad.getDescripcion().trim().length() > 1) {
+            txtDescripcion.setText(actividad.getDescripcion());
+        } else {
+            String completada = "Completa: " + (actividad.estaCompleta() ? "SI" : "NO");
+            txtDescripcion.setText(completada);
+        }
+
 
         // me guardo la posicion de los datos que cargue en este VH
         holder.position = position;
