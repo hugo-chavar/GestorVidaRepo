@@ -29,6 +29,7 @@ public class ActividadAdapter extends RecyclerView.Adapter<ActividadViewHolder>{
     public ActividadViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout, parent, false);
+        //View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_card_layout, parent, false);
         ActividadViewHolder vh = new ActividadViewHolder(v,activ);
         return vh;
     }
@@ -50,6 +51,10 @@ public class ActividadAdapter extends RecyclerView.Adapter<ActividadViewHolder>{
             String completada = "Completa: " + (actividad.estaCompleta() ? "SI" : "NO");
             txtDescripcion.setText(completada);
         }
+
+        //TextView txtFecha= holder.textViewFecha;
+        //txtFecha.setText(actividad.getFechaInicio().toString());
+
 
 
         // me guardo la posicion de los datos que cargue en este VH

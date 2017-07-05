@@ -24,6 +24,8 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Medium Text"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:id="@+id/txtNombre" />
 
         <TextView
@@ -31,6 +33,33 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text="Small Text"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:id="@+id/txtCompletada"/>
+
+        <!--
+        <RelativeLayout
+            android:layout_marginLeft="10dp"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/txtNombre">
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Small Text"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:id="@+id/txtFecha"/>
+
+        </RelativeLayout> -->
+
+
+
+
     </LinearLayout>
 </LinearLayout>
