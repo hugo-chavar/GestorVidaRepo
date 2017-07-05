@@ -10,6 +10,8 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
+import ar.com.fiuba.tddp1.gestorvida.actividades.ActualizarActividadListener;
+
 
 public class RequestSender {
 
@@ -45,4 +47,8 @@ public class RequestSender {
 
     }
 
+    public void doPut(final ResponseListener listener, String url, JSONObject jsonObject) {
+        Log.d("RequestSender", "Put to " + url);
+        doRequest(new CustomJsonObjetRequest(Request.Method.PUT, url, jsonObject, listener));
+    }
 }

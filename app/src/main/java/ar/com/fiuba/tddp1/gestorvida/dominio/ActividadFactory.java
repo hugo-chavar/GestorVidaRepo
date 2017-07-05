@@ -48,7 +48,7 @@ public  class ActividadFactory {
                 actividad.completar();
             }
 
-            st = jsonObject.getJSONArray("categorias");
+            st = jsonObject.getJSONArray("participantes");
             Set<String> participantes = new HashSet<String>();
             for (int i = 0; i < st.length(); i++) {
                 participantes.add(st.getString(i));

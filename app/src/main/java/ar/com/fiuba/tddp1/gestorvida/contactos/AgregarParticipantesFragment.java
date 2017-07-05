@@ -9,13 +9,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import org.json.JSONObject;
+
 import java.util.HashSet;
 import java.util.Set;
 
 import ar.com.fiuba.tddp1.gestorvida.MainActivity;
 import ar.com.fiuba.tddp1.gestorvida.R;
+import ar.com.fiuba.tddp1.gestorvida.actividades.ActualizarActividadListener;
+import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
+import ar.com.fiuba.tddp1.gestorvida.dominio.ActividadFactory;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Contacto;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
+import ar.com.fiuba.tddp1.gestorvida.web.RequestSender;
 
 /**
  * Created by User on 01/07/2017.
@@ -52,13 +58,22 @@ public class AgregarParticipantesFragment extends Fragment {
         buttonInvitar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((MainActivity) getActivity()).getActividad_detalle().agregarParticipantes(participantesAgregados);
+                Actividad actividad = ((MainActivity) getActivity()).getActividad_detalle();
+                actividad.agregarParticipantes(participantesAgregados);
+                updateActividad(actividad);
+                getActivity().onBackPressed();
             }
         });
 
         return rootView;
 
     }
-
-
+        private void updateActividad(Actividad actividad) {
+            JSONObject jsonObject = ActividadFactory.toJSONObject(actividad);
+            ActualizarActividadListener listener = new ActualizarActividadListener(getActivity());
+            String url = getActivity().getString(R.string.url) + "activities/" + actividad.getId();
+            RequestSender sender = new RequestSender(getActivity());
+            //sender.doPost(listener, url, jsonObject);
+            sender.doPut(listener, url, jsonObject);
+        }
 }

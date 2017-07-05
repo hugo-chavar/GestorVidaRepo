@@ -58,9 +58,9 @@
     <string name="error_invalid_name">El nombre es inválido</string>
     <string name="error_invalid_nacimiento">Ingrese su fecha de nacimiento así: DD-MM-AAAA</string>
     <!-- hugo -->
-    <string name="url">http://192.168.1.101:8080/</string>
+    <!-- <string name="url">http://192.168.1.101:8080/</string> -->
     <!-- localhost -->
-    <!--<string name="url">http://10.0.2.2:8080/</string>-->
+    <string name="url">http://10.0.2.2:8080/</string>
     <string name="first_description">La aplicacion que los ayudara a alcanzar su maximo potencial.</string>
     <string name="first_extended_description">Organice su rutina, fije objetivos, busque eventos interesantes, salga de su zona de confort y enfrente la vida con una nueva perspectiva!</string>
     <!-- lucas -->

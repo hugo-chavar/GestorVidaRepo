@@ -25,7 +25,7 @@ public class Server {
 
             requestSender.doGet(listener, url);
         } else {
-            Perfil.agregarContacto(new Contacto("Juanma", R.drawable.avatar));
+            Perfil.agregarContacto(new Contacto("lautaro", R.drawable.avatar));
             Perfil.agregarContacto(new Contacto("Definitely not Juanma", R.drawable.ic_filter));
             Perfil.agregarContacto(new Contacto("Mordekaiser", R.drawable.mercurio));
             Perfil.agregarContacto(new Contacto("Cosme Fulanito", R.drawable.circulo_color));
