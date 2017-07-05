@@ -53,9 +53,9 @@ public class EstadisticasActividadesCompletadasFragment extends Fragment {
         datos.setValueTextColor(...);
         */
         //TODO: ver que quede bien en los celulares
-        datosSet.setLineWidth(Utils.convertDpToPixel(5));
-        datosSet.setValueTextSize(Utils.convertDpToPixel(15));
-        datosSet.setColor(ContextCompat.getColor(this.getContext(), R.color.colorPrimaryDark));
+        datosSet.setLineWidth(Utils.convertDpToPixel(2));
+        datosSet.setValueTextSize(Utils.convertDpToPixel(8));
+        datosSet.setColor(ContextCompat.getColor(this.getContext(), R.color.colorAccent));
         datosSet.setCircleColor(Color.GRAY);
 
 
@@ -63,11 +63,11 @@ public class EstadisticasActividadesCompletadasFragment extends Fragment {
         //Por ultimo se crea una LineData a partir del LineDataSet y se agrega al grafico
         LineData lineaData = new LineData(datosSet);
         lineaData.setValueFormatter(new IntegerValueFormatter());
-        lineaData.setValueTextSize(Utils.convertDpToPixel(20));
+        lineaData.setValueTextSize(Utils.convertDpToPixel(7));
         grafico.setData(lineaData);
 
 
-        float EJE_TEXT_SIZE = 20;
+        float EJE_TEXT_SIZE = 18;
         XAxis ejeX = grafico.getXAxis();
         //Para que los dias aparezcan abajo
         ejeX.setPosition(XAxis.XAxisPosition.BOTTOM);
