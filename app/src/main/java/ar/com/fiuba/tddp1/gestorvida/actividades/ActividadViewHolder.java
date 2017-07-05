@@ -64,7 +64,7 @@ public class ActividadViewHolder extends RecyclerView.ViewHolder
 
     private void mostrarImagenCompletada() {
 
-        int image = actividad.estaCompleta() ? R.drawable.completar_actividad : R.drawable.deshacer_actividad;
+        int image = actividad.estaCompleta() ? R.drawable.tick : R.drawable.reloj;
 
         imageViewCompletada.setImageResource(image);
     }
