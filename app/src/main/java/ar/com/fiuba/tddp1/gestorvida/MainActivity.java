@@ -21,10 +21,10 @@ import java.util.Date;
 
 import ar.com.fiuba.tddp1.gestorvida.comunes.FragmentLoader;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
-import ar.com.fiuba.tddp1.gestorvida.dominio.Contacto;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Objetivo;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 import ar.com.fiuba.tddp1.gestorvida.dominio.SinObjetivo;
+import ar.com.fiuba.tddp1.gestorvida.web.Server;
 
 
 public class MainActivity extends AppCompatActivity
@@ -60,6 +60,9 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Perfil.eliminarContatos();
+        Server.loadUsers(this);
 
 
         //TODO: SACAR ESTO DE ACA DESPUES
@@ -229,4 +232,6 @@ public class MainActivity extends AppCompatActivity
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+
+
 }
