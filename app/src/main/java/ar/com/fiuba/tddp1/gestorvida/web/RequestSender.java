@@ -3,6 +3,7 @@ package ar.com.fiuba.tddp1.gestorvida.web;
 import android.app.Activity;
 import android.util.Log;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonRequest;
 import com.android.volley.toolbox.Volley;
@@ -34,6 +35,13 @@ public class RequestSender {
         Log.d("RequestSender", "Sending get to " + url );
 
         doRequest(new CustomJsonArrayRequest(url, listener));
+
+    }
+
+    public void doDelete(final ResponseListener listener, String url){
+        Log.d("RequestSender", "Deleting from " + url);
+
+        doRequest(new CustomJsonObjetRequest(Request.Method.DELETE, url, null, listener));
 
     }
 

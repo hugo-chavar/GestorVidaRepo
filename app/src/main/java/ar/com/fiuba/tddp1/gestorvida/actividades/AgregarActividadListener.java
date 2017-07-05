@@ -34,7 +34,7 @@ public class AgregarActividadListener implements ResponseListener {
 
 
         } catch (JSONException e) {
-            Log.d("ActividadesListener", e.getMessage());
+            Log.d("AgregarActividad", e.getMessage());
             Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
@@ -42,7 +42,7 @@ public class AgregarActividadListener implements ResponseListener {
     @Override
     public void onRequestError(int codError, String errorMessage) {
         String error = codError + ": " + errorMessage;
-        Log.d("ActividadesListener", error);
+        Log.d("AgregarActividad", error);
         Toast.makeText(context, error, Toast.LENGTH_LONG).show();
     }
 }

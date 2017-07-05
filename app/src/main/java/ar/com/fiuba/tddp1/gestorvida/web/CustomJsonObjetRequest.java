@@ -45,6 +45,35 @@ public class CustomJsonObjetRequest extends JsonObjectRequest {
 
     }
 
+    public CustomJsonObjetRequest(int method, String url, JSONObject jsonRequest, final ResponseListener listener) {
+        super
+                (
+                        method,
+                        url,
+                        jsonRequest,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                listener.onRequestCompleted(response);
+                            }
+                        },
+                        new Response.ErrorListener() {
+
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Pair<Integer, String> errorDetail;
+
+                                errorDetail = RequestHelper.getError(error);
+
+                                listener.onRequestError(errorDetail.t, errorDetail.u);
+
+                            }
+                        }
+                );
+        setShouldCache(false);
+
+    }
+
     @Override
     protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
 

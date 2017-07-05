@@ -16,7 +16,9 @@ import android.widget.Toast;
 import ar.com.fiuba.tddp1.gestorvida.R;
 import ar.com.fiuba.tddp1.gestorvida.comunes.FragmentLoader;
 import ar.com.fiuba.tddp1.gestorvida.contactos.AgregarParticipantesFragment;
+import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
+import ar.com.fiuba.tddp1.gestorvida.web.RequestSender;
 
 /**
  * Created by User on 02/07/2017.
@@ -81,7 +83,8 @@ public class DetalleActividadAgregarParticipantes extends DetalleActividadFragme
             public void onClick(DialogInterface dialog, int id) {
                 Log.d("AddPeople", "Borrando..");
                 Toast.makeText(getActivity(), "Borrando actividad ... ", Toast.LENGTH_SHORT).show();
-                Perfil.eliminarActividad(actividad);
+
+                deleteActividad(actividad);
                 getActivity().onBackPressed();
             }
         });
@@ -94,5 +97,22 @@ public class DetalleActividadAgregarParticipantes extends DetalleActividadFragme
 
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    private void deleteActividad(Actividad actividad) {
+
+
+        Perfil.eliminarActividad(actividad);
+
+        EliminarActividadListener listener = new EliminarActividadListener(getActivity());;
+
+        RequestSender requestSender = new RequestSender(getActivity());
+
+        String url = getString(R.string.url) + "activities/" + actividad.getId();
+
+        Log.d("Eliminando", actividad.getId());
+
+        requestSender.doDelete(listener, url);
+
     }
 }
