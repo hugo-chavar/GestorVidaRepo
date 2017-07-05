@@ -8,8 +8,8 @@ import java.util.LinkedList;
 
 public class Objetivo {
 
-    private String nombre;
-    private LinkedList<Actividad> actividades;
+    protected String nombre;
+    protected LinkedList<Actividad> actividades;
 
     public Objetivo(String nombre) {
         this.nombre = nombre;

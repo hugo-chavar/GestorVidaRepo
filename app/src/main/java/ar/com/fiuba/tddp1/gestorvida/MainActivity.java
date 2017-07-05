@@ -24,6 +24,7 @@ import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Contacto;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Objetivo;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
+import ar.com.fiuba.tddp1.gestorvida.dominio.SinObjetivo;
 
 
 public class MainActivity extends AppCompatActivity
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity
 
 
         //TODO: SACAR ESTO DE ACA DESPUES
-        Perfil.agregarObjetivo(new Objetivo("Sin objetivo"));
+        Perfil.agregarObjetivo(new SinObjetivo());
         Perfil.agregarObjetivo(new Objetivo("Obj1"));
         Perfil.agregarObjetivo(new Objetivo("Obj2"));
         Perfil.agregarObjetivo(new Objetivo("Obj3"));
