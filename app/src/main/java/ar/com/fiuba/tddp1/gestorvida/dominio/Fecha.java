@@ -6,7 +6,7 @@ package ar.com.fiuba.tddp1.gestorvida.dominio;
 
 public class Fecha {
     public static String ANIO_NULO = "1900";
-    private static final String sep  = "/";
+    public static final String sep  = "/";
 
     public String dia = "01";
     public String mes = "01";

@@ -13,11 +13,10 @@ import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 import ar.com.fiuba.tddp1.gestorvida.web.ResponseListener;
 
 
-public class ObjetivosListener implements ResponseListener {
-
+public class AgregarObjetivoListener implements ResponseListener {
     private Context context;
 
-    public ObjetivosListener(Context context) {
+    public AgregarObjetivoListener(Context context) {
 
         this.context = context;
 
@@ -27,7 +26,7 @@ public class ObjetivosListener implements ResponseListener {
     public void onRequestCompleted(Object response) {
 
         JSONArray array = (JSONArray)response;
-        Log.d("ObjetivosListener", response.toString());
+        Log.d("AgregarObjetivo", response.toString());
         for (int i = 0; i < array.length(); i++) {
             try {
 
@@ -39,19 +38,19 @@ public class ObjetivosListener implements ResponseListener {
                 Perfil.agregarContacto(new Contacto(name, photo));
 
             } catch (JSONException e) {
-                Log.d("ContactosListener", e.getMessage());
+                Log.d("AgregarObjetivo", e.getMessage());
             }
 
         }
 
-        Log.d("ObjetivosListener", response.toString());
+        Log.d("AgregarObjetivo", response.toString());
         //Toast.makeText(context, response.toString(), Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onRequestError(int codError, String errorMessage) {
         String error = codError + ": " + errorMessage;
-        Log.d("ObjetivosListener", error);
+        Log.d("AgregarObjetivo", error);
         Toast.makeText(context, error, Toast.LENGTH_LONG).show();
     }
 }

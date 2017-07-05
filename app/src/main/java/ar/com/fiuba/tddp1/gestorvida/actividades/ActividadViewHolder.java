@@ -16,7 +16,7 @@ public class ActividadViewHolder extends RecyclerView.ViewHolder
 
     public TextView textViewNombre;
     public TextView textViewDesc;
-    //public TextView textViewFecha;
+    public TextView textViewFecha;
     public ImageView imageViewCompletada;
     public int position;
 
@@ -33,7 +33,7 @@ public class ActividadViewHolder extends RecyclerView.ViewHolder
         textViewNombre = (TextView) itemView.findViewById(R.id.txtNombre);
         textViewDesc = (TextView) itemView.findViewById(R.id.txtCompletada);
 
-        //textViewFecha = (TextView) itemView.findViewById(R.id.txtFecha);
+        textViewFecha = (TextView) itemView.findViewById(R.id.txtFecha);
 
         imageViewCompletada = (ImageView) itemView.findViewById(R.id.imageViewCompletarActividad);
 

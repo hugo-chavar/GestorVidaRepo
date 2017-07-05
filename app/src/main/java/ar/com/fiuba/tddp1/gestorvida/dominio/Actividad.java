@@ -130,6 +130,10 @@ public class Actividad {
         return fechaInicio;
     }
 
+    public String getFechaInicioMesDia() {
+        return fechaInicio.dia + Fecha.sep + fechaInicio.mes;
+    }
+
     public Fecha getFechaFin() {
         return fechaFin;
     }

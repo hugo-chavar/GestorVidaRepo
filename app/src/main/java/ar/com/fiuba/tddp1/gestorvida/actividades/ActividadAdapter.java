@@ -52,10 +52,8 @@ public class ActividadAdapter extends RecyclerView.Adapter<ActividadViewHolder>{
             txtDescripcion.setText(completada);
         }
 
-        //TextView txtFecha= holder.textViewFecha;
-        //txtFecha.setText(actividad.getFechaInicio().toString());
-
-
+        TextView txtFecha= holder.textViewFecha;
+        txtFecha.setText(actividad.getFechaInicioMesDia());
 
         // me guardo la posicion de los datos que cargue en este VH
         holder.position = position;
