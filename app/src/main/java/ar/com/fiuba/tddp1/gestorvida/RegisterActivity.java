@@ -227,7 +227,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         _params = new HashMap<String,String>();
         RequestSender requestSender = new RequestSender(this);
         _params.put("name", name);
-        _params.put("username", name); //mUsuario es en realidad el tipo de usuario
+        _params.put("username", name.trim().toLowerCase());
         _params.put("email", email);
         //_params.put("sexo", mGenero); // TODO: no lo acepta el server
         _params.put("password", password);

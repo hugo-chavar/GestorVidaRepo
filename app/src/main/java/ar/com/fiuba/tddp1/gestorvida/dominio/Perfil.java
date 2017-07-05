@@ -36,6 +36,7 @@ public class Perfil {
 
     public static String token;
     public static String id;
+    public static boolean conected = false;
 
 
     //private static Set<String> etiquetas = new HashSet<>();
@@ -210,5 +211,9 @@ public class Perfil {
 
     public static void agregarContacto(Contacto nuevoContacto) {
         Perfil.listaDeContactos.add(nuevoContacto);
+    }
+
+    public static void eliminarContatos() {
+        Perfil.listaDeContactos.clear();
     }
 }

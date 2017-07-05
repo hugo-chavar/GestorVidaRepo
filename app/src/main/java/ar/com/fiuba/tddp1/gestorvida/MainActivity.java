@@ -75,10 +75,7 @@ public class MainActivity extends AppCompatActivity
         Perfil.agregarObjetivo(new Objetivo("Obj9"));
         Perfil.agregarObjetivo(new Objetivo("Obj10"));
 
-        Perfil.agregarContacto(new Contacto("Juanma", R.drawable.avatar));
-        Perfil.agregarContacto(new Contacto("Definitely not Juanma", R.drawable.ic_filter));
-        Perfil.agregarContacto(new Contacto("Mordekaiser", R.drawable.mercurio));
-        Perfil.agregarContacto(new Contacto("Cosme Fulanito", R.drawable.circulo_color));
+
 
         //FragmentLoader.setBackOptionEnabled(this, false);
         FragmentLoader.load(this, R.id.nav_actividades);

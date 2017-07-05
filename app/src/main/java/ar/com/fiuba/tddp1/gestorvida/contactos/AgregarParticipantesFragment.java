@@ -14,9 +14,9 @@ import java.util.Set;
 
 import ar.com.fiuba.tddp1.gestorvida.MainActivity;
 import ar.com.fiuba.tddp1.gestorvida.R;
-import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Contacto;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
+import ar.com.fiuba.tddp1.gestorvida.web.RequestSender;
 
 /**
  * Created by User on 01/07/2017.
@@ -30,6 +30,8 @@ public class AgregarParticipantesFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        loadUsers();
 
         View rootView = inflater.inflate(R.layout.layout_recycler_agregar_contactos, container,false);
 
@@ -58,4 +60,26 @@ public class AgregarParticipantesFragment extends Fragment {
         return rootView;
 
     }
+
+    private void loadUsers() {
+
+        //Perfil.eliminarContatos();
+
+        if (Perfil.conected) {
+            RequestSender requestSender = new RequestSender(getActivity());
+            ContactosListener listener = new ContactosListener(getActivity());
+
+            String url = getString(R.string.url) + "users";
+
+
+            requestSender.doGet(listener, url);
+        } else {
+            Perfil.agregarContacto(new Contacto("Juanma", R.drawable.avatar));
+            Perfil.agregarContacto(new Contacto("Definitely not Juanma", R.drawable.ic_filter));
+            Perfil.agregarContacto(new Contacto("Mordekaiser", R.drawable.mercurio));
+            Perfil.agregarContacto(new Contacto("Cosme Fulanito", R.drawable.circulo_color));
+        }
+
+    }
+
 }

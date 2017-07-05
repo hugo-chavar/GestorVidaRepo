@@ -27,7 +27,7 @@ public class ActividadesListener implements ResponseListener {
         for (int i = 0; i < array.length(); i++) {
             try {
 
-                Log.d("ActividadesListener", "Actividad " + i);
+                //Log.d("ActividadesListener", "Actividad " + i);
                 Actividad actividad = ActividadFactory.fromJSONObject(array.getJSONObject(i));
                 Perfil.agregarActividad(actividad);
 
