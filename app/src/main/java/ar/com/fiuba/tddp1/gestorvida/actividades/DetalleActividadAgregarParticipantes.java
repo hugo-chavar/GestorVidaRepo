@@ -20,10 +20,6 @@ import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 import ar.com.fiuba.tddp1.gestorvida.web.RequestSender;
 
-/**
- * Created by User on 02/07/2017.
- */
-
 public class DetalleActividadAgregarParticipantes extends DetalleActividadFragment {
 
     private FloatingActionButton fabAgregarParticipante;
@@ -45,6 +41,7 @@ public class DetalleActividadAgregarParticipantes extends DetalleActividadFragme
         });
 
         setHasOptionsMenu(true);
+        Perfil.actividadActual = actividad;
 
 
         return view;

@@ -51,7 +51,7 @@ public class AgregarParticipantesFragment extends Fragment {
         recyclerContactos.addItemDecoration(divisor);
 
 
-        adapterContactos = new ContactosAdapter(Perfil.getContactos(), this.participantesAgregados);
+        adapterContactos = new ContactosAdapter(Perfil.getContactosFaltantesActividad(), this.participantesAgregados);
         this.recyclerContactos.setAdapter(adapterContactos);
 
         Button buttonInvitar = (Button) rootView.findViewById(R.id.buttonInvitar);

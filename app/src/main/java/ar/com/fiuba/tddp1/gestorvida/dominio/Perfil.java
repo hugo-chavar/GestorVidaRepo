@@ -1,5 +1,7 @@
 package ar.com.fiuba.tddp1.gestorvida.dominio;
 
+import android.util.Log;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,9 +15,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * Created by User on 11/06/2017.
- */
 
 public class Perfil {
 
@@ -38,6 +37,8 @@ public class Perfil {
     public static String username;
     public static String id;
     public static boolean conected = false;
+
+    public static Actividad actividadActual = null;
 
 
     //private static Set<String> etiquetas = new HashSet<>();
@@ -134,27 +135,6 @@ public class Perfil {
         return actividadesCompletadasEnSemana;
     }
 
-/*
-    public static Map<String,Float> getActividadDeEtiquetas() {
-        Map<String, Float> actividadDeEtiquetas = new HashMap<>();
-        for ( String etiqueta : Perfil.etiquetas ) {
-            actividadDeEtiquetas.put(etiqueta, 0f);
-        }
-
-        for (Actividad actividad : Perfil.getActividadesCompletadas()) {
-            Set<String> etiquetasDeActividad = actividad.getEtiquetas();
-            float pesoEtiqueta = (float) 1/etiquetasDeActividad.size();
-
-            for (String etiqueta : etiquetasDeActividad) {
-                float actividadActualizada = actividadDeEtiquetas.get(etiqueta) + pesoEtiqueta;
-                actividadDeEtiquetas.put(etiqueta, actividadActualizada);
-            }
-        }
-
-        return actividadDeEtiquetas;
-    }
-    */
-
     public static Map<Etiqueta,Float> getActividadDeEtiquetas() {
         Map<Etiqueta, Float> actividadDeEtiquetas = new HashMap<>();
         for ( Etiqueta etiqueta : Perfil.etiquetas ) {
@@ -210,6 +190,19 @@ public class Perfil {
         return Perfil.listaDeContactos;
     }
 
+    public static List<Contacto> getContactosFaltantesActividad() {
+        List<Contacto> contactos = new LinkedList<>();
+
+        for (Contacto c: Perfil.listaDeContactos) {
+
+            if (!(actividadActual.getParticipantes().contains(c))) {
+                contactos.add(c);
+            }
+        }
+
+        return contactos;
+    }
+
     public static void agregarContacto(Contacto contacto) {
         String nombre = contacto.getNombre().trim().toLowerCase();
 
@@ -221,4 +214,5 @@ public class Perfil {
     public static void eliminarContatos() {
         Perfil.listaDeContactos.clear();
     }
+
 }

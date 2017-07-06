@@ -1,8 +1,6 @@
 package ar.com.fiuba.tddp1.gestorvida.dominio;
 
-/**
- * Created by User on 01/07/2017.
- */
+import android.util.Log;
 
 public class Contacto {
 
@@ -20,5 +18,19 @@ public class Contacto {
 
     public int getFotoPerfilID() {
         return this.fotoPerfilID;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (obj instanceof Contacto) {
+            return nombre.equals(((Contacto) obj).getNombre());
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return nombre.hashCode();
     }
 }
