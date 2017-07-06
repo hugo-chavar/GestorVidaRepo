@@ -11,6 +11,6 @@ public class IntegerValueFormatter implements IValueFormatter {
 
     @Override
     public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
-        return "" + ((int) value);
+        return ""; //+ ((int) value);
     }
 }

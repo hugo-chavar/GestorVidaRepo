@@ -28,7 +28,7 @@ public class Etiqueta {
         String[] etiquetaParseada = etiquetaSerializada.split(SEPARADOR_COLOR_NOMBRE);
         if (etiquetaParseada.length > 1) {
             try {
-                color = Integer.parseInt(etiquetaParseada[0]);
+                color = Etiqueta.COLORES_ETIQUETAS[Integer.parseInt(etiquetaParseada[0])];
             } catch (NumberFormatException e) {
                 Random random = new Random();
                 color = COLORES_ETIQUETAS[random.nextInt(COLORES_ETIQUETAS.length)];
@@ -45,7 +45,7 @@ public class Etiqueta {
     }
 
     public String serializar() {
-        return (this.color + "_" + this.nombre);
+        return (this.getIndiceColor() + "_" + this.nombre);
     }
 
 
@@ -68,4 +68,17 @@ public class Etiqueta {
     }
 
 
+    public String getIndiceColor() {
+        int indice = 0;
+        boolean indiceNoEncontrado = true;
+        while (indiceNoEncontrado) {
+            if (Etiqueta.COLORES_ETIQUETAS[indice] == this.color) {
+                indiceNoEncontrado = false;
+            }
+            else {
+                indice++;
+            }
+        }
+        return "" + indice;
+    }
 }
