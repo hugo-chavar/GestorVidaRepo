@@ -27,6 +27,9 @@ public class ContactosListener implements ResponseListener {
 
         JSONArray array = (JSONArray)response;
         Log.d("ContactosListener", response.toString());
+
+        Perfil.eliminarContatos();
+
         for (int i = 0; i < array.length(); i++) {
             try {
 

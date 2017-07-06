@@ -35,6 +35,7 @@ public class Perfil {
     }
 
     public static String token;
+    public static String username;
     public static String id;
     public static boolean conected = false;
 
@@ -209,8 +210,12 @@ public class Perfil {
         return Perfil.listaDeContactos;
     }
 
-    public static void agregarContacto(Contacto nuevoContacto) {
-        Perfil.listaDeContactos.add(nuevoContacto);
+    public static void agregarContacto(Contacto contacto) {
+        String nombre = contacto.getNombre().trim().toLowerCase();
+
+        if (!nombre.equals(Perfil.username) && !nombre.equals("superadmin")) {
+            Perfil.listaDeContactos.add(contacto);
+        }
     }
 
     public static void eliminarContatos() {

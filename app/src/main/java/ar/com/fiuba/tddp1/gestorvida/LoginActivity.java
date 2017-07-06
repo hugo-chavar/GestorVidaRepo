@@ -139,7 +139,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         RequestSender requestSender = new RequestSender(this);
         Map<String,String> _params;
         _params = new HashMap<String,String>();
-        _params.put("username", name.trim().toLowerCase());
+        Perfil.username = name.trim().toLowerCase();
+        _params.put("username", Perfil.username );
         _params.put("password", password);
 
         JSONObject obj = new JSONObject(_params);

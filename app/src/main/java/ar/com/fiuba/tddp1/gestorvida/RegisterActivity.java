@@ -227,7 +227,8 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
         _params = new HashMap<String,String>();
         RequestSender requestSender = new RequestSender(this);
         _params.put("name", name);
-        _params.put("username", name.trim().toLowerCase());
+        Perfil.username = name.trim().toLowerCase();
+        _params.put("username", Perfil.username );
         _params.put("email", email);
         //_params.put("sexo", mGenero); // TODO: no lo acepta el server
         _params.put("password", password);
@@ -332,6 +333,7 @@ public class RegisterActivity extends AppCompatActivity implements LoaderCallbac
             JSONObject jsonObject = (JSONObject)response;
             Perfil.token = jsonObject.getString("token");
             Perfil.id = jsonObject.getString("id");
+            Perfil.conected = true;
             Toast.makeText(this, "Registro exitoso", Toast.LENGTH_LONG).show();
             goToMain();
         } catch (JSONException e) {

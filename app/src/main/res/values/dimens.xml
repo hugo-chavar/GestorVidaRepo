@@ -12,7 +12,7 @@
     <dimen name="add_activity_horizontal_margin">40dp</dimen>
     <dimen name="text_size">17dp</dimen>
     <dimen name="circulo_size">20dp</dimen>
-    <dimen name="tarjeta_size">20dp</dimen>
+    <dimen name="tarjeta_size">16dp</dimen>
     <dimen name="text_separator">30dp</dimen>
     <dimen name="text_height">35dp</dimen>
     <dimen name="layout_etiquetas_calendario_padding_left">20dp</dimen>
