@@ -1,7 +1,5 @@
 package ar.com.fiuba.tddp1.gestorvida.dominio;
 
-import android.util.Log;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -191,6 +189,10 @@ public class Perfil {
     }
 
     public static List<Contacto> getContactosFaltantesActividad() {
+        if (actividadActual == null) {
+            return Perfil.listaDeContactos;
+        }
+
         List<Contacto> contactos = new LinkedList<>();
 
         for (Contacto c: Perfil.listaDeContactos) {

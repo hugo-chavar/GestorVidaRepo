@@ -59,7 +59,7 @@ public class AgregarParticipantesFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Actividad actividad = ((MainActivity) getActivity()).getActividad_detalle();
-                if (participantesAgregados.size() > 0) {
+                if (participantesAgregados.size() > 0 && actividad != null) {
                     actividad.agregarParticipantes(participantesAgregados);
                     updateActividad(actividad);
                 }
