@@ -11,18 +11,18 @@ public class Imagenes {
 
     static {
         photos = new HashMap<>();
-        photos.put("diego", R.drawable.avatar);
-        photos.put("juanma", R.drawable.ic_filter);
-        photos.put("hugo", R.drawable.mercurio);
-        photos.put("lucas", R.drawable.circulo_color);
-        photos.put("lucas17", R.drawable.gv_logo);
-        photos.put("lautaro", R.drawable.ic_menu_camera);
-        photos.put("profe", R.drawable.ic_menu_delete);
-        photos.put("profe2", R.drawable.gv_logo);
-        photos.put("profe3", R.drawable.gv_logo);
+        photos.put("diego", R.drawable.imagen3);
+        photos.put("juanma", R.drawable.imagen5);
+        photos.put("hugo", R.drawable.imagen1);
+        photos.put("lucas", R.drawable.imagen2);
+        photos.put("lucas17", R.drawable.imagen9);
+        photos.put("lautaro", R.drawable.imagen8);
+        photos.put("profe", R.drawable.imagen6);
+        photos.put("profe2", R.drawable.imagen4);
+        photos.put("profe3", R.drawable.imagen7);
     }
 
-    private static Integer imageDefault = R.drawable.ic_menu_camera;
+    private static Integer imageDefault = R.drawable.imagen9;
 
     public static Integer get(String name) {
         Integer photo = imageDefault;
