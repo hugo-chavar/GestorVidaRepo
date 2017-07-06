@@ -36,13 +36,10 @@ public class AgregarParticipantesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-
-
         View rootView = inflater.inflate(R.layout.layout_recycler_agregar_contactos, container,false);
 
         recyclerContactos = (RecyclerView) rootView.findViewById(R.id.recyclerViewContactos);
         recyclerContactos.setLayoutManager(new LinearLayoutManager(getActivity()));
-
 
         recyclerContactos.getItemAnimator().setAddDuration(1000);
         recyclerContactos.getItemAnimator().setChangeDuration(1000);

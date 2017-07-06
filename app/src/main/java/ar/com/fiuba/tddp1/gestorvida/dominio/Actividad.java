@@ -187,7 +187,11 @@ public class Actividad {
 
 
     public void agregarParticipantes(Set<Contacto> participantesAgregados) {
-        this.participantesAgregados.addAll(participantesAgregados);
+        if (participantesAgregados == null) {
+            this.participantesAgregados = participantesAgregados;
+        } else {
+            this.participantesAgregados.addAll(participantesAgregados);
+        }
     }
 
     public String getPrioridad() {
