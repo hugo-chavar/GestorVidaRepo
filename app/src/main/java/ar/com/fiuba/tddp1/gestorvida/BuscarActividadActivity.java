@@ -8,8 +8,12 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -19,10 +23,15 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -35,31 +44,37 @@ import ar.com.fiuba.tddp1.gestorvida.actividades.DetalleBuscarActividadFragment;
 import ar.com.fiuba.tddp1.gestorvida.comunes.FragmentLoader;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
 import ar.com.fiuba.tddp1.gestorvida.dominio.ActividadException;
+import ar.com.fiuba.tddp1.gestorvida.dominio.ActividadFactory;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Beneficio;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Etiqueta;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Fecha;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
+import ar.com.fiuba.tddp1.gestorvida.web.ResponseListener;
+import ar.com.fiuba.tddp1.gestorvida.web.Server;
 
 //import android.support.v4.app.Fragment;
 
-public class BuscarActividadActivity extends Fragment {
+public class BuscarActividadActivity extends Fragment implements ResponseListener {
 
     FloatingActionButton filterButton;
     LinkedList<Actividad> mockedActivities;
 
     private EditText mDesde;
     private EditText mHasta;
+    private View rootView;
 
     private AutoCompleteTextView mFiltroEtiqueta;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_buscar_actividad, container, false);
+        rootView = inflater.inflate(R.layout.activity_buscar_actividad, container, false);
 
         inicializarFiltroEtiquetas(rootView);
 
-        mockearActividades();
+        //mockearActividades();
+
         mostrarActividades(rootView);
+        setHasOptionsMenu(true);
 
         filterButton = (FloatingActionButton) rootView.findViewById(R.id.fab);
         filterButton.setOnClickListener(new View.OnClickListener() {
@@ -69,6 +84,33 @@ public class BuscarActividadActivity extends Fragment {
             }
         });
         return rootView;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
+
+        menuInflater.inflate(R.menu.menu_buscar, menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        Log.d("AgregarActividad", "Se hizo clic en la opcion " + id);
+
+        switch (id) {
+            case R.id.action_search_activity:
+
+                mostrarActividades(getView());
+                break;
+            default:
+                super.onOptionsItemSelected(item);
+        }
+
+
+        return true;
     }
 
     private void inicializarFiltroEtiquetas(View view) {
@@ -174,10 +216,18 @@ public class BuscarActividadActivity extends Fragment {
         LinearLayout lista = (LinearLayout) view.findViewById(R.id.lista_actividades);
         lista.removeAllViews();
 
+        //Server.getAllPublicActivities(getActivity());
+        LinkedList<String> tokens = new LinkedList<>();
+        String textoEnFiltro = mFiltroEtiqueta.getText().toString();
+            tokens.addAll(Arrays.asList(textoEnFiltro.split(" ")));
+            Server.searchPublicActivities(getActivity(), tokens, null, this);
+        //tokens.add("Racing");
+
         //TODO: Esta debe ser la lista de todas las actividades en el server
-        for (final Actividad actividad : this.mockedActivities) {
-            agregarActividadEnLista(lista, actividad);
-        }
+        //for (final Actividad actividad : this.mockedActivities) {
+       // for (final Actividad actividad : Perfil.getActividadesBuscadas()) {
+       //     agregarActividadEnLista(lista, actividad);
+       // }
     }
 
     private void agregarActividadEnLista(LinearLayout lista, final Actividad actividad) {
@@ -233,6 +283,42 @@ public class BuscarActividadActivity extends Fragment {
                 lista.addView(elementoActividad);
             }
         }
+    }
+
+    private void agregarActividadEnListaSinFiltros(LinearLayout lista, final Actividad actividad) {
+        LinearLayout elementoActividad = new LinearLayout(this.getActivity());
+        elementoActividad.setOrientation(LinearLayout.VERTICAL);
+
+        TextView nombre = new TextView(this.getActivity());
+        nombre.setTextSize(24);
+        String nombre_actividad = actividad.getNombre();
+        nombre.setText(nombre_actividad);
+        elementoActividad.addView(nombre);
+
+        TextView inicio = new TextView(this.getActivity());
+        inicio.setTextSize(16);
+        Fecha fechaInicio = actividad.getFechaInicio();
+        inicio.setText("Fecha de inicio: " + fechaInicio.dia + "/" + fechaInicio.mes + "/" + fechaInicio.anio);
+        elementoActividad.addView(inicio);
+
+        TextView fin = new TextView(this.getActivity());
+        fin.setTextSize(16);
+        Fecha fechaFin = actividad.getFechaFin();
+        fin.setText("Fin: " + fechaFin.dia + "/" + fechaFin.mes + "/" + fechaFin.anio);
+        //elementoActividad.addView(fin);
+
+        elementoActividad.setBackground(getActivity().getDrawable(R.drawable.actividad_background));
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams( LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(10, 20, 10, 0);
+        elementoActividad.setLayoutParams(layoutParams);
+
+        elementoActividad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                actividadOnClick(v, actividad);
+            }
+        });
+        lista.addView(elementoActividad);
     }
 
     public boolean matcheaEtiquetas(String etiqueta, String[] etiquetas) {
@@ -380,6 +466,40 @@ public class BuscarActividadActivity extends Fragment {
     public void actividadOnClick(final View v, final Actividad actividad) {
         ((MainActivity) getActivity()).setActividad_detalle(actividad);
         FragmentLoader.load(getActivity(), new DetalleBuscarActividadFragment(), FragmentLoader.DetalleBuscarActividad);
+    }
+
+    @Override
+    public void onRequestCompleted(Object response) {
+
+        LinearLayout lista = (LinearLayout) rootView.findViewById(R.id.lista_actividades);
+        lista.removeAllViews();
+
+        Log.d("BuscarActiv", response.toString());
+        JSONArray array = (JSONArray)response;
+        for (int i = 0; i < array.length(); i++) {
+            try {
+
+                //Log.d("ActividadesListener", "Actividad " + i);
+                Actividad actividad = ActividadFactory.fromJSONObject(array.getJSONObject(i));
+                Perfil.agregarActividadBuscada(actividad);
+
+                agregarActividadEnListaSinFiltros(lista, actividad);
+
+            } catch (JSONException e) {
+                Log.d("BuscarActiv", e.getMessage());
+            }
+
+        }
+
+        //Log.d("BuscarActiv", response.toString());
+        //Toast.makeText(context, "Ok", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onRequestError(int codError, String errorMessage) {
+        String error = codError + ": " + errorMessage;
+        Log.d("BuscarActiv", error);
+        Toast.makeText(getActivity(), error, Toast.LENGTH_LONG).show();
     }
 
 }

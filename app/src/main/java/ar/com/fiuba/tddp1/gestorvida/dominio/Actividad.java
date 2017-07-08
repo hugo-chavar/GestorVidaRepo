@@ -227,7 +227,10 @@ public class Actividad {
     }
 
     public String getTipo() {
-        return tipo;
+        if (esPrivada)
+            return "privada";
+        else
+            return "publica";
     }
 
     public void setTipo(String tipo) {

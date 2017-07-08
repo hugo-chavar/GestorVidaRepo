@@ -14,14 +14,16 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import ar.com.fiuba.tddp1.gestorvida.comunes.FragmentLoader;
+import ar.com.fiuba.tddp1.gestorvida.comunes.Imagenes;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
-import ar.com.fiuba.tddp1.gestorvida.dominio.Objetivo;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 import ar.com.fiuba.tddp1.gestorvida.dominio.SinObjetivo;
 import ar.com.fiuba.tddp1.gestorvida.web.Server;
@@ -55,32 +57,29 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
 
-        // para sincronizar el estado actual
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        View hView =  navigationView.getHeaderView(0);
+
+        TextView nombre = (TextView) hView.findViewById(R.id.textView);
+        if (nombre != null)
+        nombre.setText(Perfil.username);
+
+        ImageView foto = (ImageView) hView.findViewById(R.id.imageViewCompletarActividad);
+        if (foto != null)
+        foto.setImageResource(Imagenes.get(Perfil.username));
 
         Server.loadUsers(this);
+        Server.getAllPublicActivities(this);
 
 
         //TODO: SACAR ESTO DE ACA DESPUES
         Perfil.agregarObjetivo(new SinObjetivo());
-        Perfil.agregarObjetivo(new Objetivo("Obj1"));
-        Perfil.agregarObjetivo(new Objetivo("Obj2"));
-        Perfil.agregarObjetivo(new Objetivo("Obj3"));
-        Perfil.agregarObjetivo(new Objetivo("Obj4"));
-        Perfil.agregarObjetivo(new Objetivo("Obj5"));
-        Perfil.agregarObjetivo(new Objetivo("Obj6"));
-        Perfil.agregarObjetivo(new Objetivo("Obj7"));
-        Perfil.agregarObjetivo(new Objetivo("Obj8"));
-        Perfil.agregarObjetivo(new Objetivo("Obj9"));
-        Perfil.agregarObjetivo(new Objetivo("Obj10"));
 
 
-
-        //FragmentLoader.setBackOptionEnabled(this, false);
         FragmentLoader.load(this, R.id.nav_actividades);
         inicializarFiltroFechas(); //Esto es para BuscarActividades
 

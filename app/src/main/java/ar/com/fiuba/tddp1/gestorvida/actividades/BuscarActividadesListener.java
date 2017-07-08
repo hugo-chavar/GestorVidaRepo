@@ -1,4 +1,4 @@
-package ar.com.fiuba.tddp1.gestorvida.contactos;
+package ar.com.fiuba.tddp1.gestorvida.actividades;
 
 import android.content.Context;
 import android.util.Log;
@@ -7,16 +7,17 @@ import android.widget.Toast;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import ar.com.fiuba.tddp1.gestorvida.comunes.Imagenes;
-import ar.com.fiuba.tddp1.gestorvida.dominio.Contacto;
+import ar.com.fiuba.tddp1.gestorvida.dominio.Actividad;
+import ar.com.fiuba.tddp1.gestorvida.dominio.ActividadFactory;
 import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 import ar.com.fiuba.tddp1.gestorvida.web.ResponseListener;
 
-public class ContactosListener implements ResponseListener {
+
+public class BuscarActividadesListener implements ResponseListener {
 
     private Context context;
 
-    public ContactosListener(Context context) {
+    public BuscarActividadesListener(Context context) {
 
         this.context = context;
 
@@ -25,33 +26,29 @@ public class ContactosListener implements ResponseListener {
     @Override
     public void onRequestCompleted(Object response) {
 
+        Log.d("BuscarActiv", response.toString());
         JSONArray array = (JSONArray)response;
-
-        Perfil.eliminarContatos();
-
         for (int i = 0; i < array.length(); i++) {
             try {
 
-                //Log.d("ContactosListener", "Contacto " + i);
-                String name = array.getString(i);
-                Integer photo = Imagenes.get(name);
-
-                Perfil.agregarContacto(new Contacto(name, photo));
+                //Log.d("ActividadesListener", "Actividad " + i);
+                Actividad actividad = ActividadFactory.fromJSONObject(array.getJSONObject(i));
+                Perfil.agregarActividadBuscada(actividad);
 
             } catch (JSONException e) {
-                Log.d("ContactosListener", e.getMessage());
+                Log.d("BuscarActiv", e.getMessage());
             }
 
         }
 
-        Log.d("ContactosListener", response.toString());
-        //Toast.makeText(context, response.toString(), Toast.LENGTH_LONG).show();
+        //Log.d("BuscarActiv", response.toString());
+        //Toast.makeText(context, "Ok", Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onRequestError(int codError, String errorMessage) {
         String error = codError + ": " + errorMessage;
-        Log.d("ContactosListener", error);
+        Log.d("BuscarActiv", error);
         Toast.makeText(context, error, Toast.LENGTH_LONG).show();
     }
 }

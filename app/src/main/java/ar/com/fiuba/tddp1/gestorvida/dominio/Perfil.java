@@ -18,6 +18,7 @@ public class Perfil {
 
     private static LinkedList<Objetivo> objetivos = new LinkedList<>();
     private static LinkedList<Actividad> actividades = new LinkedList<>();
+    private static LinkedList<Actividad> actividadesBuscadas = new LinkedList<>();
     private static Map<Date, List<Actividad>> fechasDeInicioDeActividades = new HashMap<>();
     private static Map<Date, List<Actividad>> fechasDeFinDeActividades = new HashMap<>();
     private static Map<Date, List<Actividad>> fechasDeRecordatoriosDeActividades = new HashMap<>();;
@@ -54,6 +55,15 @@ public class Perfil {
         Perfil.cargarFecha(nuevaActividad, nuevaActividad.getFechaRecordatorio(), Perfil.fechasDeRecordatoriosDeActividades);
 
     }
+
+    public static void agregarActividadBuscada(Actividad actividad) {
+        Perfil.actividadesBuscadas.add(actividad);
+
+    }
+    public static List<Actividad> getActividadesBuscadas() {
+        return Perfil.actividadesBuscadas;
+    }
+
 
     public static void eliminarActividad(Actividad actividad) {
         //TODO falta borrar las etiquetas si ya no tienen actividades

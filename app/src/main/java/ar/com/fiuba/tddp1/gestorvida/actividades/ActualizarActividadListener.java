@@ -4,12 +4,6 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import ar.com.fiuba.tddp1.gestorvida.comunes.Imagenes;
-import ar.com.fiuba.tddp1.gestorvida.dominio.Contacto;
-import ar.com.fiuba.tddp1.gestorvida.dominio.Perfil;
 import ar.com.fiuba.tddp1.gestorvida.web.ResponseListener;
 
 /**
@@ -29,7 +23,7 @@ public class ActualizarActividadListener implements ResponseListener{
     @Override
     public void onRequestCompleted(Object response) {
         Log.d("ActualizarAct", response.toString());
-        Toast.makeText(context, "Update OK", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Invitacion/es enviada/s", Toast.LENGTH_LONG).show();
     }
 
     @Override
